@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЦЦР — Цифровой центр развития</title>
+<meta name="description" content="АО «Цифровой центр развития» — надёжная ИТ-инфраструктура финансовой системы Казахстана">
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+
+<link rel="icon" href="img/ddc icon.svg" type="image/svg+xml">
+<link rel="icon" href="img/ddc icon.svg">
+<link rel="apple-touch-icon" href="img/ddc icon.svg">
+<style>
+/* ========================
+   VARIABLES & THEME
+   ======================== */
+:root {
+  --accent:       #00D4AA;
+  --accent-dim:   #00b090;
+  --accent-glow:  rgba(0,212,170,0.12);
+  --accent-glow2: rgba(0,212,170,0.22);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --ease: 0.3s cubic-bezier(0.4,0,0.2,1);
+  --font: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+[data-theme="dark"] {
+  --bg:       #090f1e;
+  --bg2:      #0d1a30;
+  --bg3:      #162040;
+  --surf:     #111c32;
+  --surf2:    #192540;
+  --border:   rgba(255,255,255,0.07);
+  --border2:  rgba(255,255,255,0.12);
+  --baccent:  rgba(0,212,170,0.25);
+  --text:     #e8edf5;
+  --text2:    #8fa4c8;
+  --text3:    #4d6280;
+  --shadow:   0 4px 32px rgba(0,0,0,0.5);
+  --shadow-a: 0 4px 24px rgba(0,212,170,0.18);
+}
+[data-theme="light"] {
+  --bg:       #f0f4f9;
+  --bg2:      #e6ecf5;
+  --bg3:      #dde5f0;
+  --surf:     #ffffff;
+  --surf2:    #f7fafd;
+  --border:   rgba(0,0,0,0.08);
+  --border2:  rgba(0,0,0,0.14);
+  --baccent:  rgba(0,180,140,0.3);
+  --text:     #0a1628;
+  --text2:    #3d5a80;
+  --text3:    #7a95b5;
+  --shadow:   0 4px 24px rgba(0,0,0,0.08);
+  --shadow-a: 0 4px 20px rgba(0,180,140,0.14);
+
+
+  .search-icon {
+    content: url("img/magnifier\ dark.png");
+  }
+  .theme-icon {
+    content: url("img/day-and-night-dark.png");
+  }
+
+  .ddc-logo {
+        content: url("img/ddc\ icon\ dark.svg");
+    }
+  
+}
+
+
+/* ========================
+   RESET & BASE
+   ======================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  transition:background var(--ease),color var(--ease);
+  overflow-x:hidden;
+  line-height:1.6;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+button{font-family:var(--font);cursor:pointer}
+
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+section{padding:96px 0}
+
+/* ========================
+   TYPOGRAPHY
+   ======================== */
+.eyebrow{
+  font-size:11px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:12px;
+}
+.section-title{
+  font-size:clamp(26px,3.8vw,46px);font-weight:800;
+  line-height:1.12;letter-spacing:-.02em;color:var(--text);margin-bottom:14px;
+}
+.section-sub{font-size:17px;color:var(--text2);max-width:580px;line-height:1.7}
+
+/* ========================
+   BUTTONS
+   ======================== */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 26px;border-radius:var(--radius-md);
+  font-size:15px;font-weight:600;border:none;
+  transition:all var(--ease);cursor:pointer;
+}
+.btn-primary{background:var(--accent);color:#080f1e}
+.btn-primary:hover{background:var(--accent-dim);transform:translateY(-2px);box-shadow:var(--shadow-a)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border2)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+
+/* ========================
+   NAVBAR
+   ======================== */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  transition:all var(--ease);
+}
+.navbar.scrolled{
+  background:var(--surf);
+  border-bottom:1px solid var(--border);
+  box-shadow:var(--shadow);
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  height:68px;gap:16px;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{
+  width:38px;height:38px;
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:14px;color:#080f1e;letter-spacing:-.5px;flex-shrink:0;
+}
+.logo-words{display:flex;flex-direction:column;line-height:1.15}
+.logo-main{font-size:15px;font-weight:700;color:var(--text)}
+.logo-sub{font-size:10px;color:var(--text3);font-weight:400}
+
+.logo-main-mobile{font-size:15px;font-weight:700;color:var(--text); display: none;}
+.logo-sub-mobile{font-size:10px;color:var(--text3);font-weight:400; display: none;}
+
+@media (max-width: 768px) {
+    .logo-main, .logo-sub {
+        display: none;
+    }
+
+    .logo-main-mobile, .logo-sub-mobile {
+        display: inline;
+    }
+}
+
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+.nav-links a{
+  padding:7px 13px;border-radius:var(--radius-sm);
+  font-size:14px;font-weight:500;color:var(--text2);
+  transition:all var(--ease);
+}
+.nav-links a:hover{color:var(--text);background:var(--surf2)}
+.nav-links a.nav-active{color:var(--accent);background:var(--accent-glow)}
+
+.nav-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.icon-btn{
+  width:34px;height:34px;border:1px solid var(--border);
+  background:var(--surf);border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text2);font-size:15px;transition:all var(--ease);
+}
+.icon-btn:hover{color:var(--text);border-color:var(--accent);background:var(--accent-glow)}
+
+.lang-sw{
+  display:flex;gap:2px;background:var(--surf);
+  border:1px solid var(--border);border-radius:var(--radius-sm);padding:3px;
+}
+.lang-btn{
+  padding:4px 9px;border-radius:6px;font-size:11px;font-weight:700;
+  cursor:pointer;border:none;background:transparent;color:var(--text3);
+  transition:all var(--ease);letter-spacing:.04em;
+}
+.lang-btn.active{background:var(--accent);color:#080f1e}
+
+/* Hamburger */
+.ham{
+  display:none;flex-direction:column;gap:4px;
+  padding:7px;border:1px solid var(--border);
+  background:var(--surf);border-radius:var(--radius-sm);
+}
+.ham span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:all var(--ease)}
+
+/* Mobile menu */
+.mob-menu{
+  display:none;position:fixed;top:68px;left:0;right:0;bottom:0;
+  background:var(--bg);z-index:999;
+  padding:28px 24px;flex-direction:column;gap:8px;
+  overflow-y:auto;
+}
+.mob-menu.open{display:flex}
+.mob-menu a{
+  padding:13px 16px;border-radius:var(--radius-md);
+  font-size:17px;font-weight:500;color:var(--text);
+  border:1px solid var(--border);background:var(--surf);
+  transition:all var(--ease);
+}
+.mob-menu a:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ========================
+   HERO
+   ======================== */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  position:relative;overflow:hidden;padding:120px 0 80px;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 40%,black 0%,transparent 100%);
+  pointer-events:none;
+}
+.hero-glow{
+  position:absolute;width:700px;height:700px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(0,212,170,0.10) 0%,transparent 65%);
+  top:50%;right:-80px;transform:translateY(-50%);
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:1;max-width:720px}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent-glow);border:1px solid var(--baccent);
+  border-radius:100px;padding:6px 16px;
+  font-size:13px;font-weight:500;color:var(--accent);margin-bottom:28px;
+}
+.badge-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--accent);
+  animation:blink 2s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+
+.hero-title{
+  font-size:clamp(34px,5.5vw,70px);font-weight:800;
+  line-height:1.07;letter-spacing:-.025em;margin-bottom:24px;color:var(--text);
+}
+.hero-title .hl{color:var(--accent)}
+.hero-desc{font-size:18px;color:var(--text2);line-height:1.72;margin-bottom:40px;max-width:600px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+
+.hero-scroll{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--text3);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+}
+.scroll-bar{
+  width:1px;height:44px;
+  background:linear-gradient(to bottom,var(--accent),transparent);
+  animation:scrollbar 2.2s ease-in-out infinite;
+}
+@keyframes scrollbar{
+  0%,100%{opacity:0;transform:scaleY(0);transform-origin:top}
+  40%,60%{opacity:1;transform:scaleY(1)}
+}
+
+/* ========================
+   STATS
+   ======================== */
+.stats-bar{
+  background:var(--surf);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:0;
+}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat-item{
+  padding:36px 28px;
+  border-right:1px solid var(--border);
+  transition:background var(--ease);
+}
+.stat-item:last-child{border-right:none}
+.stat-item:hover{background:var(--surf2)}
+.stat-number{
+  font-family:var(--mono);font-size:40px;font-weight:600;
+  color:var(--accent);line-height:1;margin-bottom:6px;
+}
+.stat-label{font-size:13px;color:var(--text2)}
+
+/* ========================
+   SERVICES
+   ======================== */
+.services-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:14px;margin-top:52px;
+}
+.svc-card{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:28px;
+  transition:all var(--ease);
+}
+.svc-card:hover{
+  border-color:var(--baccent);transform:translateY(-4px);
+  box-shadow:var(--shadow-a);background:var(--surf2);
+}
+.svc-icon{
+  width:48px;height:48px;border-radius:13px;
+  background:var(--accent-glow);border:1px solid var(--baccent);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin-bottom:18px;
+}
+.svc-title{font-size:16px;font-weight:600;color:var(--text);margin-bottom:9px}
+.svc-desc{font-size:13px;color:var(--text2);line-height:1.65}
+
+/* ========================
+   ABOUT
+   ======================== */
+.about-wrap{
+  background:var(--surf);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.about-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:36px;position:relative;overflow:hidden;
+}
+.about-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:2px;background:linear-gradient(90deg,var(--accent),transparent);
+}
+.timeline{list-style:none;display:flex;flex-direction:column;gap:18px;margin-top:20px}
+.tl-item{display:flex;gap:14px;align-items:flex-start}
+.tl-year{
+  font-family:var(--mono);font-size:11px;font-weight:600;
+  color:var(--accent);min-width:36px;padding-top:2px;
+}
+.tl-text{
+  font-size:13px;color:var(--text2);line-height:1.5;
+  border-left:1px solid var(--border2);padding-left:14px;
+}
+
+/* ========================
+   NEWS
+   ======================== */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:52px}
+.news-card{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:var(--radius-lg);overflow:hidden;
+  transition:all var(--ease);cursor:pointer;
+}
+.news-card:hover{border-color:var(--baccent);transform:translateY(-4px);box-shadow:var(--shadow)}
+.news-thumb{
+  height:170px;background:var(--bg3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:34px;position:relative;overflow:hidden;
+}
+.news-thumb-bg{position:absolute;inset:0}
+.news-body{padding:22px}
+.news-tag{
+  display:inline-block;font-size:10px;font-weight:700;
+  color:var(--accent);background:var(--accent-glow);
+  border:1px solid var(--baccent);border-radius:100px;
+  padding:2px 9px;margin-bottom:10px;
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.news-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.42;margin-bottom:8px}
+.news-date{font-size:11px;color:var(--text3)}
+
+/* ========================
+   CONTACT
+   ======================== */
+.contact-wrap{background:var(--surf);border-top:1px solid var(--border)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:52px;align-items:start}
+
+#map{height:100%;width:100%}
+.map-wrap{
+  height:380px;border-radius:var(--radius-lg);
+  overflow:hidden;border:1px solid var(--border);
+}
+
+.form-stack{display:flex;flex-direction:column;gap:13px}
+.form-row2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-label{font-size:12px;font-weight:600;color:var(--text2);letter-spacing:.02em}
+.form-input,.form-ta,.form-sel{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:11px 14px;
+  font-size:14px;color:var(--text);font-family:var(--font);
+  transition:all var(--ease);outline:none;width:100%;
+}
+.form-input:focus,.form-ta:focus,.form-sel:focus{
+  border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow);
+}
+.form-ta{resize:vertical;min-height:110px}
+.form-sel option{background:var(--bg2);color:var(--text)}
+
+.contact-info{display:flex;flex-direction:column;gap:14px;margin-top:18px}
+.contact-row{display:flex;gap:12px;align-items:flex-start}
+.contact-icon{font-size:17px;margin-top:1px}
+.contact-detail-label{font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px}
+.contact-detail-val{font-size:13px;color:var(--text2)}
+
+.form-ok{
+  display:none;background:rgba(0,212,170,.08);
+  border:1px solid var(--baccent);border-radius:var(--radius-md);
+  padding:16px;text-align:center;color:var(--accent);font-size:14px;
+}
+.form-ok.show{display:block}
+
+/* ========================
+   SEARCH OVERLAY
+   ======================== */
+.srch-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(10px);
+  display:none;align-items:flex-start;justify-content:center;padding-top:72px;
+}
+.srch-overlay.open{display:flex}
+.srch-box{
+  background:var(--surf);border:1px solid var(--baccent);
+  border-radius:var(--radius-lg);width:100%;max-width:580px;
+  overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.5);
+}
+.srch-top{
+  display:flex;align-items:center;gap:12px;
+  padding:18px 22px;border-bottom:1px solid var(--border);
+}
+.srch-ico{font-size:17px;color:var(--text3)}
+.srch-input{
+  flex:1;background:transparent;border:none;outline:none;
+  font-size:17px;color:var(--text);font-family:var(--font);
+}
+.srch-input::placeholder{color:var(--text3)}
+.srch-esc{
+  padding:4px 9px;border-radius:6px;border:1px solid var(--border);
+  background:var(--bg2);font-size:11px;color:var(--text3);font-weight:600;
+}
+.srch-results{padding:10px;max-height:380px;overflow-y:auto}
+.srch-empty{padding:36px;text-align:center;color:var(--text3);font-size:14px}
+.srch-item{
+  padding:13px 14px;border-radius:var(--radius-sm);
+  cursor:pointer;transition:all var(--ease);border:1px solid transparent;
+}
+.srch-item:hover{background:var(--surf2);border-color:var(--border)}
+.srch-sect{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:3px}
+.srch-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
+.srch-snip{font-size:12px;color:var(--text2)}
+
+/* ========================
+   FOOTER
+   ======================== */
+.footer{background:var(--surf);border-top:1px solid var(--border);padding:56px 0 28px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px}
+.footer-brand p{font-size:13px;color:var(--text2);line-height:1.7;margin-top:14px;max-width:280px}
+.fc-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:14px;letter-spacing:.03em;text-transform:uppercase}
+.fc-links{list-style:none;display:flex;flex-direction:column;gap:9px}
+.fc-links a{font-size:13px;color:var(--text2);transition:color var(--ease)}
+.fc-links a:hover{color:var(--accent)}
+.footer-bottom{
+  padding-top:28px;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:10px;
+}
+.footer-bottom-txt{font-size:12px;color:var(--text3)}
+
+/* ========================
+   ANIMATIONS
+   ======================== */
+.fade{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.fade.in{opacity:1;transform:translateY(0)}
+
+/* ========================
+   RESPONSIVE
+   ======================== */
+@media(max-width:1024px){
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .about-grid{grid-template-columns:1fr;gap:40px}
+}
+@media(max-width:768px){
+  section{padding:68px 0}
+  .nav-links,.nav-actions .lang-sw{display:none}
+  .ham{display:flex}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-item{padding:24px 18px}
+  .stat-number{font-size:30px}
+  .services-grid{grid-template-columns:1fr}
+  .news-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:24px}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .form-row2{grid-template-columns:1fr}
+  .hero-desc{font-size:16px}
+}
+@media(max-width:480px){
+  .hero-actions{flex-direction:column}
+  .btn{width:100%;justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ======== SEARCH OVERLAY ======== -->
+<div class="srch-overlay" id="srchOverlay">
+  <div class="srch-box">
+    <div class="srch-top">
+      <span class="srch-ico"><img src="img/magnifier.png" alt="" style="width: auto; height: 20px;" class="search-icon"></span>
+      <input class="srch-input" id="srchInput" type="text" autocomplete="off"
+        placeholder="Поиск по сайту..."
+        oninput="doSearch(this.value)"
+        onkeydown="if(event.key==='Escape')closeSearch()">
+      <span class="srch-esc" onclick="closeSearch()">ESC</span>
+    </div>
+    <div class="srch-results" id="srchResults">
+      <div class="srch-empty" data-i18n="search_hint">Начните вводить запрос...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== NAVBAR ======== -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="logo-mark"><img src="img/ddc icon.svg" alt="" style="width: auto; height: 40px;" class="ddc-logo"></div>
+        <div class="logo-words">
+          <span class="logo-main" data-i18n="logo_main">Цифровой центр развития</span>
+          <span class="logo-sub" data-i18n="logo_sub">Национальный банк Республики Казахстан</span>
+          <span class="logo-main-mobile">ЦЦР</span>
+          <span class="logo-sub-mobile">Нацбанк РК</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-active" data-i18n="nav_home">Главная</a></li>
+        <li><a href="about.html" data-i18n="nav_about">О компании</a></li>
+        <li><a href="services.html" data-i18n="nav_svc">Услуги</a></li>
+        <li><a href="mission.html" data-i18n="nav_mission">Миссия</a></li>
+        <li><a href="contact.html" data-i18n="nav_contact">Контакты</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="icon-btn" onclick="openSearch()" aria-label="Поиск"><img src="img/magnifier.png" alt="" style="width: auto; height: 20px;" class="search-icon"></button>
+        <button class="icon-btn" onclick="toggleTheme()" id="themeBtn" aria-label="Тема"><img src="img/day-and-night.png" alt="" style="width: auto; height: 20px;" class="theme-icon"></button>
+        <div class="lang-sw">
+          <button class="lang-btn" onclick="setLang('kz')" id="lb-kz">ҚАЗ</button>
+          <button class="lang-btn active" onclick="setLang('ru')" id="lb-ru">РУС</button>
+          <button class="lang-btn" onclick="setLang('en')" id="lb-en">ENG</button>
+        </div>
+        <button class="ham" onclick="toggleMob()" aria-label="Меню">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html"    onclick="toggleMob()" data-i18n="nav_home">Главная</a>
+  <a href="about.html"   onclick="toggleMob()" data-i18n="nav_about">О компании</a>
+  <a href="services.html" onclick="toggleMob()" data-i18n="nav_svc">Услуги</a>
+  <a href="mission.html" onclick="toggleMob()" data-i18n="nav_mission">Миссия</a>
+  <a href="contact.html" onclick="toggleMob()" data-i18n="nav_contact">Контакты</a>
+  <div class="lang-sw" style="margin-top:14px;align-self:flex-start">
+    <button class="lang-btn" onclick="setLang('kz')" id="mlb-kz">ҚАЗ</button>
+    <button class="lang-btn active" onclick="setLang('ru')" id="mlb-ru">РУС</button>
+    <button class="lang-btn" onclick="setLang('en')" id="mlb-en">ENG</button>
+  </div>
+</div>
+
+<!-- ======== HERO ======== -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <div class="badge-dot"></div>
+        <span data-i18n="hero_badge">Дочернее предприятие Национального банка РК</span>
+      </div>
+      <h1 class="hero-title" data-i18n="hero_h1">Цифровая основа финансовой системы <span class="hl">Казахстана</span></h1>
+      <p class="hero-desc" data-i18n="hero_desc">АО «Цифровой центр развития» — ИТ-компания с 30-летней историей, обеспечивающая надёжную работу государственных финансовых систем и порталов Республики Казахстан.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn btn-primary"><span data-i18n="hero_cta1">Наши услуги</span> →</a>
+        <a href="#contact"  class="btn btn-outline"><span data-i18n="hero_cta2">Связаться</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- ======== STATS ======== -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item fade">
+        <div class="stat-number" data-count="30" data-suffix="+">0</div>
+        <div class="stat-label" data-i18n="stat1">лет на рынке</div>
+      </div>
+      <div class="stat-item fade" style="transition-delay:.08s">
+        <div class="stat-number" data-count="200" data-suffix="+">0</div>
+        <div class="stat-label" data-i18n="stat2">сотрудников</div>
+      </div>
+      <div class="stat-item fade" style="transition-delay:.16s">
+        <div class="stat-number" data-count="50" data-suffix="+">0</div>
+        <div class="stat-label" data-i18n="stat3">ИТ-систем под поддержкой</div>
+      </div>
+      <div class="stat-item fade" style="transition-delay:.24s">
+        <div class="stat-number" data-count="3" data-suffix="">0</div>
+        <div class="stat-label" data-i18n="stat4">языка интерфейса</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== SERVICES ======== -->
+<section id="services">
+  <div class="container">
+    <div class="fade">
+      <div class="eyebrow" data-i18n="svc_eyebrow">Что мы делаем</div>
+      <h2 class="section-title" data-i18n="svc_title">Услуги и решения</h2>
+      <p class="section-sub" data-i18n="svc_sub">Комплексная ИТ-поддержка финансовой инфраструктуры — от разработки до сопровождения.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card fade"><div class="svc-icon">🖥️</div><div class="svc-title" data-i18n="s1t">Сопровождение ИТ-систем</div><div class="svc-desc" data-i18n="s1d">Техническая поддержка и администрирование государственных информационных систем 24/7 с гарантией SLA.</div></div>
+      <div class="svc-card fade" style="transition-delay:.06s"><div class="svc-icon">📊</div><div class="svc-title" data-i18n="s2t">Обработка данных</div><div class="svc-desc" data-i18n="s2d">Профессиональная обработка, хранение и управление большими объёмами финансовой и государственной информации.</div></div>
+      <div class="svc-card fade" style="transition-delay:.12s"><div class="svc-icon">🏛️</div><div class="svc-title" data-i18n="s3t">Портал госзакупок</div><div class="svc-desc" data-i18n="s3d">Оператор единого портала государственных закупок РК. Обеспечение прозрачности тендерных процедур.</div></div>
+      <div class="svc-card fade" style="transition-delay:.18s"><div class="svc-icon">🔐</div><div class="svc-title" data-i18n="s4t">Информационная безопасность</div><div class="svc-desc" data-i18n="s4d">Защита критической финансовой инфраструктуры, аудит безопасности, внедрение стандартов ISO 27001.</div></div>
+      <div class="svc-card fade" style="transition-delay:.24s"><div class="svc-icon">🚀</div><div class="svc-title" data-i18n="s5t">Цифровая трансформация</div><div class="svc-desc" data-i18n="s5d">Помощь государственным органам в переходе к цифровым процессам, внедрение современных платформ.</div></div>
+      <div class="svc-card fade" style="transition-delay:.30s"><div class="svc-icon">🎓</div><div class="svc-title" data-i18n="s6t">Консультации и обучение</div><div class="svc-desc" data-i18n="s6d">Экспертные консультации в области ИТ-архитектуры и подготовка специалистов для государственных систем.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== ABOUT ======== -->
+<div class="about-wrap">
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="fade">
+          <div class="eyebrow" data-i18n="about_eyebrow">О компании</div>
+          <h2 class="section-title" data-i18n="about_title">30 лет в сердце финансовой системы</h2>
+          <p class="section-sub" data-i18n="about_d1">ЦЦР — дочернее предприятие Национального банка РК, основанное в 1995 году. Мы обеспечиваем бесперебойную работу ключевых государственных сервисов.</p>
+          <br>
+          <p class="section-sub" data-i18n="about_d2">Сертифицированы по ISO 9001. Работаем с банками второго уровня, министерствами и государственными органами по всей стране.</p>
+          <br>
+          <a href="#contact" class="btn btn-primary" style="margin-top:8px;display:inline-flex">
+            <span data-i18n="about_cta">Узнать больше</span> →
+          </a>
+        </div>
+        <div class="fade" style="transition-delay:.18s">
+          <div class="about-card">
+            <div class="eyebrow" data-i18n="tl_ey">История</div>
+            <ul class="timeline">
+              <li class="tl-item"><span class="tl-year">1995</span><span class="tl-text" data-i18n="tl1">Основание компании как Банковского сервисного бюро НБК</span></li>
+              <li class="tl-item"><span class="tl-year">2003</span><span class="tl-text" data-i18n="tl2">Сертификация системы менеджмента качества ISO 9001</span></li>
+              <li class="tl-item"><span class="tl-year">2010</span><span class="tl-text" data-i18n="tl3">Запуск единого портала государственных закупок РК</span></li>
+              <li class="tl-item"><span class="tl-year">2019</span><span class="tl-text" data-i18n="tl4">Информационная система контроля подакцизных товаров</span></li>
+              <li class="tl-item"><span class="tl-year">2024</span><span class="tl-text" data-i18n="tl5">Ребрендинг в АО «Цифровой центр развития» (ЦЦР)</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======== NEWS ======== -->
+<section id="news">
+  <div class="container">
+    <div class="fade">
+      <div class="eyebrow" data-i18n="news_ey">Актуально</div>
+      <h2 class="section-title" data-i18n="news_title">Новости и события</h2>
+      <p class="section-sub" data-i18n="news_sub">Следите за последними обновлениями и достижениями ЦЦР.</p>
+    </div>
+    <div class="news-grid">
+      <div class="news-card fade">
+        <div class="news-thumb"><div class="news-thumb-bg" style="background:linear-gradient(135deg,#0d1a30,#162040)"></div><span style="position:relative;z-index:1">👤</span></div>
+        <div class="news-body">
+          <span class="news-tag" data-i18n="ntag1">Компания</span>
+          <div class="news-title" data-i18n="n1t">Назначение нового председателя правления ЦЦР</div>
+          <div class="news-date">15 мая 2025</div>
+        </div>
+      </div>
+      <div class="news-card fade" style="transition-delay:.08s">
+        <div class="news-thumb"><div class="news-thumb-bg" style="background:linear-gradient(135deg,#0f2040,#1e3356)"></div><span style="position:relative;z-index:1">🏛️</span></div>
+        <div class="news-body">
+          <span class="news-tag" data-i18n="ntag2">Услуги</span>
+          <div class="news-title" data-i18n="n2t">Обновление портала государственных закупок — новые возможности</div>
+          <div class="news-date">3 апреля 2025</div>
+        </div>
+      </div>
+      <div class="news-card fade" style="transition-delay:.16s">
+        <div class="news-thumb"><div class="news-thumb-bg" style="background:linear-gradient(135deg,#0a2010,#102818)"></div><span style="position:relative;z-index:1">🔐</span></div>
+        <div class="news-body">
+          <span class="news-tag" data-i18n="ntag3">Цифровизация</span>
+          <div class="news-title" data-i18n="n3t">ЦЦР внедряет новые стандарты информационной безопасности</div>
+          <div class="news-date">12 марта 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== CONTACT ======== -->
+<div class="contact-wrap">
+  <section id="contact">
+    <div class="container">
+      <div class="fade">
+        <div class="eyebrow" data-i18n="ct_ey">Свяжитесь с нами</div>
+        <h2 class="section-title" data-i18n="ct_title">Мы готовы помочь</h2>
+        <p class="section-sub" data-i18n="ct_sub">Оставьте заявку и наш специалист свяжется с вами в течение одного рабочего дня.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="form-stack fade">
+          <div class="form-row2">
+            <div class="form-group">
+              <label class="form-label" data-i18n="f_name">Ваше имя</label>
+              <input class="form-input" id="fn" type="text" placeholder="Алибек Сейткали">
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="f_org">Организация</label>
+              <input class="form-input" id="fo" type="text" placeholder="АО «Компания»">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" id="fe" type="email" placeholder="email@company.kz">
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="f_svc">Интересующая услуга</label>
+            <select class="form-sel" id="fs">
+              <option data-i18n="f_svc_def">Выберите услугу</option>
+              <option data-i18n="s1t">Сопровождение ИТ-систем</option>
+              <option data-i18n="s2t">Обработка данных</option>
+              <option data-i18n="s3t">Портал госзакупок</option>
+              <option data-i18n="s4t">Информационная безопасность</option>
+              <option data-i18n="s5t">Цифровая трансформация</option>
+              <option data-i18n="s6t">Консультации и обучение</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="f_msg">Сообщение</label>
+            <textarea class="form-ta" id="fm" placeholder="Опишите ваш запрос..."></textarea>
+          </div>
+          <button class="btn btn-primary" id="submitBtn" onclick="submitForm()" style="width:100%;justify-content:center">
+            <span data-i18n="f_send">Отправить заявку</span>
+          </button>
+          <div class="form-ok" id="formOk">✓ <span data-i18n="f_ok">Заявка отправлена! Свяжемся в течение рабочего дня.</span></div>
+        </div>
+
+        <div class="fade" style="transition-delay:.18s">
+          <div class="map-wrap">
+            <iframe 
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2506.011769712716!2d71.423756!3d51.0897903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x424585b809c925b3%3A0x790839653ff04cde!2z0L_RgC3Rgi4g0JzQsNC90LPQuNC70LjQuiDQldC7LiA1Nywg0JDRgdGC0LDQvdCwIDAyMDAwMA!5e0!3m2!1sru!2skz!4v1782144125219!5m2!1sru!2skz"
+  width="100%"
+  height="450"
+  style="border:0;"
+  allowfullscreen=""
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+          </div>
+          <div class="contact-info">
+            <div class="contact-row">
+              <span class="contact-icon">📍</span>
+              <div><div class="contact-detail-label" data-i18n="c_addr_lbl">Адрес</div><div class="contact-detail-val" data-i18n="c_addr">пр-т. Мангилик Ел. 57, Астана 020000, Казахстан</div></div>
+            </div>
+            <div class="contact-row">
+              <span class="contact-icon">📞</span>
+              <div><div class="contact-detail-label" data-i18n="c_phone_lbl">Телефон</div><div class="contact-detail-val">+7 (727) 258-49-58</div></div>
+            </div>
+            <div class="contact-row">
+              <span class="contact-icon">✉️</span>
+              <div><div class="contact-detail-label">Email</div><div class="contact-detail-val" style="color:var(--accent)">info@bsbnb.kz</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======== FOOTER ======== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <div class="logo-mark"><img src="img/ddc icon.svg" alt="" style="width: auto; height: 40px;" class="ddc-logo"></div>
+          <div class="logo-words">
+            <span class="logo-main" data-i18n="logo_main">Цифровой центр развития</span>
+            <span class="logo-sub" data-i18n="logo_sub">Национальный банк Республики Казахстан</span>
+          </div>
+        </div>
+        <p data-i18n="ft_desc">Дочернее предприятие Национального банка Республики Казахстан. Надёжная ИТ-инфраструктура с 1995 года.</p>
+      </div>
+      <div>
+        <div class="fc-title" data-i18n="nav_svc">Услуги</div>
+        <ul class="fc-links">
+          <li><a href="#services" data-i18n="s1t">Сопровождение ИТ-систем</a></li>
+          <li><a href="#services" data-i18n="s2t">Обработка данных</a></li>
+          <li><a href="#services" data-i18n="s3t">Портал госзакупок</a></li>
+          <li><a href="#services" data-i18n="s4t">Информационная безопасность</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="fc-title" data-i18n="nav_about">Компания</div>
+        <ul class="fc-links">
+          <li><a href="#about"   data-i18n="nav_about">О компании</a></li>
+          <li><a href="#news"    data-i18n="nav_news">Новости</a></li>
+          <li><a href="#"        data-i18n="ft_rep">Финансовая отчётность</a></li>
+          <li><a href="#"        data-i18n="ft_hr">Карьера</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="fc-title" data-i18n="ft_links">Ссылки</div>
+        <ul class="fc-links">
+          <li><a href="https://nationalbank.kz" target="_blank">Нацбанк РК</a></li>
+          <li><a href="https://goszakup.gov.kz" target="_blank" data-i18n="ft_zakup">Госзакупки РК</a></li>
+          <li><a href="#contact" data-i18n="nav_contact">Контакты</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-txt">© 2025 АО «Цифровой центр развития» (ЦЦР). <span data-i18n="ft_rights">Все права защищены.</span></div>
+      <div class="footer-bottom-txt" data-i18n="ft_iso">Сертифицирован по ISO 9001</div>
+    </div>
+  </div>
+</footer>
+
+
+
+<!-- ======== SCRIPTS ======== -->
+
+<script>
+/* ---- TRANSLATIONS ---- */
+const T = {
+  ru:{
+    nav_home:'Главная', nav_mission:'Миссия',
+    logo_main:'Цифровой центр развития',logo_sub:'Национальный банк Республики Казахстан',
+    nav_svc:'Услуги', nav_about:'О компании', nav_news:'Новости', nav_contact:'Контакты',
+    hero_badge:'Дочернее предприятие Национального банка РК',
+    hero_h1:'Цифровая основа финансовой системы <span class="hl">Казахстана</span>',
+    hero_desc:'АО «Цифровой центр развития» — ИТ-компания с 30-летней историей, обеспечивающая надёжную работу государственных финансовых систем и порталов Республики Казахстан.',
+    hero_cta1:'Наши услуги', hero_cta2:'Связаться',
+    stat1:'лет на рынке', stat2:'сотрудников', stat3:'ИТ-систем под поддержкой', stat4:'языка интерфейса',
+    svc_eyebrow:'Что мы делаем', svc_title:'Услуги и решения',
+    svc_sub:'Комплексная ИТ-поддержка финансовой инфраструктуры — от разработки до сопровождения.',
+    s1t:'Сопровождение ИТ-систем', s1d:'Техническая поддержка и администрирование государственных информационных систем 24/7 с гарантией SLA.',
+    s2t:'Обработка данных', s2d:'Профессиональная обработка, хранение и управление большими объёмами финансовой и государственной информации.',
+    s3t:'Портал госзакупок', s3d:'Оператор единого портала государственных закупок РК. Обеспечение прозрачности тендерных процедур.',
+    s4t:'Информационная безопасность', s4d:'Защита критической финансовой инфраструктуры, аудит безопасности, внедрение стандартов ISO 27001.',
+    s5t:'Цифровая трансформация', s5d:'Помощь государственным органам в переходе к цифровым процессам, внедрение современных платформ.',
+    s6t:'Консультации и обучение', s6d:'Экспертные консультации в области ИТ-архитектуры и подготовка специалистов для государственных систем.',
+    about_eyebrow:'О компании', about_title:'30 лет в сердце финансовой системы',
+    about_d1:'ЦЦР — дочернее предприятие Национального банка РК, основанное в 1995 году. Мы обеспечиваем бесперебойную работу ключевых государственных сервисов.',
+    about_d2:'Сертифицированы по ISO 9001. Работаем с банками второго уровня, министерствами и государственными органами по всей стране.',
+    about_cta:'Узнать больше',
+    tl_ey:'История',
+    tl1:'Основание компании как Банковского сервисного бюро НБК',
+    tl2:'Сертификация системы менеджмента качества ISO 9001',
+    tl3:'Запуск единого портала государственных закупок РК',
+    tl4:'Информационная система контроля подакцизных товаров',
+    tl5:'Ребрендинг в АО «Цифровой центр развития» (ЦЦР)',
+    news_ey:'Актуально', news_title:'Новости и события',
+    news_sub:'Следите за последними обновлениями и достижениями ЦЦР.',
+    ntag1:'Компания', ntag2:'Услуги', ntag3:'Цифровизация',
+    n1t:'Назначение нового председателя правления ЦЦР',
+    n2t:'Обновление портала государственных закупок — новые возможности',
+    n3t:'ЦЦР внедряет новые стандарты информационной безопасности',
+    ct_ey:'Свяжитесь с нами', ct_title:'Мы готовы помочь',
+    ct_sub:'Оставьте заявку и наш специалист свяжется с вами в течение одного рабочего дня.',
+    f_name:'Ваше имя', f_org:'Организация', f_svc:'Интересующая услуга',
+    f_svc_def:'Выберите услугу', f_msg:'Сообщение', f_send:'Отправить заявку',
+    f_ok:'Заявка отправлена! Свяжемся в течение рабочего дня.',
+    c_addr_lbl:'Адрес', c_addr:'пр-т. Мангилик Ел. 57, Астана 020000, Казахстан', c_phone_lbl:'Телефон',
+    ft_desc:'Дочернее предприятие Национального банка Республики Казахстан. Надёжная ИТ-инфраструктура с 1995 года.',
+    ft_rep:'Финансовая отчётность', ft_hr:'Карьера', ft_links:'Ссылки',
+    ft_zakup:'Госзакупки РК', ft_rights:'Все права защищены.', ft_iso:'Сертифицирован по ISO 9001',
+    search_hint:'Начните вводить запрос...',
+  },
+  kz:{
+    nav_home:'Басты бет', nav_mission:'Миссия',
+    logo_main:'Цифрлық даму орталығы',logo_sub:'Қазақстан Республикасының Ұлттық Банкі',
+    nav_svc:'Қызметтер', nav_about:'Компания туралы', nav_news:'Жаңалықтар', nav_contact:'Байланыс',
+    hero_badge:'Қазақстан Ұлттық банкінің еншілес кәсіпорны',
+    hero_h1:'Қазақстан қаржы жүйесінің <span class="hl">цифрлық негізі</span>',
+    hero_desc:'«Цифрлық даму орталығы» АҚ — 30 жылдық тарихы бар ЖТ-компания, Қазақстан Республикасының мемлекеттік қаржылық жүйелері мен порталдарының сенімді жұмысын қамтамасыз етеді.',
+    hero_cta1:'Біздің қызметтер', hero_cta2:'Байланысу',
+    stat1:'жыл нарықта', stat2:'қызметкер', stat3:'ЖТ-жүйе қолдауда', stat4:'интерфейс тілі',
+    svc_eyebrow:'Біз не істейміз', svc_title:'Қызметтер мен шешімдер',
+    svc_sub:'Қаржылық инфрақұрылымды кешенді ЖТ-қолдау — әзірлеуден бастап сүйемелдеуге дейін.',
+    s1t:'ЖТ-жүйелерді сүйемелдеу', s1d:'SLA кепілдігімен 24/7 режимінде мемлекеттік ақпараттық жүйелерге техникалық қолдау.',
+    s2t:'Деректерді өңдеу', s2d:'Қаржылық және мемлекеттік ақпараттың үлкен көлемін кәсіби өңдеу, сақтау және басқару.',
+    s3t:'Мемлекеттік сатып алулар порталы', s3d:'ҚР мемлекеттік сатып алулардың бірыңғай порталының операторы. Тендерлік рәсімдердің ашықтығын қамтамасыз ету.',
+    s4t:'Ақпараттық қауіпсіздік', s4d:'Маңызды қаржылық инфрақұрылымды қорғау, қауіпсіздік аудиті, ISO 27001 стандарттарын енгізу.',
+    s5t:'Цифрлық трансформация', s5d:'Мемлекеттік органдарға цифрлық процестерге көшуге көмек, заманауи платформаларды енгізу.',
+    s6t:'Кеңес беру және оқыту', s6d:'ЖТ-сәулет саласындағы сараптамалық кеңестер және мамандарды дайындау.',
+    about_eyebrow:'Компания туралы', about_title:'Қаржы жүйесінің жүрегінде 30 жыл',
+    about_d1:'ЦДО — 1995 жылы құрылған ҰБ РК еншілес кәсіпорны. Біз негізгі мемлекеттік қызметтердің үздіксіз жұмысын қамтамасыз етеміз.',
+    about_d2:'ISO 9001 бойынша сертификатталған. Бүкіл елде екінші деңгейлі банктермен, министрліктермен жұмыс істейміз.',
+    about_cta:'Толығырақ',
+    tl_ey:'Тарих',
+    tl1:'ҰБ НБ Банктік сервистік бюросы ретінде компанияның құрылуы',
+    tl2:'ISO 9001 сапа менеджменті жүйесін сертификаттау',
+    tl3:'ҚР мемлекеттік сатып алулардың бірыңғай порталын іске қосу',
+    tl4:'Акцизделген тауарларды бақылаудың ақпараттық жүйесі',
+    tl5:'«Цифрлық даму орталығы» АҚ (ЦДО) ребрендингі',
+    news_ey:'Өзекті', news_title:'Жаңалықтар мен іс-шаралар',
+    news_sub:'ЦДО-ның соңғы жаңартулары мен жетістіктерін қадағалаңыз.',
+    ntag1:'Компания', ntag2:'Қызметтер', ntag3:'Цифрландыру',
+    n1t:'ЦДО басқарма төрағасының жаңа тағайындалуы',
+    n2t:'Мемлекеттік сатып алулар порталын жаңарту — жаңа мүмкіндіктер',
+    n3t:'ЦДО жаңа ақпараттық қауіпсіздік стандарттарын енгізуде',
+    ct_ey:'Бізбен байланысыңыз', ct_title:'Біз көмектесуге дайынбыз',
+    ct_sub:'Өтінім қалдырыңыз, біздің маман бір жұмыс күні ішінде сізбен байланысады.',
+    f_name:'Сіздің атыңыз', f_org:'Ұйым', f_svc:'Қызығушылық туғызатын қызмет',
+    f_svc_def:'Қызметті таңдаңыз', f_msg:'Хабарлама', f_send:'Өтінім жіберу',
+    f_ok:'Өтінім жіберілді! Жұмыс күні ішінде сізбен байланысамыз.',
+    c_addr_lbl:'Мекенжай', c_addr:'Мәңгілік Ел даңғылы. 57, Астана 020000, Қазақстан', c_phone_lbl:'Телефон',
+    ft_desc:'Қазақстан Республикасы Ұлттық банкінің еншілес кәсіпорны. 1995 жылдан бері сенімді ЖТ-инфрақұрылым.',
+    ft_rep:'Қаржылық есептілік', ft_hr:'Мансап', ft_links:'Сілтемелер',
+    ft_zakup:'ҚР мемлекеттік сатып алулары', ft_rights:'Барлық құқықтар қорғалған.', ft_iso:'ISO 9001 бойынша сертификатталған',
+    search_hint:'Сұрауды теруді бастаңыз...',
+  },
+  en:{
+    nav_home:'Home', nav_mission:'Mission',
+    logo_main:'Digital Development Centre',logo_sub:'National Bank of the Republic of Kazakhstan',
+    nav_svc:'Services', nav_about:'About', nav_news:'News', nav_contact:'Contact',
+    hero_badge:'Subsidiary of the National Bank of Kazakhstan',
+    hero_h1:'The Digital Foundation of <span class="hl">Kazakhstan\'s</span> Financial System',
+    hero_desc:'DDC JSC is an IT company with 30 years of history, ensuring the reliable operation of government financial systems and portals of the Republic of Kazakhstan.',
+    hero_cta1:'Our Services', hero_cta2:'Get in Touch',
+    stat1:'years in market', stat2:'employees', stat3:'IT systems supported', stat4:'interface languages',
+    svc_eyebrow:'What we do', svc_title:'Services & Solutions',
+    svc_sub:'Comprehensive IT support for financial infrastructure — from development to maintenance.',
+    s1t:'IT Systems Maintenance', s1d:'Technical support and administration of government information systems 24/7 with SLA guarantees.',
+    s2t:'Data Processing', s2d:'Professional processing, storage and management of large volumes of financial and government data.',
+    s3t:'Public Procurement Portal', s3d:'Operator of the unified public procurement portal of Kazakhstan. Ensuring transparency of tender procedures.',
+    s4t:'Information Security', s4d:'Protection of critical financial infrastructure, security audits, implementation of ISO 27001 standards.',
+    s5t:'Digital Transformation', s5d:'Helping government agencies transition to digital processes and implement modern platforms and solutions.',
+    s6t:'Consulting & Training', s6d:'Expert consulting in IT architecture and training specialists for government information systems.',
+    about_eyebrow:'About', about_title:'30 Years at the Heart of the Financial System',
+    about_d1:'DDC is a subsidiary of the National Bank of Kazakhstan, founded in 1995. We ensure the uninterrupted operation of key government services.',
+    about_d2:'ISO 9001 certified. We work with second-tier banks, ministries, and government agencies across Kazakhstan.',
+    about_cta:'Learn More',
+    tl_ey:'History',
+    tl1:'Founded as the Banking Service Bureau of the National Bank of Kazakhstan',
+    tl2:'ISO 9001 quality management system certification',
+    tl3:'Launch of the unified public procurement portal of Kazakhstan',
+    tl4:'Information system for tracking excisable goods',
+    tl5:'Rebranded as DDC JSC — Digital Development Centre',
+    news_ey:'Latest', news_title:'News & Events',
+    news_sub:'Stay up to date with the latest DDC updates and achievements.',
+    ntag1:'Company', ntag2:'Services', ntag3:'Digital',
+    n1t:'New DDC Board Chairman Appointed',
+    n2t:'Public Procurement Portal Update — New Opportunities for Participants',
+    n3t:'DDC Implements New Information Security Standards',
+    ct_ey:'Get in Touch', ct_title:"We're Ready to Help",
+    ct_sub:'Leave a request and our specialist will contact you within one business day.',
+    f_name:'Your Name', f_org:'Organization', f_svc:'Service of Interest',
+    f_svc_def:'Select a service', f_msg:'Message', f_send:'Send Request',
+    f_ok:'Request sent! We will contact you within one business day.',
+    c_addr_lbl:'Address', c_addr:'Ave. Mangilik El. 57, Astana 020000, Kazakhstan', c_phone_lbl:'Phone',
+    ft_desc:'Subsidiary of the National Bank of the Republic of Kazakhstan. Reliable IT infrastructure since 1995.',
+    ft_rep:'Financial Reports', ft_hr:'Careers', ft_links:'Links',
+    ft_zakup:'Public Procurement RK', ft_rights:'All rights reserved.', ft_iso:'ISO 9001 Certified',
+    search_hint:'Start typing to search...',
+  }
+};
+
+/* ---- STATE ---- */
+let lang = 'ru';
+let dark = true;
+
+/* ---- LANGUAGE ---- */
+function setLang(l) {
+  lang = l;
+  document.documentElement.lang = l === 'kz' ? 'kk' : l;
+  document.title = l === 'en' ? 'DDC — Digital Development Centre' : l === 'kz' ? 'ЦДО — Цифрлық даму орталығы' : 'ЦЦР — Цифровой центр развития';
+
+  // button states
+  ['ru','kz','en'].forEach(x => {
+    ['lb-','mlb-'].forEach(p => {
+      const b = document.getElementById(p+x);
+      if(b) b.classList.toggle('active', x===l);
+    });
+  });
+
+  // apply translations
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if(T[l][k] !== undefined) el.innerHTML = T[l][k];
+  });
+
+  // search placeholder
+  const si = document.getElementById('srchInput');
+  if(si) si.placeholder = T[l].search_hint || '';
+}
+
+/* ---- THEME ---- */
+function toggleTheme() {
+  dark = !dark;
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  if(window._map) window._map.invalidateSize();
+}
+
+/* ---- MOBILE MENU ---- */
+function toggleMob() {
+  document.getElementById('mobMenu').classList.toggle('open');
+}
+
+/* ---- SCROLL: navbar ---- */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', scrollY > 20);
+});
+
+/* ---- SCROLL ANIMATIONS ---- */
+const fadeObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.fade').forEach(el => fadeObs.observe(el));
+
+/* ---- COUNTERS ---- */
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(!e.isIntersecting || e.target.dataset.done) return;
+    e.target.dataset.done = '1';
+    const target = +e.target.dataset.count;
+    const suffix = e.target.dataset.suffix || '';
+    const dur = 1600, steps = 55;
+    let step = 0;
+    const id = setInterval(() => {
+      step++;
+      const t = step/steps;
+      const ease = 1 - Math.pow(1-t, 3);
+      e.target.textContent = Math.round(target * ease) + suffix;
+      if(step >= steps) { clearInterval(id); e.target.textContent = target + suffix; }
+    }, dur/steps);
+  });
+}, {threshold: 0.6});
+document.querySelectorAll('[data-count]').forEach(el => cntObs.observe(el));
+
+/* ---- SEARCH ---- */
+const SD = [
+  {s:'nav_svc', t:'s1t', d:'s1d', a:'#services'},
+  {s:'nav_svc', t:'s2t', d:'s2d', a:'#services'},
+  {s:'nav_svc', t:'s3t', d:'s3d', a:'#services'},
+  {s:'nav_svc', t:'s4t', d:'s4d', a:'#services'},
+  {s:'nav_svc', t:'s5t', d:'s5d', a:'#services'},
+  {s:'nav_svc', t:'s6t', d:'s6d', a:'#services'},
+  {s:'nav_about', t:'about_title', d:'about_d1', a:'#about'},
+  {s:'nav_news', t:'n1t', d:'ntag1', a:'#news'},
+  {s:'nav_news', t:'n2t', d:'ntag2', a:'#news'},
+  {s:'nav_news', t:'n3t', d:'ntag3', a:'#news'},
+  {s:'nav_contact', t:'ct_title', d:'ct_sub', a:'#contact'},
+];
+
+function openSearch() {
+  document.getElementById('srchOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('srchInput').focus(), 80);
+}
+function closeSearch() {
+  document.getElementById('srchOverlay').classList.remove('open');
+  document.getElementById('srchInput').value = '';
+  document.getElementById('srchResults').innerHTML = `<div class="srch-empty">${T[lang].search_hint}</div>`;
+}
+function doSearch(q) {
+  const res = document.getElementById('srchResults');
+  if(!q.trim()) { res.innerHTML = `<div class="srch-empty">${T[lang].search_hint}</div>`; return; }
+  const lq = q.toLowerCase();
+  const L = T[lang];
+  const hits = SD.filter(item => (L[item.t]||'').toLowerCase().includes(lq) || (L[item.d]||'').toLowerCase().includes(lq));
+  if(!hits.length) { res.innerHTML = `<div class="srch-empty">${lang==='en'?'Nothing found':lang==='kz'?'Ештеңе табылмады':'Ничего не найдено'}</div>`; return; }
+  res.innerHTML = hits.map(item => `
+    <div class="srch-item" onclick="closeSearch();document.querySelector('${item.a}').scrollIntoView({behavior:'smooth'})">
+      <div class="srch-sect">${L[item.s]||''}</div>
+      <div class="srch-title">${L[item.t]||''}</div>
+      <div class="srch-snip">${(L[item.d]||'').slice(0,90)}...</div>
+    </div>`).join('');
+}
+document.getElementById('srchOverlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeSearch(); });
+document.addEventListener('keydown', e => { if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch();} });
+
+/* ---- FORM ---- */
+function submitForm() {
+  const n = document.getElementById('fn').value.trim();
+  const em = document.getElementById('fe').value.trim();
+  if(!n||!em){ alert(lang==='en'?'Please fill in required fields':lang==='kz'?'Міндетті өрістерді толтырыңыз':'Заполните обязательные поля'); return; }
+  const btn = document.getElementById('submitBtn');
+  btn.style.opacity='.6'; btn.style.pointerEvents='none';
+  btn.querySelector('span').textContent = lang==='en'?'Sending...':lang==='kz'?'Жіберілуде...':'Отправка...';
+  setTimeout(() => {
+    btn.style.display='none';
+    document.getElementById('formOk').classList.add('show');
+    ['fn','fo','fe','fm'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  }, 1100);
+}
+
+
+</script>
+</body>
+</html>

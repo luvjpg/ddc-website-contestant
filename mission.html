@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Миссия — ЦЦР</title>
+<meta name="description" content="Миссия, видение и стратегия АО «Цифровой центр развития» — цифровое будущее финансовой системы Казахстана">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="img/ddc icon.svg" type="image/svg+xml">
+<link rel="icon" href="img/ddc icon.svg">
+<link rel="apple-touch-icon" href="img/ddc icon.svg">
+<style>
+:root{
+  --accent:#00D4AA;--accent-dim:#00b090;
+  --accent-glow:rgba(0,212,170,0.12);
+  --radius-sm:8px;--radius-md:12px;--radius-lg:20px;
+  --ease:0.3s cubic-bezier(0.4,0,0.2,1);
+  --font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+[data-theme="dark"]{
+  --bg:#090f1e;--bg2:#0d1a30;--bg3:#162040;
+  --surf:#111c32;--surf2:#192540;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --baccent:rgba(0,212,170,0.25);
+  --text:#e8edf5;--text2:#8fa4c8;--text3:#4d6280;
+  --shadow:0 4px 32px rgba(0,0,0,0.5);--shadow-a:0 4px 24px rgba(0,212,170,0.18);
+}
+[data-theme="light"]{
+  --bg:#f0f4f9;--bg2:#e6ecf5;--bg3:#dde5f0;
+  --surf:#ffffff;--surf2:#f7fafd;
+  --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.14);
+  --baccent:rgba(0,180,140,0.3);
+  --text:#0a1628;--text2:#3d5a80;--text3:#7a95b5;
+  --shadow:0 4px 24px rgba(0,0,0,0.08);--shadow-a:0 4px 20px rgba(0,180,140,0.14);
+  .ddc-logo {
+        content: url("img/ddc\ icon\ dark.svg");
+    }
+    .theme-icon {
+    content: url("img/day-and-night-dark.png");
+  }
+  .search-icon {
+    content: url("img/magnifier\ dark.png");
+  }
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);transition:background var(--ease),color var(--ease);overflow-x:hidden;line-height:1.6}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font);cursor:pointer}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.section-title{font-size:clamp(26px,3.8vw,46px);font-weight:800;line-height:1.12;letter-spacing:-.02em;color:var(--text);margin-bottom:14px}
+.section-sub{font-size:17px;color:var(--text2);line-height:1.7}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--radius-md);font-size:15px;font-weight:600;border:none;transition:all var(--ease);cursor:pointer}
+.btn-primary{background:var(--accent);color:#080f1e}
+.btn-primary:hover{background:var(--accent-dim);transform:translateY(-2px);box-shadow:var(--shadow-a)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border2)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all var(--ease)}
+.navbar.scrolled{background:var(--surf);border-bottom:1px solid var(--border);box-shadow:var(--shadow)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#080f1e;letter-spacing:-.5px;flex-shrink:0}
+.logo-words{display:flex;flex-direction:column;line-height:1.15}
+.logo-main{font-size:15px;font-weight:700;color:var(--text)}
+.logo-sub{font-size:10px;color:var(--text3);font-weight:400}
+
+.logo-main-mobile{font-size:15px;font-weight:700;color:var(--text); display: none;}
+.logo-sub-mobile{font-size:10px;color:var(--text3);font-weight:400; display: none;}
+
+@media (max-width: 768px) {
+    .logo-main, .logo-sub {
+        display: none;
+    }
+
+    .logo-main-mobile, .logo-sub-mobile {
+        display: inline;
+    }
+}
+
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+.nav-links a{padding:7px 13px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;color:var(--text2);transition:all var(--ease)}
+.nav-links a:hover{color:var(--text);background:var(--surf2)}
+.nav-links a.nav-active{color:var(--accent);background:var(--accent-glow)}
+.nav-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.icon-btn{width:34px;height:34px;border:1px solid var(--border);background:var(--surf);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:15px;transition:all var(--ease)}
+.icon-btn:hover{color:var(--text);border-color:var(--accent);background:var(--accent-glow)}
+.lang-sw{display:flex;gap:2px;background:var(--surf);border:1px solid var(--border);border-radius:var(--radius-sm);padding:3px}
+.lang-btn{padding:4px 9px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--text3);transition:all var(--ease);letter-spacing:.04em}
+.lang-btn.active{background:var(--accent);color:#080f1e}
+.ham{display:none;flex-direction:column;gap:4px;padding:7px;border:1px solid var(--border);background:var(--surf);border-radius:var(--radius-sm)}
+.ham span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:all var(--ease)}
+.mob-menu{display:none;position:fixed;top:68px;left:0;right:0;bottom:0;background:var(--bg);z-index:999;padding:28px 24px;flex-direction:column;gap:8px;overflow-y:auto}
+.mob-menu.open{display:flex}
+.mob-menu a{padding:13px 16px;border-radius:var(--radius-md);font-size:17px;font-weight:500;color:var(--text);border:1px solid var(--border);background:var(--surf);transition:all var(--ease)}
+.mob-menu a:hover{border-color:var(--accent);color:var(--accent)}
+
+/* SEARCH */
+.srch-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);display:none;align-items:flex-start;justify-content:center;padding-top:72px}
+.srch-overlay.open{display:flex}
+.srch-box{background:var(--surf);border:1px solid var(--baccent);border-radius:var(--radius-lg);width:100%;max-width:580px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+.srch-top{display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--border)}
+.srch-ico{font-size:17px;color:var(--text3)}
+.srch-input{flex:1;background:transparent;border:none;outline:none;font-size:17px;color:var(--text);font-family:var(--font)}
+.srch-input::placeholder{color:var(--text3)}
+.srch-esc{padding:4px 9px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);font-size:11px;color:var(--text3);font-weight:600}
+.srch-results{padding:10px;max-height:380px;overflow-y:auto}
+.srch-empty{padding:36px;text-align:center;color:var(--text3);font-size:14px}
+.srch-item{padding:13px 14px;border-radius:var(--radius-sm);cursor:pointer;transition:all var(--ease);border:1px solid transparent}
+.srch-item:hover{background:var(--surf2);border-color:var(--border)}
+.srch-sect{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:3px}
+.srch-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
+.srch-snip{font-size:12px;color:var(--text2)}
+
+/* PAGE HERO */
+.page-hero{padding:130px 0 72px;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 100% 100% at 10% 50%,black 0%,transparent 70%);pointer-events:none;opacity:.5}
+.hero-glow{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,170,0.08) 0%,transparent 65%);top:50%;left:-80px;transform:translateY(-50%);pointer-events:none}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text3);margin-bottom:20px}
+.breadcrumb a{color:var(--text3);transition:color var(--ease)}
+.breadcrumb a:hover{color:var(--accent)}
+.breadcrumb span{color:var(--text2)}
+.page-title{font-size:clamp(32px,5vw,60px);font-weight:800;line-height:1.1;letter-spacing:-.025em;color:var(--text);margin-bottom:16px}
+.page-title .hl{color:var(--accent)}
+.page-lead{font-size:18px;color:var(--text2);max-width:620px;line-height:1.7}
+.page-hero-inner{position:relative;z-index:1}
+
+/* MISSION STATEMENT */
+.mission-block{
+  padding:88px 0;
+  background:var(--bg);
+}
+.mission-card{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:64px;
+  text-align:center;position:relative;overflow:hidden;
+  max-width:860px;margin:0 auto;
+}
+.mission-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(0,212,170,0.07),transparent);
+}
+.mission-card::after{
+  content:'';position:absolute;top:0;left:10%;right:10%;
+  height:1px;background:linear-gradient(90deg,transparent,var(--baccent),transparent);
+}
+.mission-icon{font-size:48px;margin-bottom:24px;position:relative;z-index:1}
+.mission-quote{
+  font-size:clamp(20px,3vw,30px);font-weight:700;
+  color:var(--text);line-height:1.35;letter-spacing:-.01em;
+  position:relative;z-index:1;margin-bottom:24px;
+}
+.mission-quote .hl{color:var(--accent)}
+.mission-author{font-size:14px;color:var(--text3);position:relative;z-index:1}
+
+/* PILLARS */
+.pillars-section{
+  padding:88px 0;
+  background:var(--surf);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:52px;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border)}
+.pillar{
+  background:var(--bg2);padding:40px 32px;
+  position:relative;overflow:hidden;
+  transition:background var(--ease);
+}
+.pillar:hover{background:var(--surf2)}
+.pillar::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--accent);opacity:0;transition:opacity var(--ease)}
+.pillar:hover::before{opacity:1}
+.pillar-num{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.12em;margin-bottom:16px}
+.pillar-icon{font-size:28px;margin-bottom:14px}
+.pillar-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:10px}
+.pillar-desc{font-size:14px;color:var(--text2);line-height:1.65}
+
+/* VISION */
+.vision-section{padding:88px 0}
+.vision-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.vision-text .section-sub{margin-bottom:28px}
+.vision-text p{font-size:16px;color:var(--text2);line-height:1.75;margin-bottom:18px}
+.vision-text p:last-of-type{margin-bottom:0}
+
+.vision-cards{display:flex;flex-direction:column;gap:14px}
+.vision-card{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:var(--radius-md);padding:22px 24px;
+  display:flex;align-items:flex-start;gap:16px;
+  transition:all var(--ease);
+}
+.vision-card:hover{border-color:var(--baccent);transform:translateX(4px)}
+.vc-icon{
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
+  background:var(--accent-glow);border:1px solid var(--baccent);
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.vc-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.vc-desc{font-size:13px;color:var(--text2);line-height:1.5}
+
+/* STRATEGY */
+.strategy-section{
+  padding:88px 0;
+  background:var(--surf);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.strategy-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:52px}
+.strat-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:32px;
+  position:relative;overflow:hidden;transition:all var(--ease);
+}
+.strat-card:hover{border-color:var(--baccent);transform:translateY(-3px);box-shadow:var(--shadow-a)}
+.strat-card::after{
+  content:attr(data-year);
+  position:absolute;bottom:24px;right:28px;
+  font-family:var(--mono);font-size:42px;font-weight:700;
+  color:var(--border2);line-height:1;
+  transition:color var(--ease);
+}
+.strat-card:hover::after{color:var(--baccent)}
+.strat-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+.strat-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.strat-title{font-size:17px;font-weight:700;color:var(--text);margin-bottom:10px}
+.strat-desc{font-size:14px;color:var(--text2);line-height:1.65;max-width:380px}
+
+/* SDG SECTION */
+.sdg-section{padding:88px 0}
+.sdg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:52px}
+.sdg-card{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:24px;text-align:center;
+  transition:all var(--ease);
+}
+.sdg-card:hover{border-color:var(--baccent);transform:translateY(-3px)}
+.sdg-icon{font-size:32px;margin-bottom:12px}
+.sdg-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
+.sdg-desc{font-size:12px;color:var(--text2);line-height:1.5}
+
+/* CTA */
+.cta-section{padding:88px 0;background:var(--surf);border-top:1px solid var(--border)}
+.cta-block{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:64px;text-align:center;position:relative;overflow:hidden;max-width:800px;margin:0 auto}
+.cta-block::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 100%,rgba(0,212,170,0.07),transparent)}
+.cta-block h3{font-size:clamp(22px,3vw,36px);font-weight:800;color:var(--text);margin-bottom:14px;letter-spacing:-.02em;position:relative;z-index:1}
+.cta-block p{font-size:16px;color:var(--text2);margin-bottom:32px;line-height:1.7;position:relative;z-index:1}
+.cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+
+/* FOOTER */
+.footer{background:var(--surf);border-top:1px solid var(--border);padding:56px 0 28px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px}
+.footer-brand p{font-size:13px;color:var(--text2);line-height:1.7;margin-top:14px;max-width:280px}
+.fc-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:14px;letter-spacing:.03em;text-transform:uppercase}
+.fc-links{list-style:none;display:flex;flex-direction:column;gap:9px}
+.fc-links a{font-size:13px;color:var(--text2);transition:color var(--ease)}
+.fc-links a:hover{color:var(--accent)}
+.footer-bottom{padding-top:28px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-bottom-txt{font-size:12px;color:var(--text3)}
+
+/* ANIMATIONS */
+.fade{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.fade.in{opacity:1;transform:translateY(0)}
+
+@media(max-width:1024px){
+  .pillars-grid{grid-template-columns:1fr 1fr}
+  .vision-grid{grid-template-columns:1fr;gap:40px}
+  .sdg-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:768px){
+  .nav-links,.nav-actions .lang-sw{display:none}
+  .ham{display:flex}
+  .pillars-grid{grid-template-columns:1fr}
+  .strategy-grid{grid-template-columns:1fr}
+  .sdg-grid{grid-template-columns:repeat(2,1fr)}
+  .mission-card{padding:40px 24px}
+  .cta-block{padding:40px 24px}
+  .footer-grid{grid-template-columns:1fr;gap:24px}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .page-hero{padding:110px 0 52px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<!-- SEARCH -->
+<div class="srch-overlay" id="srchOverlay">
+  <div class="srch-box">
+    <div class="srch-top">
+      <span class="srch-ico"><img src="img/magnifier.png" alt="" style="width: auto; height: 20px;" class="search-icon"></span>
+      <input class="srch-input" id="srchInput" type="text" autocomplete="off"
+        placeholder="Поиск по сайту..."
+        oninput="doSearch(this.value)"
+        onkeydown="if(event.key==='Escape')closeSearch()">
+      <span class="srch-esc" onclick="closeSearch()">ESC</span>
+    </div>
+    <div class="srch-results" id="srchResults">
+      <div class="srch-empty" data-i18n="search_hint">Начните вводить запрос...</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-mark"><img src="img/ddc icon.svg" alt="" style="width: auto; height: 40px;" class="ddc-logo"></div>
+        <div class="logo-words">
+          <span class="logo-main" data-i18n="logo_main">Цифровой центр развития</span>
+          <span class="logo-sub" data-i18n="logo_sub">Национальный банк Республики Казахстан</span>
+          <span class="logo-main-mobile">ЦЦР</span>
+          <span class="logo-sub-mobile">Нацбанк РК</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html"    data-i18n="nav_home">Главная</a></li>
+        <li><a href="about.html"    data-i18n="nav_about">О компании</a></li>
+        <li><a href="services.html" data-i18n="nav_svc">Услуги</a></li>
+        <li><a href="mission.html"  data-i18n="nav_mission" class="nav-active">Миссия</a></li>
+        <li><a href="contact.html"  data-i18n="nav_contact">Контакты</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="icon-btn" onclick="openSearch()" aria-label="Поиск"><img src="img/magnifier.png" alt="" style="width: auto; height: 20px;" class="search-icon"></button>
+        <button class="icon-btn" onclick="toggleTheme()" id="themeBtn" aria-label="Тема"><img src="img/day-and-night.png" alt="" style="width: auto; height: 20px;" class="theme-icon"></button>
+        <div class="lang-sw">
+          <button class="lang-btn"        onclick="setLang('kz')" id="lb-kz">ҚАЗ</button>
+          <button class="lang-btn active" onclick="setLang('ru')" id="lb-ru">РУС</button>
+          <button class="lang-btn"        onclick="setLang('en')" id="lb-en">ENG</button>
+        </div>
+        <button class="ham" onclick="toggleMob()" aria-label="Меню"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html"    onclick="toggleMob()" data-i18n="nav_home">Главная</a>
+  <a href="about.html"    onclick="toggleMob()" data-i18n="nav_about">О компании</a>
+  <a href="services.html" onclick="toggleMob()" data-i18n="nav_svc">Услуги</a>
+  <a href="mission.html"  onclick="toggleMob()" data-i18n="nav_mission">Миссия</a>
+  <a href="contact.html"  onclick="toggleMob()" data-i18n="nav_contact">Контакты</a>
+  <div class="lang-sw" style="margin-top:14px;align-self:flex-start">
+    <button class="lang-btn"        onclick="setLang('kz')" id="mlb-kz">ҚАЗ</button>
+    <button class="lang-btn active" onclick="setLang('ru')" id="mlb-ru">РУС</button>
+    <button class="lang-btn"        onclick="setLang('en')" id="mlb-en">ENG</button>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="page-hero-inner">
+      <div class="breadcrumb">
+        <a href="index.html" data-i18n="nav_home">Главная</a>
+        <span>›</span>
+        <span data-i18n="nav_mission">Миссия</span>
+      </div>
+      <h1 class="page-title" data-i18n="ph_title">Миссия и <span class="hl">видение</span></h1>
+      <p class="page-lead" data-i18n="ph_lead">Мы знаем, зачем существуем, куда движемся и как хотим изменить цифровой ландшафт Казахстана.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MISSION STATEMENT -->
+<div class="mission-block">
+  <div class="container">
+    <div class="mission-card fade">
+      <div class="mission-icon">🎯</div>
+      <div class="mission-quote" data-i18n="mission_quote">
+        Обеспечить <span class="hl">надёжную и современную</span> цифровую инфраструктуру для финансовой системы Казахстана — чтобы государственные сервисы работали безупречно для каждого гражданина страны.
+      </div>
+      <div class="mission-author" data-i18n="mission_sub">— Миссия АО «Цифровой центр развития»</div>
+    </div>
+  </div>
+</div>
+
+<!-- THREE PILLARS -->
+<div class="pillars-section">
+  <div class="container">
+    <div class="fade" style="text-align:center;max-width:600px;margin:0 auto">
+      <div class="eyebrow" data-i18n="pillars_ey">Три столпа</div>
+      <h2 class="section-title" data-i18n="pillars_title">На чём держится наша миссия</h2>
+      <p class="section-sub" data-i18n="pillars_sub">Каждое действие компании опирается на три фундаментальных принципа.</p>
+    </div>
+    <div class="pillars-grid fade" style="transition-delay:.1s">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <div class="pillar-icon">🛡️</div>
+        <div class="pillar-title" data-i18n="p1t">Надёжность без компромиссов</div>
+        <div class="pillar-desc" data-i18n="p1d">Финансовая система страны не может позволить себе простой. Мы строим инфраструктуру с резервированием на каждом уровне — от серверов до каналов связи — и гарантируем доступность 99.9% времени.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <div class="pillar-icon">🚀</div>
+        <div class="pillar-title" data-i18n="p2t">Технологии на службе государства</div>
+        <div class="pillar-desc" data-i18n="p2d">Передовые ИТ-решения должны быть доступны не только частному бизнесу, но и государственному сектору. Мы переносим лучшие мировые практики в казахстанские госсистемы.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <div class="pillar-icon">🌱</div>
+        <div class="pillar-title" data-i18n="p3t">Устойчивое развитие</div>
+        <div class="pillar-desc" data-i18n="p3d">Мы инвестируем в людей, технологии и процессы с горизонтом 10+ лет. Устойчивое развитие — это не лозунг, а принцип планирования каждого проекта.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VISION -->
+<section class="vision-section">
+  <div class="container">
+    <div class="vision-grid">
+      <div class="vision-text fade">
+        <div class="eyebrow" data-i18n="vision_ey">Видение</div>
+        <h2 class="section-title" data-i18n="vision_title">Казахстан 2030: цифровой лидер Центральной Азии</h2>
+        <p data-i18n="vision_p1">Мы видим Казахстан страной с одной из наиболее развитых цифровых финансовых инфраструктур в регионе — где граждане и бизнес взаимодействуют с государством мгновенно, безопасно и прозрачно.</p>
+        <p data-i18n="vision_p2">ЦЦР стремится стать центром цифровой экспертизы для всего финансового сектора: не просто поставщиком ИТ-услуг, а стратегическим партнёром, который формирует цифровую повестку страны.</p>
+        <p data-i18n="vision_p3">К 2030 году — 100% ключевых государственных финансовых сервисов работают в режиме реального времени, доступны с любого устройства и защищены по высшим стандартам кибербезопасности.</p>
+      </div>
+      <div class="vision-cards fade" style="transition-delay:.15s">
+        <div class="vision-card">
+          <div class="vc-icon">⚡</div>
+          <div>
+            <div class="vc-title" data-i18n="vc1t">Скорость</div>
+            <div class="vc-desc" data-i18n="vc1d">Государственные сервисы работают мгновенно. Нулевые задержки, нулевые очереди — всё доступно онлайн 24/7.</div>
+          </div>
+        </div>
+        <div class="vision-card">
+          <div class="vc-icon">🔒</div>
+          <div>
+            <div class="vc-title" data-i18n="vc2t">Безопасность</div>
+            <div class="vc-desc" data-i18n="vc2d">Данные граждан и финансовая информация защищены по стандартам мирового уровня. Никаких компромиссов.</div>
+          </div>
+        </div>
+        <div class="vision-card">
+          <div class="vc-icon">🌐</div>
+          <div>
+            <div class="vc-title" data-i18n="vc3t">Доступность</div>
+            <div class="vc-desc" data-i18n="vc3d">Цифровые сервисы одинаково доступны в Алматы и в отдалённом районе. Инклюзивная цифровизация для всех.</div>
+          </div>
+        </div>
+        <div class="vision-card">
+          <div class="vc-icon">📈</div>
+          <div>
+            <div class="vc-title" data-i18n="vc4t">Прозрачность</div>
+            <div class="vc-desc" data-i18n="vc4d">Каждая транзакция прослеживаема. Государственные закупки открыты. Доверие граждан к финансовой системе на максимуме.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGY -->
+<div class="strategy-section">
+  <div class="container">
+    <div class="fade" style="text-align:center;max-width:600px;margin:0 auto">
+      <div class="eyebrow" data-i18n="strat_ey">Стратегия</div>
+      <h2 class="section-title" data-i18n="strat_title">Стратегические приоритеты 2025–2030</h2>
+      <p class="section-sub" data-i18n="strat_sub">Четыре направления, которые определяют развитие ЦЦР на ближайшие годы.</p>
+    </div>
+    <div class="strategy-grid">
+      <div class="strat-card fade" data-year="01" style="transition-delay:.05s">
+        <div class="strat-tag"><span class="strat-dot"></span><span data-i18n="strat_tag1">Инфраструктура</span></div>
+        <div class="strat-title" data-i18n="strat1t">Модернизация ИТ-инфраструктуры</div>
+        <div class="strat-desc" data-i18n="strat1d">Переход на гибридную облачную архитектуру. Внедрение контейнеризации и микросервисов. Построение катастрофоустойчивых дата-центров с RPO/RTO < 1 часа.</div>
+      </div>
+      <div class="strat-card fade" data-year="02" style="transition-delay:.1s">
+        <div class="strat-tag"><span class="strat-dot"></span><span data-i18n="strat_tag2">Безопасность</span></div>
+        <div class="strat-title" data-i18n="strat2t">Кибербезопасность нового поколения</div>
+        <div class="strat-desc" data-i18n="strat2d">Создание Security Operations Center (SOC) 24/7. Внедрение Zero Trust архитектуры. Автоматизированное обнаружение угроз на базе ИИ.</div>
+      </div>
+      <div class="strat-card fade" data-year="03" style="transition-delay:.15s">
+        <div class="strat-tag"><span class="strat-dot"></span><span data-i18n="strat_tag3">Цифровизация</span></div>
+        <div class="strat-title" data-i18n="strat3t">Цифровая трансформация госсектора</div>
+        <div class="strat-desc" data-i18n="strat3d">Перевод 100% ключевых финансовых сервисов в цифровой формат. Единая платформа данных для госорганов. API-first подход к интеграции систем.</div>
+      </div>
+      <div class="strat-card fade" data-year="04" style="transition-delay:.2s">
+        <div class="strat-tag"><span class="strat-dot"></span><span data-i18n="strat_tag4">Таланты</span></div>
+        <div class="strat-title" data-i18n="strat4t">Развитие кадрового потенциала</div>
+        <div class="strat-desc" data-i18n="strat4d">Программа подготовки 500+ ИТ-специалистов для госсектора. Корпоративный университет ЦЦР. Партнёрство с ведущими университетами Казахстана.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SDG / CONTRIBUTION -->
+<section class="sdg-section">
+  <div class="container">
+    <div class="fade" style="text-align:center;max-width:600px;margin:0 auto">
+      <div class="eyebrow" data-i18n="sdg_ey">Вклад в развитие страны</div>
+      <h2 class="section-title" data-i18n="sdg_title">Как ЦЦР меняет Казахстан</h2>
+      <p class="section-sub" style="margin:0 auto" data-i18n="sdg_sub">Наша работа напрямую влияет на качество жизни граждан и конкурентоспособность страны.</p>
+    </div>
+    <div class="sdg-grid">
+      <div class="sdg-card fade">
+        <div class="sdg-icon">🏦</div>
+        <div class="sdg-title" data-i18n="sdg1t">Финансовая доступность</div>
+        <div class="sdg-desc" data-i18n="sdg1d">Цифровые финансовые сервисы доступны каждому гражданину страны независимо от места проживания</div>
+      </div>
+      <div class="sdg-card fade" style="transition-delay:.06s">
+        <div class="sdg-icon">🤝</div>
+        <div class="sdg-title" data-i18n="sdg2t">Борьба с коррупцией</div>
+        <div class="sdg-desc" data-i18n="sdg2d">Прозрачный портал госзакупок исключает непрозрачные схемы и обеспечивает честную конкуренцию</div>
+      </div>
+      <div class="sdg-card fade" style="transition-delay:.12s">
+        <div class="sdg-icon">🧑‍💻</div>
+        <div class="sdg-title" data-i18n="sdg3t">Цифровые рабочие места</div>
+        <div class="sdg-desc" data-i18n="sdg3d">200+ высококвалифицированных рабочих мест в ИТ-секторе Казахстана с конкурентными условиями труда</div>
+      </div>
+      <div class="sdg-card fade" style="transition-delay:.18s">
+        <div class="sdg-icon">📡</div>
+        <div class="sdg-title" data-i18n="sdg4t">Цифровой суверенитет</div>
+        <div class="sdg-desc" data-i18n="sdg4d">Критическая финансовая инфраструктура страны находится под управлением казахстанской компании</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="container">
+    <div class="cta-block fade">
+      <h3 data-i18n="cta_title">Присоединяйтесь к нашей миссии</h3>
+      <p data-i18n="cta_desc">Станьте частью цифровой трансформации Казахстана — как партнёр, клиент или сотрудник ЦЦР.</p>
+      <div class="cta-actions">
+        <a href="contact.html"  class="btn btn-primary"><span data-i18n="cta_btn1">Стать партнёром</span> →</a>
+        <a href="services.html" class="btn btn-outline"><span data-i18n="cta_btn2">Наши услуги</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <div class="logo-mark"><img src="img/ddc icon.svg" alt="" style="width: auto; height: 40px;" class="ddc-logo"></div>
+          <div class="logo-words">
+            <span class="logo-main" data-i18n="logo_main">Цифровой центр развития</span>
+            <span class="logo-sub" data-i18n="logo_sub">Национальный банк Республики Казахстан</span>
+          </div>
+        </div>
+        <p data-i18n="ft_desc">Дочернее предприятие Национального банка Республики Казахстан. Надёжная ИТ-инфраструктура с 1995 года.</p>
+      </div>
+      <div>
+        <div class="fc-title" data-i18n="nav_svc">Услуги</div>
+        <ul class="fc-links">
+          <li><a href="services.html" data-i18n="s1t">Сопровождение ИТ-систем</a></li>
+          <li><a href="services.html" data-i18n="s3t">Портал госзакупок</a></li>
+          <li><a href="services.html" data-i18n="s4t">Информационная безопасность</a></li>
+          <li><a href="services.html" data-i18n="s5t">Цифровая трансформация</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="fc-title" data-i18n="nav_about">Компания</div>
+        <ul class="fc-links">
+          <li><a href="about.html"   data-i18n="nav_about">О компании</a></li>
+          <li><a href="mission.html" data-i18n="nav_mission">Миссия</a></li>
+          <li><a href="#"            data-i18n="ft_rep">Финансовая отчётность</a></li>
+          <li><a href="#"            data-i18n="ft_hr">Карьера</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="fc-title" data-i18n="ft_links">Ссылки</div>
+        <ul class="fc-links">
+          <li><a href="https://nationalbank.kz" target="_blank">Нацбанк РК</a></li>
+          <li><a href="https://goszakup.gov.kz" target="_blank" data-i18n="ft_zakup">Госзакупки РК</a></li>
+          <li><a href="contact.html" data-i18n="nav_contact">Контакты</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-txt">© 2025 АО «Цифровой центр развития» (ЦЦР). <span data-i18n="ft_rights">Все права защищены.</span></div>
+      <div class="footer-bottom-txt" data-i18n="ft_iso">Сертифицирован по ISO 9001</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const T={
+  ru:{
+    logo_main:'Цифровой центр развития',logo_sub:'Национальный банк Республики Казахстан',
+    nav_home:'Главная',nav_about:'О компании',nav_svc:'Услуги',nav_mission:'Миссия',nav_contact:'Контакты',
+    ph_title:'Миссия и <span class="hl">видение</span>',
+    ph_lead:'Мы знаем, зачем существуем, куда движемся и как хотим изменить цифровой ландшафт Казахстана.',
+    mission_quote:'Обеспечить <span class="hl">надёжную и современную</span> цифровую инфраструктуру для финансовой системы Казахстана — чтобы государственные сервисы работали безупречно для каждого гражданина страны.',
+    mission_sub:'— Миссия АО «Цифровой центр развития»',
+    pillars_ey:'Три столпа',pillars_title:'На чём держится наша миссия',
+    pillars_sub:'Каждое действие компании опирается на три фундаментальных принципа.',
+    p1t:'Надёжность без компромиссов',p1d:'Финансовая система страны не может позволить себе простой. Мы строим инфраструктуру с резервированием на каждом уровне и гарантируем доступность 99.9% времени.',
+    p2t:'Технологии на службе государства',p2d:'Передовые ИТ-решения должны быть доступны не только частному бизнесу, но и государственному сектору. Мы переносим лучшие мировые практики в казахстанские госсистемы.',
+    p3t:'Устойчивое развитие',p3d:'Мы инвестируем в людей, технологии и процессы с горизонтом 10+ лет. Устойчивое развитие — это принцип планирования каждого проекта.',
+    vision_ey:'Видение',vision_title:'Казахстан 2030: цифровой лидер Центральной Азии',
+    vision_p1:'Мы видим Казахстан страной с одной из наиболее развитых цифровых финансовых инфраструктур в регионе — где граждане и бизнес взаимодействуют с государством мгновенно, безопасно и прозрачно.',
+    vision_p2:'ЦЦР стремится стать центром цифровой экспертизы для всего финансового сектора: не просто поставщиком ИТ-услуг, а стратегическим партнёром.',
+    vision_p3:'К 2030 году — 100% ключевых государственных финансовых сервисов работают в режиме реального времени и защищены по высшим стандартам кибербезопасности.',
+    vc1t:'Скорость',vc1d:'Государственные сервисы работают мгновенно. Нулевые задержки, нулевые очереди — всё доступно онлайн 24/7.',
+    vc2t:'Безопасность',vc2d:'Данные граждан и финансовая информация защищены по стандартам мирового уровня. Никаких компромиссов.',
+    vc3t:'Доступность',vc3d:'Цифровые сервисы одинаково доступны в Алматы и в отдалённом районе. Инклюзивная цифровизация для всех.',
+    vc4t:'Прозрачность',vc4d:'Каждая транзакция прослеживаема. Государственные закупки открыты. Доверие граждан к финансовой системе на максимуме.',
+    strat_ey:'Стратегия',strat_title:'Стратегические приоритеты 2025–2030',strat_sub:'Четыре направления, которые определяют развитие ЦЦР на ближайшие годы.',
+    strat_tag1:'Инфраструктура',strat_tag2:'Безопасность',strat_tag3:'Цифровизация',strat_tag4:'Таланты',
+    strat1t:'Модернизация ИТ-инфраструктуры',strat1d:'Переход на гибридную облачную архитектуру. Внедрение контейнеризации и микросервисов. Катастрофоустойчивые дата-центры с RPO/RTO < 1 часа.',
+    strat2t:'Кибербезопасность нового поколения',strat2d:'Создание Security Operations Center (SOC) 24/7. Внедрение Zero Trust архитектуры. Автоматизированное обнаружение угроз на базе ИИ.',
+    strat3t:'Цифровая трансформация госсектора',strat3d:'Перевод 100% ключевых финансовых сервисов в цифровой формат. Единая платформа данных для госорганов. API-first подход.',
+    strat4t:'Развитие кадрового потенциала',strat4d:'Программа подготовки 500+ ИТ-специалистов. Корпоративный университет ЦЦР. Партнёрство с ведущими университетами Казахстана.',
+    sdg_ey:'Вклад в развитие страны',sdg_title:'Как ЦЦР меняет Казахстан',sdg_sub:'Наша работа напрямую влияет на качество жизни граждан и конкурентоспособность страны.',
+    sdg1t:'Финансовая доступность',sdg1d:'Цифровые финансовые сервисы доступны каждому гражданину независимо от места проживания',
+    sdg2t:'Борьба с коррупцией',sdg2d:'Прозрачный портал госзакупок исключает непрозрачные схемы и обеспечивает честную конкуренцию',
+    sdg3t:'Цифровые рабочие места',sdg3d:'200+ высококвалифицированных рабочих мест в ИТ-секторе с конкурентными условиями труда',
+    sdg4t:'Цифровой суверенитет',sdg4d:'Критическая финансовая инфраструктура страны под управлением казахстанской компании',
+    cta_title:'Присоединяйтесь к нашей миссии',cta_desc:'Станьте частью цифровой трансформации Казахстана — как партнёр, клиент или сотрудник ЦЦР.',
+    cta_btn1:'Стать партнёром',cta_btn2:'Наши услуги',
+    ft_desc:'Дочернее предприятие Национального банка Республики Казахстан. Надёжная ИТ-инфраструктура с 1995 года.',
+    ft_rep:'Финансовая отчётность',ft_hr:'Карьера',ft_links:'Ссылки',ft_zakup:'Госзакупки РК',ft_rights:'Все права защищены.',ft_iso:'Сертифицирован по ISO 9001',
+    s1t:'Сопровождение ИТ-систем',s3t:'Портал госзакупок',s4t:'Информационная безопасность',s5t:'Цифровая трансформация',
+    search_hint:'Начните вводить запрос...',
+  },
+  kz:{
+    logo_main:'Цифрлық даму орталығы',logo_sub:'Қазақстан Республикасының Ұлттық Банкі',
+    nav_home:'Басты бет',nav_about:'Компания туралы',nav_svc:'Қызметтер',nav_mission:'Миссия',nav_contact:'Байланыс',
+    ph_title:'Миссия және <span class="hl">көзқарас</span>',
+    ph_lead:'Біз неліктен өмір сүретінімізді, қайда бара жатқанымызды және Қазақстанның цифрлық ландшафтын қалай өзгерткіміз келетінін білеміз.',
+    mission_quote:'Қазақстанның қаржы жүйесі үшін <span class="hl">сенімді және заманауи</span> цифрлық инфрақұрылымды қамтамасыз ету — мемлекеттік сервистер елдің әрбір азаматы үшін мінсіз жұмыс істеуі үшін.',
+    mission_sub:'— «Цифрлық даму орталығы» АҚ миссиясы',
+    pillars_ey:'Үш тірек',pillars_title:'Миссиямыз нені тірек етеді',
+    pillars_sub:'Компанияның әрбір іс-әрекеті үш іргелі принципке сүйенеді.',
+    p1t:'Компромиссіз сенімділік',p1d:'Елдің қаржы жүйесі тоқтауға мүмкіндік бере алмайды. Біз әрбір деңгейде резервтеумен инфрақұрылым жасаймыз және 99.9% уақыт қолжетімділігін кепілдендіреміз.',
+    p2t:'Мемлекет қызметіндегі технологиялар',p2d:'Озық ЖТ-шешімдер тек жеке бизнеске ғана емес, мемлекеттік секторға да қолжетімді болуы тиіс. Біз үздік әлемдік тәжірибелерді қазақстандық мемлекеттік жүйелерге ауыстырамыз.',
+    p3t:'Тұрақты даму',p3d:'Біз адамдарға, технологияларға және процестерге 10+ жыл горизонтымен инвестиция саламыз. Тұрақты даму — бұл әрбір жобаны жоспарлау принципі.',
+    vision_ey:'Көзқарас',vision_title:'Қазақстан 2030: Орталық Азияның цифрлық көшбасшысы',
+    vision_p1:'Біз Қазақстанды аймақтағы ең дамыған цифрлық қаржылық инфрақұрылымдары бар елдердің қатарынан көреміз — мұнда азаматтар мен бизнес мемлекетпен жедел, қауіпсіз және ашық өзараәрекет жасайды.',
+    vision_p2:'ЦДО бүкіл қаржы секторы үшін цифрлық сараптама орталығына айналуға ұмтылады: тек ЖТ-қызметтерінің жеткізушісі ғана емес, стратегиялық серіктес.',
+    vision_p3:'2030 жылға қарай — негізгі мемлекеттік қаржылық сервистердің 100% нақты уақыт режимінде жұмыс істейді және киберқауіпсіздіктің жоғары стандарттары бойынша қорғалады.',
+    vc1t:'Жылдамдық',vc1d:'Мемлекеттік сервистер жедел жұмыс істейді. Нөлдік кідіріс, нөлдік кезек — бәрі онлайн 24/7 қолжетімді.',
+    vc2t:'Қауіпсіздік',vc2d:'Азаматтардың деректері мен қаржылық ақпарат әлемдік деңгейдегі стандарттар бойынша қорғалады. Ешқандай компромис жоқ.',
+    vc3t:'Қолжетімділік',vc3d:'Цифрлық сервистер Алматыда да, шалғайдағы ауданда да бірдей қолжетімді. Бәріне арналған инклюзивті цифрландыру.',
+    vc4t:'Ашықтық',vc4d:'Әрбір транзакция бақыланады. Мемлекеттік сатып алулар ашық. Азаматтардың қаржы жүйесіне деген сенімі максимумда.',
+    strat_ey:'Стратегия',strat_title:'2025–2030 жылдарға стратегиялық басымдықтар',strat_sub:'ЦДО-ның алдағы жылдардағы дамуын анықтайтын төрт бағыт.',
+    strat_tag1:'Инфрақұрылым',strat_tag2:'Қауіпсіздік',strat_tag3:'Цифрландыру',strat_tag4:'Таланттар',
+    strat1t:'ЖТ-инфрақұрылымды жаңғырту',strat1d:'Гибридті бұлттық архитектураға көшу. Контейнерлеу мен микросервистерді енгізу. RPO/RTO < 1 сағат апатқа төзімді дата-орталықтар.',
+    strat2t:'Жаңа буын киберқауіпсіздігі',strat2d:'24/7 Security Operations Center (SOC) құру. Zero Trust архитектурасын енгізу. ЖИ негізіндегі автоматтандырылған қауіп анықтау.',
+    strat3t:'Мемлекеттік секторды цифрлық трансформациялау',strat3d:'Негізгі қаржылық сервистердің 100% цифрлық форматқа ауыстыру. Мемлекеттік органдарға арналған бірыңғай деректер платформасы.',
+    strat4t:'Кадрлық әлеуетті дамыту',strat4d:'Мемлекеттік сектор үшін 500+ ЖТ-маманын дайындау бағдарламасы. ЦДО корпоративтік университеті. Қазақстанның жетекші университеттерімен серіктестік.',
+    sdg_ey:'Елдің дамуына үлес',sdg_title:'ЦДО Қазақстанды қалай өзгертеді',sdg_sub:'Біздің жұмысымыз азаматтардың өмір сапасы мен елдің бәсекеге қабілеттілігіне тікелей әсер етеді.',
+    sdg1t:'Қаржылық қолжетімділік',sdg1d:'Цифрлық қаржылық сервистер тұратын жеріне қарамастан елдің әрбір азаматына қолжетімді',
+    sdg2t:'Сыбайластықпен күрес',sdg2d:'Мемлекеттік сатып алулардың ашық порталы мөлдір емес схемаларды болдырмайды',
+    sdg3t:'Цифрлық жұмыс орындары',sdg3d:'ЖТ секторында бәсекелі еңбек жағдайлары бар 200+ жоғары білікті жұмыс орны',
+    sdg4t:'Цифрлық егемендік',sdg4d:'Елдің маңызды қаржылық инфрақұрылымы қазақстандық компанияның басқаруында',
+    cta_title:'Миссиямызға қосылыңыз',cta_desc:'Қазақстанның цифрлық трансформациясының бір бөлігіне айналыңыз — серіктес, клиент немесе ЦДО қызметкері ретінде.',
+    cta_btn1:'Серіктес болу',cta_btn2:'Біздің қызметтер',
+    ft_desc:'Қазақстан Республикасы Ұлттық банкінің еншілес кәсіпорны. 1995 жылдан бері сенімді ЖТ-инфрақұрылым.',
+    ft_rep:'Қаржылық есептілік',ft_hr:'Мансап',ft_links:'Сілтемелер',ft_zakup:'ҚР мемлекеттік сатып алулары',ft_rights:'Барлық құқықтар қорғалған.',ft_iso:'ISO 9001 бойынша сертификатталған',
+    s1t:'ЖТ-жүйелерді сүйемелдеу',s3t:'Мемлекеттік сатып алулар порталы',s4t:'Ақпараттық қауіпсіздік',s5t:'Цифрлық трансформация',
+    search_hint:'Сұрауды теруді бастаңыз...',
+  },
+  en:{
+    logo_main:'Digital Development Centre',logo_sub:'National Bank of the Republic of Kazakhstan',
+    nav_home:'Home',nav_about:'About',nav_svc:'Services',nav_mission:'Mission',nav_contact:'Contact',
+    ph_title:'Mission & <span class="hl">Vision</span>',
+    ph_lead:'We know why we exist, where we are going and how we want to transform the digital landscape of Kazakhstan.',
+    mission_quote:'To provide <span class="hl">reliable and modern</span> digital infrastructure for Kazakhstan\'s financial system — so that government services work flawlessly for every citizen of the country.',
+    mission_sub:'— Mission of DDC JSC (Digital Development Centre)',
+    pillars_ey:'Three Pillars',pillars_title:'What Our Mission Stands On',
+    pillars_sub:'Every action of the company rests on three fundamental principles.',
+    p1t:'Reliability Without Compromise',p1d:'The country\'s financial system cannot afford downtime. We build infrastructure with redundancy at every level and guarantee 99.9% availability.',
+    p2t:'Technology in Service of the State',p2d:'Advanced IT solutions must be available not only to private business but also to the public sector. We bring best global practices to Kazakhstani government systems.',
+    p3t:'Sustainable Development',p3d:'We invest in people, technology and processes with a 10+ year horizon. Sustainable development is a planning principle for every project.',
+    vision_ey:'Vision',vision_title:'Kazakhstan 2030: Digital Leader of Central Asia',
+    vision_p1:'We see Kazakhstan as a country with one of the most developed digital financial infrastructures in the region — where citizens and businesses interact with the state instantly, securely and transparently.',
+    vision_p2:'DDC aims to become the centre of digital expertise for the entire financial sector: not just an IT service provider, but a strategic partner shaping the country\'s digital agenda.',
+    vision_p3:'By 2030 — 100% of key government financial services operate in real time, accessible from any device and protected to the highest cybersecurity standards.',
+    vc1t:'Speed',vc1d:'Government services work instantly. Zero delays, zero queues — everything available online 24/7.',
+    vc2t:'Security',vc2d:'Citizens\' data and financial information are protected to world-class standards. No compromises.',
+    vc3t:'Accessibility',vc3d:'Digital services are equally accessible in Almaty and in remote regions. Inclusive digitalisation for everyone.',
+    vc4t:'Transparency',vc4d:'Every transaction is traceable. Government procurement is open. Citizens\' trust in the financial system is at its maximum.',
+    strat_ey:'Strategy',strat_title:'Strategic Priorities 2025–2030',strat_sub:'Four directions defining DDC\'s development for the coming years.',
+    strat_tag1:'Infrastructure',strat_tag2:'Security',strat_tag3:'Digitalisation',strat_tag4:'Talent',
+    strat1t:'IT Infrastructure Modernisation',strat1d:'Transition to hybrid cloud architecture. Implementation of containerisation and microservices. Disaster-resilient data centres with RPO/RTO < 1 hour.',
+    strat2t:'Next-Generation Cybersecurity',strat2d:'Establishment of a 24/7 Security Operations Center (SOC). Zero Trust architecture implementation. AI-based automated threat detection.',
+    strat3t:'Digital Transformation of the Public Sector',strat3d:'Migration of 100% of key financial services to digital format. Unified data platform for government agencies. API-first integration approach.',
+    strat4t:'Human Capital Development',strat4d:'Programme to train 500+ IT specialists for the public sector. DDC Corporate University. Partnership with leading Kazakhstani universities.',
+    sdg_ey:'Contribution to National Development',sdg_title:'How DDC is Changing Kazakhstan',sdg_sub:'Our work directly impacts the quality of life of citizens and the competitiveness of the country.',
+    sdg1t:'Financial Accessibility',sdg1d:'Digital financial services are available to every citizen regardless of where they live',
+    sdg2t:'Anti-Corruption',sdg2d:'The transparent procurement portal eliminates opaque schemes and ensures fair competition',
+    sdg3t:'Digital Jobs',sdg3d:'200+ highly qualified IT sector jobs with competitive working conditions',
+    sdg4t:'Digital Sovereignty',sdg4d:'The country\'s critical financial infrastructure is managed by a Kazakhstani company',
+    cta_title:'Join Our Mission',cta_desc:'Become part of Kazakhstan\'s digital transformation — as a partner, client or DDC employee.',
+    cta_btn1:'Become a Partner',cta_btn2:'Our Services',
+    ft_desc:'Subsidiary of the National Bank of the Republic of Kazakhstan. Reliable IT infrastructure since 1995.',
+    ft_rep:'Financial Reports',ft_hr:'Careers',ft_links:'Links',ft_zakup:'Public Procurement RK',ft_rights:'All rights reserved.',ft_iso:'ISO 9001 Certified',
+    s1t:'IT Systems Maintenance',s3t:'Public Procurement Portal',s4t:'Information Security',s5t:'Digital Transformation',
+    search_hint:'Start typing to search...',
+  }
+};
+
+let lang='ru',dark=true;
+function setLang(l){
+  lang=l;document.documentElement.lang=l==='kz'?'kk':l;
+  ['ru','kz','en'].forEach(x=>{['lb-','mlb-'].forEach(p=>{const b=document.getElementById(p+x);if(b)b.classList.toggle('active',x===l)})});
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(T[l][k]!==undefined)el.innerHTML=T[l][k]});
+  const si=document.getElementById('srchInput');if(si)si.placeholder=T[l].search_hint||'';
+}
+function toggleTheme(){dark=!dark;document.documentElement.setAttribute('data-theme',dark?'dark':'light');}
+function toggleMob(){document.getElementById('mobMenu').classList.toggle('open')}
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',scrollY>20)});
+const fadeObs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')})},{threshold:0.08});
+document.querySelectorAll('.fade').forEach(el=>fadeObs.observe(el));
+function openSearch(){document.getElementById('srchOverlay').classList.add('open');setTimeout(()=>document.getElementById('srchInput').focus(),80)}
+function closeSearch(){document.getElementById('srchOverlay').classList.remove('open');document.getElementById('srchInput').value='';document.getElementById('srchResults').innerHTML=`<div class="srch-empty">${T[lang].search_hint}</div>`}
+function doSearch(q){
+  const res=document.getElementById('srchResults');
+  if(!q.trim()){res.innerHTML=`<div class="srch-empty">${T[lang].search_hint}</div>`;return}
+  const lq=q.toLowerCase(),L=T[lang];
+  const items=[
+    {s:L.nav_mission,t:L.ph_title||'',d:L.mission_quote||'',a:'mission.html'},
+    {s:L.nav_mission,t:L.pillars_title,d:L.p1t,a:'mission.html'},
+    {s:L.nav_mission,t:L.vision_title,d:L.vision_p1,a:'mission.html'},
+    {s:L.nav_mission,t:L.strat_title,d:L.strat_sub,a:'mission.html'},
+    {s:L.nav_about,t:L.nav_about,d:'',a:'about.html'},
+    {s:L.nav_svc,t:L.s1t,d:'',a:'services.html'},{s:L.nav_svc,t:L.s3t,d:'',a:'services.html'},
+    {s:L.nav_contact,t:L.nav_contact,d:'',a:'contact.html'},
+  ];
+  const hits=items.filter(i=>(i.t+i.d).toLowerCase().replace(/<[^>]+>/g,'').includes(lq));
+  if(!hits.length){res.innerHTML=`<div class="srch-empty">${lang==='en'?'Nothing found':lang==='kz'?'Ештеңе табылмады':'Ничего не найдено'}</div>`;return}
+  res.innerHTML=hits.map(i=>`<div class="srch-item" onclick="window.location='${i.a}'"><div class="srch-sect">${i.s}</div><div class="srch-title">${i.t.replace(/<[^>]+>/g,'')}</div>${i.d?`<div class="srch-snip">${i.d.replace(/<[^>]+>/g,'').slice(0,90)}...</div>`:''}</div>`).join('');
+}
+document.getElementById('srchOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeSearch()});
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch()}});
+</script>
+</body>
+</html>

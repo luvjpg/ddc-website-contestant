@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Контакты — ЦЦР</title>
+<meta name="description" content="Контакты АО «Цифровой центр развития» — адрес, телефон, форма обратной связи">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<link rel="icon" href="img/ddc icon.svg" type="image/svg+xml">
+<link rel="icon" href="img/ddc icon.svg">
+<link rel="apple-touch-icon" href="img/ddc icon.svg">
+<style>
+:root{
+  --accent:#00D4AA;--accent-dim:#00b090;
+  --accent-glow:rgba(0,212,170,0.12);
+  --radius-sm:8px;--radius-md:12px;--radius-lg:20px;
+  --ease:0.3s cubic-bezier(0.4,0,0.2,1);
+  --font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+[data-theme="dark"]{
+  --bg:#090f1e;--bg2:#0d1a30;--bg3:#162040;
+  --surf:#111c32;--surf2:#192540;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --baccent:rgba(0,212,170,0.25);
+  --text:#e8edf5;--text2:#8fa4c8;--text3:#4d6280;
+  --shadow:0 4px 32px rgba(0,0,0,0.5);--shadow-a:0 4px 24px rgba(0,212,170,0.18);
+}
+[data-theme="light"]{
+  --bg:#f0f4f9;--bg2:#e6ecf5;--bg3:#dde5f0;
+  --surf:#ffffff;--surf2:#f7fafd;
+  --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.14);
+  --baccent:rgba(0,180,140,0.3);
+  --text:#0a1628;--text2:#3d5a80;--text3:#7a95b5;
+  --shadow:0 4px 24px rgba(0,0,0,0.08);--shadow-a:0 4px 20px rgba(0,180,140,0.14);
+  .ddc-logo {
+        content: url("img/ddc\ icon\ dark.svg");
+    }
+    .theme-icon {
+    content: url("img/day-and-night-dark.png");
+  }
+.search-icon {
+    content: url("img/magnifier\ dark.png");
+  }
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);transition:background var(--ease),color var(--ease);overflow-x:hidden;line-height:1.6}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font);cursor:pointer}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.section-title{font-size:clamp(26px,3.8vw,46px);font-weight:800;line-height:1.12;letter-spacing:-.02em;color:var(--text);margin-bottom:14px}
+.section-sub{font-size:17px;color:var(--text2);line-height:1.7}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--radius-md);font-size:15px;font-weight:600;border:none;transition:all var(--ease);cursor:pointer}
+.btn-primary{background:var(--accent);color:#080f1e}
+.btn-primary:hover{background:var(--accent-dim);transform:translateY(-2px);box-shadow:var(--shadow-a)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border2)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all var(--ease)}
+.navbar.scrolled{background:var(--surf);border-bottom:1px solid var(--border);box-shadow:var(--shadow)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#080f1e;letter-spacing:-.5px;flex-shrink:0}
+.logo-words{display:flex;flex-direction:column;line-height:1.15}
+.logo-main{font-size:15px;font-weight:700;color:var(--text)}
+.logo-sub{font-size:10px;color:var(--text3);font-weight:400}
+
+.logo-main-mobile{font-size:15px;font-weight:700;color:var(--text); display: none;}
+.logo-sub-mobile{font-size:10px;color:var(--text3);font-weight:400; display: none;}
+
+@media (max-width: 768px) {
+    .logo-main, .logo-sub {
+        display: none;
+    }
+
+    .logo-main-mobile, .logo-sub-mobile {
+        display: inline;
+    }
+}
+
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+.nav-links a{padding:7px 13px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;color:var(--text2);transition:all var(--ease)}
+.nav-links a:hover{color:var(--text);background:var(--surf2)}
+.nav-links a.nav-active{color:var(--accent);background:var(--accent-glow)}
+.nav-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.icon-btn{width:34px;height:34px;border:1px solid var(--border);background:var(--surf);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:15px;transition:all var(--ease)}
+.icon-btn:hover{color:var(--text);border-color:var(--accent);background:var(--accent-glow)}
+.lang-sw{display:flex;gap:2px;background:var(--surf);border:1px solid var(--border);border-radius:var(--radius-sm);padding:3px}
+.lang-btn{padding:4px 9px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--text3);transition:all var(--ease);letter-spacing:.04em}
+.lang-btn.active{background:var(--accent);color:#080f1e}
+.ham{display:none;flex-direction:column;gap:4px;padding:7px;border:1px solid var(--border);background:var(--surf);border-radius:var(--radius-sm)}
+.ham span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:all var(--ease)}
+.mob-menu{display:none;position:fixed;top:68px;left:0;right:0;bottom:0;background:var(--bg);z-index:999;padding:28px 24px;flex-direction:column;gap:8px;overflow-y:auto}
+.mob-menu.open{display:flex}
+.mob-menu a{padding:13px 16px;border-radius:var(--radius-md);font-size:17px;font-weight:500;color:var(--text);border:1px solid var(--border);background:var(--surf);transition:all var(--ease)}
+.mob-menu a:hover{border-color:var(--accent);color:var(--accent)}
+
+/* SEARCH */
+.srch-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);display:none;align-items:flex-start;justify-content:center;padding-top:72px}
+.srch-overlay.open{display:flex}
+.srch-box{background:var(--surf);border:1px solid var(--baccent);border-radius:var(--radius-lg);width:100%;max-width:580px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+.srch-top{display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--border)}
+.srch-ico{font-size:17px;color:var(--text3)}
+.srch-input{flex:1;background:transparent;border:none;outline:none;font-size:17px;color:var(--text);font-family:var(--font)}
+.srch-input::placeholder{color:var(--text3)}
+.srch-esc{padding:4px 9px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);font-size:11px;color:var(--text3);font-weight:600}
+.srch-results{padding:10px;max-height:380px;overflow-y:auto}
+.srch-empty{padding:36px;text-align:center;color:var(--text3);font-size:14px}
+.srch-item{padding:13px 14px;border-radius:var(--radius-sm);cursor:pointer;transition:all var(--ease);border:1px solid transparent}
+.srch-item:hover{background:var(--surf2);border-color:var(--border)}
+.srch-sect{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:3px}
+.srch-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
+.srch-snip{font-size:12px;color:var(--text2)}
+
+/* PAGE HERO */
+.page-hero{padding:130px 0 72px;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 100% 100% at 10% 50%,black 0%,transparent 70%);pointer-events:none;opacity:.5}
+.hero-glow{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,170,0.08) 0%,transparent 65%);top:50%;left:-80px;transform:translateY(-50%);pointer-events:none}
+.page-hero-inner{position:relative;z-index:1}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text3);margin-bottom:20px}
+.breadcrumb a{color:var(--text3);transition:color var(--ease)}
+.breadcrumb a:hover{color:var(--accent)}
+.breadcrumb span{color:var(--text2)}
+.page-title{font-size:clamp(32px,5vw,60px);font-weight:800;line-height:1.1;letter-spacing:-.025em;color:var(--text);margin-bottom:16px}
+.page-title .hl{color:var(--accent)}
+.page-lead{font-size:18px;color:var(--text2);max-width:580px;line-height:1.7}
+
+/* QUICK INFO STRIP */
+.info-strip{background:var(--surf);border-bottom:1px solid var(--border)}
+.info-strip-inner{display:grid;grid-template-columns:repeat(4,1fr)}
+.info-cell{
+  padding:28px 24px;border-right:1px solid var(--border);
+  display:flex;align-items:center;gap:14px;
+  transition:background var(--ease);cursor:default;
+}
+.info-cell:last-child{border-right:none}
+.info-cell:hover{background:var(--surf2)}
+.info-cell-icon{
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
+  background:var(--accent-glow);border:1px solid var(--baccent);
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.info-cell-label{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.info-cell-val{font-size:14px;color:var(--text);font-weight:500}
+
+/* MAIN GRID */
+.contact-section{padding:80px 0}
+.main-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+
+/* FORM */
+.form-card{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:40px;
+  position:relative;overflow:hidden;
+}
+.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent)}
+.form-stack{display:flex;flex-direction:column;gap:16px}
+.form-row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:12px;font-weight:600;color:var(--text2);letter-spacing:.03em}
+.form-input,.form-ta,.form-sel{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:11px 14px;
+  font-size:14px;color:var(--text);font-family:var(--font);
+  transition:all var(--ease);outline:none;width:100%;
+}
+.form-input:focus,.form-ta:focus,.form-sel:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.form-input::placeholder,.form-ta::placeholder{color:var(--text3)}
+.form-ta{resize:vertical;min-height:120px}
+.form-sel option{background:var(--bg2);color:var(--text)}
+.char-count{font-size:11px;color:var(--text3);text-align:right;margin-top:2px}
+
+/* Submit button states */
+.submit-btn{width:100%;justify-content:center;position:relative;overflow:hidden}
+.submit-btn .spinner{
+  display:none;width:16px;height:16px;
+  border:2px solid rgba(8,15,30,.3);border-top-color:#080f1e;
+  border-radius:50%;animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.submit-btn.loading .btn-label{display:none}
+.submit-btn.loading .spinner{display:block}
+
+.form-ok{
+  display:none;
+  background:rgba(0,212,170,.08);border:1px solid var(--baccent);
+  border-radius:var(--radius-md);padding:20px;text-align:center;
+}
+.form-ok.show{display:block}
+.form-ok-icon{font-size:32px;margin-bottom:8px}
+.form-ok-title{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:4px}
+.form-ok-desc{font-size:13px;color:var(--text2)}
+
+/* Right column */
+.right-col{display:flex;flex-direction:column;gap:20px}
+
+/* Map */
+.map-card{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:var(--radius-lg);overflow:hidden;
+}
+.map-wrap{height:280px}
+#map{height:100%;width:100%}
+.map-footer{
+  padding:16px 20px;display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid var(--border);
+}
+.map-addr{font-size:13px;color:var(--text2)}
+.map-link{
+  font-size:12px;font-weight:600;color:var(--accent);
+  display:flex;align-items:center;gap:4px;white-space:nowrap;
+}
+.map-link:hover{text-decoration:underline}
+
+/* Contact details card */
+.details-card{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:28px;
+}
+.detail-row{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:14px 0;border-bottom:1px solid var(--border);
+}
+.detail-row:first-child{padding-top:0}
+.detail-row:last-child{border-bottom:none;padding-bottom:0}
+.detail-icon{
+  width:36px;height:36px;border-radius:9px;flex-shrink:0;
+  background:var(--accent-glow);border:1px solid var(--baccent);
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.detail-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.detail-val{font-size:14px;color:var(--text);font-weight:500}
+.detail-val a{color:var(--accent)}
+.detail-val a:hover{text-decoration:underline}
+.detail-sub{font-size:12px;color:var(--text3);margin-top:2px}
+
+/* Working hours */
+.hours-card{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:28px;
+}
+.hours-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hours-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.hours-row:last-child{border-bottom:none;padding-bottom:0}
+.hours-day{color:var(--text2)}
+.hours-time{color:var(--text);font-weight:500;font-family:var(--mono);font-size:12px}
+.hours-time.accent{color:var(--accent)}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;margin-right:6px;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* DEPARTMENTS */
+.dept-section{padding:0 0 80px}
+.dept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px}
+.dept-card{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:28px;
+  transition:all var(--ease);
+}
+.dept-card:hover{border-color:var(--baccent);transform:translateY(-3px);box-shadow:var(--shadow-a)}
+.dept-icon{font-size:24px;margin-bottom:14px}
+.dept-name{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px}
+.dept-desc{font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.55}
+.dept-email{font-size:13px;color:var(--accent);display:flex;align-items:center;gap:6px}
+.dept-email:hover{text-decoration:underline}
+
+/* FAQ */
+.faq-section{padding:0 0 80px;border-top:1px solid var(--border);padding-top:80px}
+.faq-list{display:flex;flex-direction:column;gap:8px;margin-top:48px;max-width:800px}
+.faq-item{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:var(--radius-md);overflow:hidden;transition:border-color var(--ease);
+}
+.faq-item.open{border-color:var(--baccent)}
+.faq-q{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 22px;cursor:pointer;gap:16px;
+}
+.faq-q-text{font-size:15px;font-weight:600;color:var(--text)}
+.faq-chevron{
+  width:24px;height:24px;border-radius:6px;border:1px solid var(--border);
+  background:var(--bg2);display:flex;align-items:center;justify-content:center;
+  font-size:12px;flex-shrink:0;transition:transform var(--ease);color:var(--text2);
+}
+.faq-item.open .faq-chevron{transform:rotate(180deg);border-color:var(--accent);color:var(--accent)}
+.faq-a{display:none;padding:0 22px 18px;font-size:14px;color:var(--text2);line-height:1.7}
+.faq-item.open .faq-a{display:block}
+
+/* FOOTER */
+.footer{background:var(--surf);border-top:1px solid var(--border);padding:56px 0 28px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px}
+.footer-brand p{font-size:13px;color:var(--text2);line-height:1.7;margin-top:14px;max-width:280px}
+.fc-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:14px;letter-spacing:.03em;text-transform:uppercase}
+.fc-links{list-style:none;display:flex;flex-direction:column;gap:9px}
+.fc-links a{font-size:13px;color:var(--text2);transition:color var(--ease)}
+.fc-links a:hover{color:var(--accent)}
+.footer-bottom{padding-top:28px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-bottom-txt{font-size:12px;color:var(--text3)}
+
+/* ANIMATIONS */
+.fade{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.fade.in{opacity:1;transform:translateY(0)}
+
+@media(max-width:1024px){
+  .info-strip-inner{grid-template-columns:repeat(2,1fr)}
+  .info-cell:nth-child(2){border-right:none}
+  .dept-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:768px){
+  .nav-links,.nav-actions .lang-sw{display:none}
+  .ham{display:flex}
+  .info-strip-inner{grid-template-columns:1fr 1fr}
+  .info-cell{padding:20px 16px}
+  .main-grid{grid-template-columns:1fr}
+  .form-row2{grid-template-columns:1fr}
+  .dept-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:24px}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .page-hero{padding:110px 0 52px}
+  .faq-list{max-width:100%}
+}
+@media(max-width:480px){
+  .info-strip-inner{grid-template-columns:1fr}
+  .info-cell{border-right:none;border-bottom:1px solid var(--border)}
+  .info-cell:last-child{border-bottom:none}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<!-- SEARCH -->
+<div class="srch-overlay" id="srchOverlay">
+  <div class="srch-box">
+    <div class="srch-top">
+      <span class="srch-ico"><img src="img/magnifier.png" alt="" style="width: auto; height: 20px;" class="search-icon"></span>
+      <input class="srch-input" id="srchInput" type="text" autocomplete="off"
+        placeholder="Поиск по сайту..."
+        oninput="doSearch(this.value)"
+        onkeydown="if(event.key==='Escape')closeSearch()">
+      <span class="srch-esc" onclick="closeSearch()">ESC</span>
+    </div>
+    <div class="srch-results" id="srchResults">
+      <div class="srch-empty" data-i18n="search_hint">Начните вводить запрос...</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-mark"><img src="img/ddc icon.svg" alt="" style="width: auto; height: 40px;" class="ddc-logo"></div>
+        <div class="logo-words">
+          <span class="logo-main" data-i18n="logo_main">Цифровой центр развития</span>
+          <span class="logo-sub" data-i18n="logo_sub">Национальный банк Республики Казахстан</span>
+          <span class="logo-main-mobile">ЦЦР</span>
+          <span class="logo-sub-mobile">Нацбанк РК</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html"    data-i18n="nav_home">Главная</a></li>
+        <li><a href="about.html"    data-i18n="nav_about">О компании</a></li>
+        <li><a href="services.html" data-i18n="nav_svc">Услуги</a></li>
+        <li><a href="mission.html"  data-i18n="nav_mission">Миссия</a></li>
+        <li><a href="contact.html"  data-i18n="nav_contact" class="nav-active">Контакты</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="icon-btn" onclick="openSearch()" aria-label="Поиск"><img src="img/magnifier.png" alt="" style="width: auto; height: 20px;" class="search-icon"></button>
+        <button class="icon-btn" onclick="toggleTheme()" id="themeBtn" aria-label="Тема"><img src="img/day-and-night.png" alt="" style="width: auto; height: 20px;" class="theme-icon"></button>
+        <div class="lang-sw">
+          <button class="lang-btn"        onclick="setLang('kz')" id="lb-kz">ҚАЗ</button>
+          <button class="lang-btn active" onclick="setLang('ru')" id="lb-ru">РУС</button>
+          <button class="lang-btn"        onclick="setLang('en')" id="lb-en">ENG</button>
+        </div>
+        <button class="ham" onclick="toggleMob()" aria-label="Меню"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html"    onclick="toggleMob()" data-i18n="nav_home">Главная</a>
+  <a href="about.html"    onclick="toggleMob()" data-i18n="nav_about">О компании</a>
+  <a href="services.html" onclick="toggleMob()" data-i18n="nav_svc">Услуги</a>
+  <a href="mission.html"  onclick="toggleMob()" data-i18n="nav_mission">Миссия</a>
+  <a href="contact.html"  onclick="toggleMob()" data-i18n="nav_contact">Контакты</a>
+  <div class="lang-sw" style="margin-top:14px;align-self:flex-start">
+    <button class="lang-btn"        onclick="setLang('kz')" id="mlb-kz">ҚАЗ</button>
+    <button class="lang-btn active" onclick="setLang('ru')" id="mlb-ru">РУС</button>
+    <button class="lang-btn"        onclick="setLang('en')" id="mlb-en">ENG</button>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="page-hero-inner">
+      <div class="breadcrumb">
+        <a href="index.html" data-i18n="nav_home">Главная</a>
+        <span>›</span>
+        <span data-i18n="nav_contact">Контакты</span>
+      </div>
+      <h1 class="page-title" data-i18n="ph_title">Свяжитесь <span class="hl">с нами</span></h1>
+      <p class="page-lead" data-i18n="ph_lead">Наша команда готова ответить на любой вопрос. Выберите удобный способ связи — мы ответим в течение одного рабочего дня.</p>
+    </div>
+  </div>
+</div>
+
+<!-- QUICK INFO STRIP -->
+<div class="info-strip">
+  <div class="container">
+    <div class="info-strip-inner">
+      <div class="info-cell">
+        <div class="info-cell-icon">📍</div>
+        <div>
+          <div class="info-cell-label" data-i18n="ic_addr_lbl">Адрес</div>
+          <div class="info-cell-val" data-i18n="ic_addr">пр-т. Мангилик Ел. 57, Астана 020000, Казахстан</div>
+        </div>
+      </div>
+      <div class="info-cell">
+        <div class="info-cell-icon">📞</div>
+        <div>
+          <div class="info-cell-label" data-i18n="ic_phone_lbl">Телефон</div>
+          <div class="info-cell-val"><a href="tel:+77272584958" style="color:inherit">+7 (727) 258-49-58</a></div>
+        </div>
+      </div>
+      <div class="info-cell">
+        <div class="info-cell-icon">✉️</div>
+        <div>
+          <div class="info-cell-label">Email</div>
+          <div class="info-cell-val"><a href="mailto:info@bsbnb.kz" style="color:var(--accent)">info@bsbnb.kz</a></div>
+        </div>
+      </div>
+      <div class="info-cell">
+        <div class="info-cell-icon">🕐</div>
+        <div>
+          <div class="info-cell-label" data-i18n="ic_hours_lbl">Режим работы</div>
+          <div class="info-cell-val"><span class="status-dot"></span><span data-i18n="ic_hours">Пн–Пт, 09:00–18:00</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTACT SECTION -->
+<section class="contact-section">
+  <div class="container">
+    <div class="main-grid">
+
+      <!-- FORM -->
+      <div class="form-card fade">
+        <div class="eyebrow" data-i18n="form_ey">Форма обратной связи</div>
+        <h2 class="section-title" style="font-size:clamp(22px,3vw,32px);margin-bottom:8px" data-i18n="form_title">Оставьте заявку</h2>
+        <p style="font-size:14px;color:var(--text2);margin-bottom:28px" data-i18n="form_sub">Заполните форму и мы свяжемся с вами в течение одного рабочего дня.</p>
+
+        <div class="form-stack" id="formStack">
+          <div class="form-row2">
+            <div class="form-group">
+              <label class="form-label" data-i18n="f_name">Ваше имя *</label>
+              <input class="form-input" id="fn" type="text" placeholder="Алибек Сейткали" autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="f_org">Организация</label>
+              <input class="form-input" id="fo" type="text" placeholder="АО «Компания»" autocomplete="organization">
+            </div>
+          </div>
+          <div class="form-row2">
+            <div class="form-group">
+              <label class="form-label">Email *</label>
+              <input class="form-input" id="fe" type="email" placeholder="email@company.kz" autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="f_phone">Телефон</label>
+              <input class="form-input" id="fp" type="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="f_svc">Интересующая услуга</label>
+            <select class="form-sel" id="fs">
+              <option value="" data-i18n="f_svc_def">Выберите услугу</option>
+              <option value="it"       data-i18n="s1t">Сопровождение ИТ-систем</option>
+              <option value="data"     data-i18n="s2t">Обработка данных</option>
+              <option value="zakup"    data-i18n="s3t">Портал госзакупок</option>
+              <option value="security" data-i18n="s4t">Информационная безопасность</option>
+              <option value="digital"  data-i18n="s5t">Цифровая трансформация</option>
+              <option value="consult"  data-i18n="s6t">Консультации и обучение</option>
+              <option value="other"    data-i18n="f_svc_other">Другое</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="f_msg">Сообщение *</label>
+            <textarea class="form-ta" id="fm" placeholder="Опишите ваш запрос..." maxlength="1000" oninput="updateChar(this)"></textarea>
+            <div class="char-count" id="charCount">0 / 1000</div>
+          </div>
+          <button class="btn btn-primary submit-btn" id="submitBtn" onclick="submitForm()">
+            <span class="btn-label" data-i18n="f_send">Отправить заявку</span>
+            <div class="spinner"></div>
+          </button>
+        </div>
+
+        <div class="form-ok" id="formOk">
+          <div class="form-ok-icon">✅</div>
+          <div class="form-ok-title" data-i18n="f_ok_title">Заявка успешно отправлена!</div>
+          <div class="form-ok-desc" data-i18n="f_ok_desc">Наш специалист свяжется с вами в течение одного рабочего дня. Ожидайте звонка или письма на указанный email.</div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="right-col">
+        <!-- Map -->
+        <div class="map-card fade" style="transition-delay:.12s">
+          <div class="map-wrap"><iframe id="map"
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2506.011769712716!2d71.423756!3d51.0897903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x424585b809c925b3%3A0x790839653ff04cde!2z0L_RgC3Rgi4g0JzQsNC90LPQuNC70LjQuiDQldC7LiA1Nywg0JDRgdGC0LDQvdCwIDAyMDAwMA!5e0!3m2!1sru!2skz!4v1782144125219!5m2!1sru!2skz"
+  width="100%"
+  height="450"
+  style="border:0;"
+  allowfullscreen=""
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade">
+</iframe>   </div>
+          <div class="map-footer">
+            <span class="map-addr" data-i18n="ic_addr">пр-т. Мангилик Ел. 57, Астана 020000, Казахстан</span>
+            <a class="map-link" href="https://go.2gis.com/iV8hp" target="_blank" rel="noopener">
+              <span data-i18n="map_open">Открыть в 2ГИС</span> ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Details -->
+        <div class="details-card fade" style="transition-delay:.18s">
+          <div class="detail-row">
+            <div class="detail-icon">📞</div>
+            <div>
+              <div class="detail-label" data-i18n="ic_phone_lbl">Телефон</div>
+              <div class="detail-val"><a href="tel:+77272584958">+7 (727) 258-49-58</a></div>
+              <div class="detail-sub" data-i18n="phone_sub">Многоканальный</div>
+            </div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-icon">✉️</div>
+            <div>
+              <div class="detail-label">Email</div>
+              <div class="detail-val"><a href="mailto:info@bsbnb.kz">info@bsbnb.kz</a></div>
+              <div class="detail-sub" data-i18n="email_sub">Общие вопросы</div>
+            </div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-icon">📍</div>
+            <div>
+              <div class="detail-label" data-i18n="ic_addr_lbl">Адрес</div>
+              <div class="detail-val" data-i18n="ic_addr">пр-т. Мангилик Ел. 57, Астана 020000, Казахстан</div>
+              <div class="detail-sub" data-i18n="addr_sub">Бизнес-центр, 3 этаж</div>
+            </div>
+          </div>
+          
+        </div>
+
+        <!-- Hours -->
+        <div class="hours-card fade" style="transition-delay:.24s">
+          <div class="hours-title">🕐 <span data-i18n="hours_title">Режим работы</span></div>
+          <div class="hours-row">
+            <span class="hours-day" data-i18n="h_mon_fri">Понедельник — Пятница</span>
+            <span class="hours-time accent">09:00 – 18:00</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day" data-i18n="h_sat">Суббота</span>
+            <span class="hours-time" data-i18n="h_closed">Выходной</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day" data-i18n="h_sun">Воскресенье</span>
+            <span class="hours-time" data-i18n="h_closed">Выходной</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day" data-i18n="h_support">Техподдержка</span>
+            <span class="hours-time accent">24 / 7 / 365</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPARTMENTS -->
+<section class="dept-section">
+  <div class="container">
+    <div class="fade">
+      <div class="eyebrow" data-i18n="dept_ey">Отделы</div>
+      <h2 class="section-title" data-i18n="dept_title">Свяжитесь напрямую</h2>
+      <p class="section-sub" data-i18n="dept_sub">Обратитесь в нужный отдел — это ускорит ответ.</p>
+    </div>
+    <div class="dept-grid">
+      <div class="dept-card fade">
+        <div class="dept-icon">🖥️</div>
+        <div class="dept-name" data-i18n="d1n">Техническая поддержка</div>
+        <div class="dept-desc" data-i18n="d1d">Инциденты, сбои, вопросы по работе ИТ-систем. Режим 24/7.</div>
+        <a class="dept-email" href="mailto:support@bsbnb.kz">✉ support@bsbnb.kz</a>
+      </div>
+      <div class="dept-card fade" style="transition-delay:.06s">
+        <div class="dept-icon">🤝</div>
+        <div class="dept-name" data-i18n="d2n">Отдел продаж</div>
+        <div class="dept-desc" data-i18n="d2d">Новые проекты, коммерческие предложения, подключение услуг.</div>
+        <a class="dept-email" href="mailto:sales@bsbnb.kz">✉ sales@bsbnb.kz</a>
+      </div>
+      <div class="dept-card fade" style="transition-delay:.12s">
+        <div class="dept-icon">🔐</div>
+        <div class="dept-name" data-i18n="d3n">Информационная безопасность</div>
+        <div class="dept-desc" data-i18n="d3d">Сообщить об уязвимости, вопросы по ИБ и соответствию стандартам.</div>
+        <a class="dept-email" href="mailto:security@bsbnb.kz">✉ security@bsbnb.kz</a>
+      </div>
+      <div class="dept-card fade" style="transition-delay:.18s">
+        <div class="dept-icon">📰</div>
+        <div class="dept-name" data-i18n="d4n">Пресс-служба</div>
+        <div class="dept-desc" data-i18n="d4d">Запросы СМИ, комментарии, партнёрство в сфере коммуникаций.</div>
+        <a class="dept-email" href="mailto:pr@bsbnb.kz">✉ pr@bsbnb.kz</a>
+      </div>
+      <div class="dept-card fade" style="transition-delay:.24s">
+        <div class="dept-icon">🧑‍💼</div>
+        <div class="dept-name" data-i18n="d5n">Отдел кадров</div>
+        <div class="dept-desc" data-i18n="d5d">Вакансии, стажировки, кадровые вопросы и карьерные возможности.</div>
+        <a class="dept-email" href="mailto:hr@bsbnb.kz">✉ hr@bsbnb.kz</a>
+      </div>
+      <div class="dept-card fade" style="transition-delay:.30s">
+        <div class="dept-icon">⚖️</div>
+        <div class="dept-name" data-i18n="d6n">Юридический отдел</div>
+        <div class="dept-desc" data-i18n="d6d">Договорные вопросы, тендеры, официальные запросы и документация.</div>
+        <a class="dept-email" href="mailto:legal@bsbnb.kz">✉ legal@bsbnb.kz</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="fade">
+      <div class="eyebrow" data-i18n="faq_ey">FAQ</div>
+      <h2 class="section-title" data-i18n="faq_title">Часто задаваемые вопросы</h2>
+      <p class="section-sub" data-i18n="faq_sub">Быстрые ответы на самые распространённые вопросы.</p>
+    </div>
+    <div class="faq-list fade" style="transition-delay:.1s">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text" data-i18n="faq1q">Как быстро вы отвечаете на заявки?</span>
+          <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-a" data-i18n="faq1a">На заявки через форму мы отвечаем в течение одного рабочего дня. Для критических инцидентов техническая поддержка доступна 24/7 — время реакции не более 15 минут согласно SLA.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text" data-i18n="faq2q">С какими организациями вы работаете?</span>
+          <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-a" data-i18n="faq2a">Мы работаем с государственными органами, банками второго уровня, министерствами и организациями квазигосударственного сектора. Основной фокус — финансовый сектор Казахстана.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text" data-i18n="faq3q">Как подать заявку на участие в тендере?</span>
+          <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-a" data-i18n="faq3a">Все закупки ЦЦР проводятся через единый портал государственных закупок goszakup.gov.kz. По вопросам тендеров обращайтесь в юридический отдел: legal@bsbnb.kz.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text" data-i18n="faq4q">Есть ли у вас вакансии?</span>
+          <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-a" data-i18n="faq4a">Да, мы регулярно набираем ИТ-специалистов. Отправьте резюме на hr@bsbnb.kz с указанием желаемой позиции, и наш отдел кадров рассмотрит вашу кандидатуру.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text" data-i18n="faq5q">Как сообщить об уязвимости в системах?</span>
+          <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-a" data-i18n="faq5a">Если вы обнаружили уязвимость, немедленно сообщите об этом по адресу security@bsbnb.kz. Мы рассматриваем все подобные сообщения конфиденциально и оперативно реагируем.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <div class="logo-mark"><img src="img/ddc icon.svg" alt="" style="width: auto; height: 40px;" class="ddc-logo"></div>
+          <div class="logo-words">
+            <span class="logo-main" data-i18n="logo_main">Цифровой центр развития</span>
+            <span class="logo-sub" data-i18n="logo_sub">Национальный банк Республики Казахстан</span>
+          </div>
+        </div>
+        <p data-i18n="ft_desc">Дочернее предприятие Национального банка Республики Казахстан. Надёжная ИТ-инфраструктура с 1995 года.</p>
+      </div>
+      <div>
+        <div class="fc-title" data-i18n="nav_svc">Услуги</div>
+        <ul class="fc-links">
+          <li><a href="services.html" data-i18n="s1t">Сопровождение ИТ-систем</a></li>
+          <li><a href="services.html" data-i18n="s3t">Портал госзакупок</a></li>
+          <li><a href="services.html" data-i18n="s4t">Информационная безопасность</a></li>
+          <li><a href="services.html" data-i18n="s5t">Цифровая трансформация</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="fc-title" data-i18n="nav_about">Компания</div>
+        <ul class="fc-links">
+          <li><a href="about.html"   data-i18n="nav_about">О компании</a></li>
+          <li><a href="mission.html" data-i18n="nav_mission">Миссия</a></li>
+          <li><a href="#"            data-i18n="ft_rep">Финансовая отчётность</a></li>
+          <li><a href="contact.html" data-i18n="nav_contact">Контакты</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="fc-title" data-i18n="ft_links">Ссылки</div>
+        <ul class="fc-links">
+          <li><a href="https://nationalbank.kz" target="_blank">Нацбанк РК</a></li>
+          <li><a href="https://goszakup.gov.kz" target="_blank" data-i18n="ft_zakup">Госзакупки РК</a></li>
+          <li><a href="mailto:info@bsbnb.kz">info@bsbnb.kz</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-txt">© 2025 АО «Цифровой центр развития» (ЦЦР). <span data-i18n="ft_rights">Все права защищены.</span></div>
+      <div class="footer-bottom-txt" data-i18n="ft_iso">Сертифицирован по ISO 9001</div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const T={
+  ru:{
+    logo_main:'Цифровой центр развития',logo_sub:'Национальный банк Республики Казахстан',
+    nav_home:'Главная',nav_about:'О компании',nav_svc:'Услуги',nav_mission:'Миссия',nav_contact:'Контакты',
+    ph_title:'Свяжитесь <span class="hl">с нами</span>',
+    ph_lead:'Наша команда готова ответить на любой вопрос. Выберите удобный способ связи — мы ответим в течение одного рабочего дня.',
+    ic_addr_lbl:'Адрес',ic_addr:'пр-т. Мангилик Ел. 57, Астана 020000, Казахстан',
+    ic_phone_lbl:'Телефон',ic_hours_lbl:'Режим работы',ic_hours:'Пн–Пт, 09:00–18:00',
+    form_ey:'Форма обратной связи',form_title:'Оставьте заявку',
+    form_sub:'Заполните форму и мы свяжемся с вами в течение одного рабочего дня.',
+    f_name:'Ваше имя *',f_org:'Организация',f_phone:'Телефон',
+    f_svc:'Интересующая услуга',f_svc_def:'Выберите услугу',f_svc_other:'Другое',
+    f_msg:'Сообщение *',f_send:'Отправить заявку',
+    f_ok_title:'Заявка успешно отправлена!',
+    f_ok_desc:'Наш специалист свяжется с вами в течение одного рабочего дня. Ожидайте звонка или письма на указанный email.',
+    map_open:'Открыть в 2ГИС',
+    phone_sub:'Многоканальный',email_sub:'Общие вопросы',addr_sub:'Бизнес-центр, 3 этаж',web_sub:'Официальный сайт',
+    hours_title:'Режим работы',
+    h_mon_fri:'Понедельник — Пятница',h_sat:'Суббота',h_sun:'Воскресенье',h_support:'Техподдержка',h_closed:'Выходной',
+    dept_ey:'Отделы',dept_title:'Свяжитесь напрямую',dept_sub:'Обратитесь в нужный отдел — это ускорит ответ.',
+    d1n:'Техническая поддержка',d1d:'Инциденты, сбои, вопросы по работе ИТ-систем. Режим 24/7.',
+    d2n:'Отдел продаж',d2d:'Новые проекты, коммерческие предложения, подключение услуг.',
+    d3n:'Информационная безопасность',d3d:'Сообщить об уязвимости, вопросы по ИБ и соответствию стандартам.',
+    d4n:'Пресс-служба',d4d:'Запросы СМИ, комментарии, партнёрство в сфере коммуникаций.',
+    d5n:'Отдел кадров',d5d:'Вакансии, стажировки, кадровые вопросы и карьерные возможности.',
+    d6n:'Юридический отдел',d6d:'Договорные вопросы, тендеры, официальные запросы и документация.',
+    faq_ey:'FAQ',faq_title:'Часто задаваемые вопросы',faq_sub:'Быстрые ответы на самые распространённые вопросы.',
+    faq1q:'Как быстро вы отвечаете на заявки?',faq1a:'На заявки через форму мы отвечаем в течение одного рабочего дня. Для критических инцидентов техподдержка доступна 24/7 — время реакции не более 15 минут по SLA.',
+    faq2q:'С какими организациями вы работаете?',faq2a:'Мы работаем с государственными органами, банками второго уровня, министерствами и организациями квазигосударственного сектора. Основной фокус — финансовый сектор Казахстана.',
+    faq3q:'Как подать заявку на участие в тендере?',faq3a:'Все закупки ЦЦР проводятся через единый портал государственных закупок goszakup.gov.kz. По вопросам тендеров: legal@bsbnb.kz.',
+    faq4q:'Есть ли у вас вакансии?',faq4a:'Да, мы регулярно набираем ИТ-специалистов. Отправьте резюме на hr@bsbnb.kz с указанием желаемой позиции.',
+    faq5q:'Как сообщить об уязвимости в системах?',faq5a:'Если вы обнаружили уязвимость, немедленно сообщите по адресу security@bsbnb.kz. Все сообщения рассматриваются конфиденциально.',
+    ft_desc:'Дочернее предприятие Национального банка Республики Казахстан. Надёжная ИТ-инфраструктура с 1995 года.',
+    ft_rep:'Финансовая отчётность',ft_links:'Ссылки',ft_zakup:'Госзакупки РК',ft_rights:'Все права защищены.',ft_iso:'Сертифицирован по ISO 9001',
+    s1t:'Сопровождение ИТ-систем',s3t:'Портал госзакупок',s4t:'Информационная безопасность',s5t:'Цифровая трансформация',
+    search_hint:'Начните вводить запрос...',
+    err_required:'Пожалуйста, заполните обязательные поля (имя, email, сообщение)',
+    err_email:'Введите корректный email адрес',
+  },
+  kz:{
+    logo_main:'Цифрлық даму орталығы',logo_sub:'Қазақстан Республикасының Ұлттық Банкі',
+    nav_home:'Басты бет',nav_about:'Компания туралы',nav_svc:'Қызметтер',nav_mission:'Миссия',nav_contact:'Байланыс',
+    ph_title:'<span class="hl">Бізбен</span> байланысыңыз',
+    ph_lead:'Командамыз кез келген сұраққа жауап беруге дайын. Ыңғайлы байланыс тәсілін таңдаңыз — бір жұмыс күні ішінде жауап береміз.',
+    ic_addr_lbl:'Мекенжай',ic_addr:'Мәңгілік Ел даңғылы. 57, Астана 020000, Қазақстан',
+    ic_phone_lbl:'Телефон',ic_hours_lbl:'Жұмыс режимі',ic_hours:'Дс–Жм, 09:00–18:00',
+    form_ey:'Кері байланыс нысаны',form_title:'Өтінім қалдырыңыз',
+    form_sub:'Нысанды толтырыңыз, бір жұмыс күні ішінде хабарласамыз.',
+    f_name:'Сіздің атыңыз *',f_org:'Ұйым',f_phone:'Телефон',
+    f_svc:'Қызығушылық туғызатын қызмет',f_svc_def:'Қызметті таңдаңыз',f_svc_other:'Басқа',
+    f_msg:'Хабарлама *',f_send:'Өтінім жіберу',
+    f_ok_title:'Өтінім сәтті жіберілді!',
+    f_ok_desc:'Маманымыз бір жұмыс күні ішінде сізбен байланысады. Көрсетілген email-ге хат немесе қоңырау күтіңіз.',
+    map_open:'2ГИС-те ашу',
+    phone_sub:'Көпарналы',email_sub:'Жалпы сұрақтар',addr_sub:'Бизнес-орталық, 3 қабат',web_sub:'Ресми сайт',
+    hours_title:'Жұмыс режимі',
+    h_mon_fri:'Дүйсенбі — Жұма',h_sat:'Сенбі',h_sun:'Жексенбі',h_support:'Техқолдау',h_closed:'Демалыс',
+    dept_ey:'Бөлімдер',dept_title:'Тікелей хабарласыңыз',dept_sub:'Қажетті бөлімге жүгініңіз — бұл жауапты жылдамдатады.',
+    d1n:'Техникалық қолдау',d1d:'Инциденттер, бұзылулар, ЖТ-жүйелерінің жұмысы бойынша сұрақтар. 24/7 режимі.',
+    d2n:'Сату бөлімі',d2d:'Жаңа жобалар, коммерциялық ұсыныстар, қызметтерді қосу.',
+    d3n:'Ақпараттық қауіпсіздік',d3d:'Осалдық туралы хабарлау, ақпараттық қауіпсіздік бойынша сұрақтар.',
+    d4n:'Баспасөз қызметі',d4d:'БАҚ сұраныстары, түсіндірмелер, коммуникация саласындағы серіктестік.',
+    d5n:'Кадрлар бөлімі',d5d:'Бос орындар, тағылымдамалар, кадрлық сұрақтар және мансаптық мүмкіндіктер.',
+    d6n:'Заң бөлімі',d6d:'Шарттық мәселелер, тендерлер, ресми сұраныстар және құжаттама.',
+    faq_ey:'FAQ',faq_title:'Жиі қойылатын сұрақтар',faq_sub:'Ең жиі кездесетін сұрақтарға жылдам жауаптар.',
+    faq1q:'Өтінімдерге қаншалықты жылдам жауап бересіңдер?',faq1a:'Нысан арқылы келген өтінімдерге бір жұмыс күні ішінде жауап береміз. Критикалық инциденттер үшін техқолдау 24/7 қолжетімді — SLA бойынша реакция уақыты 15 минуттан аспайды.',
+    faq2q:'Қандай ұйымдармен жұмыс істейсіздер?',faq2a:'Мемлекеттік органдармен, екінші деңгейлі банктермен, министрліктермен және квазимемлекеттік сектор ұйымдарымен жұмыс істейміз.',
+    faq3q:'Тендерге қатысуға қалай өтінім беруге болады?',faq3a:'ЦДО-ның барлық сатып алулары goszakup.gov.kz бірыңғай мемлекеттік сатып алулар порталы арқылы жүргізіледі. Тендер мәселелері бойынша: legal@bsbnb.kz.',
+    faq4q:'Сізде бос жұмыс орындары бар ма?',faq4a:'Иә, біз тұрақты түрде ЖТ-мамандарын іріктейміз. Резюмеңізді hr@bsbnb.kz мекенжайына тілек лауазымын көрсетіп жіберіңіз.',
+    faq5q:'Жүйелердегі осалдық туралы қалай хабарлауға болады?',faq5a:'Осалдықты анықтасаңыз, бірден security@bsbnb.kz мекенжайына хабарлаңыз. Барлық хабарламалар құпия түрде қаралады.',
+    ft_desc:'Қазақстан Республикасы Ұлттық банкінің еншілес кәсіпорны. 1995 жылдан бері сенімді ЖТ-инфрақұрылым.',
+    ft_rep:'Қаржылық есептілік',ft_links:'Сілтемелер',ft_zakup:'ҚР мемлекеттік сатып алулары',ft_rights:'Барлық құқықтар қорғалған.',ft_iso:'ISO 9001 бойынша сертификатталған',
+    s1t:'ЖТ-жүйелерді сүйемелдеу',s3t:'Мемлекеттік сатып алулар порталы',s4t:'Ақпараттық қауіпсіздік',s5t:'Цифрлық трансформация',
+    search_hint:'Сұрауды теруді бастаңыз...',
+    err_required:'Міндетті өрістерді толтырыңыз (аты, email, хабарлама)',
+    err_email:'Дұрыс email мекенжайын енгізіңіз',
+  },
+  en:{
+    logo_main:'Digital Development Centre',logo_sub:'National Bank of the Republic of Kazakhstan',
+    nav_home:'Home',nav_about:'About',nav_svc:'Services',nav_mission:'Mission',nav_contact:'Contact',
+    ph_title:'Get in <span class="hl">Touch</span>',
+    ph_lead:'Our team is ready to answer any question. Choose a convenient way to contact us — we will respond within one business day.',
+    ic_addr_lbl:'Address',ic_addr:'Ave. Mangilik El. 57, Astana 020000, Kazakhstan',
+    ic_phone_lbl:'Phone',ic_hours_lbl:'Working Hours',ic_hours:'Mon–Fri, 09:00–18:00',
+    form_ey:'Contact Form',form_title:'Send a Request',
+    form_sub:'Fill in the form and we will get back to you within one business day.',
+    f_name:'Your Name *',f_org:'Organisation',f_phone:'Phone',
+    f_svc:'Service of Interest',f_svc_def:'Select a service',f_svc_other:'Other',
+    f_msg:'Message *',f_send:'Send Request',
+    f_ok_title:'Request Successfully Sent!',
+    f_ok_desc:'Our specialist will contact you within one business day. Expect a call or email to the address provided.',
+    map_open:'Open in Google Maps',
+    phone_sub:'Multi-line',email_sub:'General enquiries',addr_sub:'Business Centre, 3rd floor',web_sub:'Official website',
+    hours_title:'Working Hours',
+    h_mon_fri:'Monday — Friday',h_sat:'Saturday',h_sun:'Sunday',h_support:'Technical Support',h_closed:'Closed',
+    dept_ey:'Departments',dept_title:'Contact Directly',dept_sub:'Reach the right department to get a faster response.',
+    d1n:'Technical Support',d1d:'Incidents, outages, questions about IT system operations. Available 24/7.',
+    d2n:'Sales Department',d2d:'New projects, commercial proposals, service onboarding.',
+    d3n:'Information Security',d3d:'Report a vulnerability, information security and compliance questions.',
+    d4n:'Press Office',d4d:'Media requests, comments, communications partnership.',
+    d5n:'HR Department',d5d:'Vacancies, internships, HR questions and career opportunities.',
+    d6n:'Legal Department',d6d:'Contractual matters, tenders, official requests and documentation.',
+    faq_ey:'FAQ',faq_title:'Frequently Asked Questions',faq_sub:'Quick answers to the most common questions.',
+    faq1q:'How quickly do you respond to requests?',faq1a:'We respond to form submissions within one business day. For critical incidents, technical support is available 24/7 — response time no more than 15 minutes per SLA.',
+    faq2q:'What organisations do you work with?',faq2a:'We work with government agencies, second-tier banks, ministries and quasi-governmental organisations. Our main focus is Kazakhstan\'s financial sector.',
+    faq3q:'How do I submit a tender application?',faq3a:'All DDC procurement is conducted through the unified public procurement portal goszakup.gov.kz. For tender questions: legal@bsbnb.kz.',
+    faq4q:'Do you have vacancies?',faq4a:'Yes, we regularly recruit IT specialists. Send your CV to hr@bsbnb.kz indicating the desired position.',
+    faq5q:'How do I report a vulnerability?',faq5a:'If you have discovered a vulnerability, report it immediately to security@bsbnb.kz. All reports are treated confidentially.',
+    ft_desc:'Subsidiary of the National Bank of the Republic of Kazakhstan. Reliable IT infrastructure since 1995.',
+    ft_rep:'Financial Reports',ft_links:'Links',ft_zakup:'Public Procurement RK',ft_rights:'All rights reserved.',ft_iso:'ISO 9001 Certified',
+    s1t:'IT Systems Maintenance',s3t:'Public Procurement Portal',s4t:'Information Security',s5t:'Digital Transformation',
+    search_hint:'Start typing to search...',
+    err_required:'Please fill in required fields (name, email, message)',
+    err_email:'Please enter a valid email address',
+  }
+};
+
+let lang='ru',dark=true;
+
+function setLang(l){
+  lang=l;document.documentElement.lang=l==='kz'?'kk':l;
+  ['ru','kz','en'].forEach(x=>{['lb-','mlb-'].forEach(p=>{const b=document.getElementById(p+x);if(b)b.classList.toggle('active',x===l)})});
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(T[l][k]!==undefined)el.innerHTML=T[l][k]});
+  const si=document.getElementById('srchInput');if(si)si.placeholder=T[l].search_hint||'';
+}
+function toggleTheme(){
+  dark=!dark;
+  document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+  if(window._map){
+    // swap tile layer
+    window._map.eachLayer(l=>{if(l._url)window._map.removeLayer(l)});
+    const url=dark
+      ?'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+      :'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+    L.tileLayer(url,{attribution:'© OpenStreetMap © CARTO',subdomains:'abcd',maxZoom:19}).addTo(window._map);
+  }
+}
+function toggleMob(){document.getElementById('mobMenu').classList.toggle('open')}
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',scrollY>20)});
+
+const fadeObs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')})},{threshold:0.08});
+document.querySelectorAll('.fade').forEach(el=>fadeObs.observe(el));
+
+/* CHAR COUNT */
+function updateChar(el){document.getElementById('charCount').textContent=`${el.value.length} / 1000`}
+
+/* FORM */
+function submitForm(){
+  const n=document.getElementById('fn').value.trim();
+  const e=document.getElementById('fe').value.trim();
+  const m=document.getElementById('fm').value.trim();
+  const L=T[lang];
+  if(!n||!e||!m){alert(L.err_required);return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){alert(L.err_email);return}
+  const btn=document.getElementById('submitBtn');
+  btn.classList.add('loading');btn.disabled=true;
+  setTimeout(()=>{
+    document.getElementById('formStack').style.display='none';
+    document.getElementById('formOk').classList.add('show');
+  },1200);
+}
+
+/* FAQ */
+function toggleFaq(el){
+  const item=el.parentElement;
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+
+/* SEARCH */
+function openSearch(){document.getElementById('srchOverlay').classList.add('open');setTimeout(()=>document.getElementById('srchInput').focus(),80)}
+function closeSearch(){document.getElementById('srchOverlay').classList.remove('open');document.getElementById('srchInput').value='';document.getElementById('srchResults').innerHTML=`<div class="srch-empty">${T[lang].search_hint}</div>`}
+function doSearch(q){
+  const res=document.getElementById('srchResults');
+  if(!q.trim()){res.innerHTML=`<div class="srch-empty">${T[lang].search_hint}</div>`;return}
+  const lq=q.toLowerCase(),L=T[lang];
+  const items=[
+    {s:L.nav_contact,t:L.ph_title||'',d:L.ph_lead,a:'contact.html'},
+    {s:L.nav_contact,t:L.dept_title,d:L.d1n,a:'contact.html'},
+    {s:L.nav_contact,t:L.faq_title,d:L.faq1q,a:'contact.html'},
+    {s:L.nav_about,t:L.nav_about,d:'',a:'about.html'},
+    {s:L.nav_svc,t:L.s1t,d:'',a:'services.html'},
+    {s:L.nav_mission,t:L.nav_mission,d:'',a:'mission.html'},
+  ];
+  const hits=items.filter(i=>(i.t+i.d).toLowerCase().replace(/<[^>]+>/g,'').includes(lq));
+  if(!hits.length){res.innerHTML=`<div class="srch-empty">${lang==='en'?'Nothing found':lang==='kz'?'Ештеңе табылмады':'Ничего не найдено'}</div>`;return}
+  res.innerHTML=hits.map(i=>`<div class="srch-item" onclick="window.location='${i.a}'"><div class="srch-sect">${i.s}</div><div class="srch-title">${i.t.replace(/<[^>]+>/g,'')}</div>${i.d?`<div class="srch-snip">${i.d.replace(/<[^>]+>/g,'').slice(0,90)}...</div>`:''}</div>`).join('');
+}
+document.getElementById('srchOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeSearch()});
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch()}});
+
+/* MAP */
+window.addEventListener('load',()=>{
+  const map=L.map('map',{center:[43.236,76.929],zoom:15,scrollWheelZoom:false,zoomControl:true});
+  window._map=map;
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+    {attribution:'© OpenStreetMap © CARTO',subdomains:'abcd',maxZoom:19}).addTo(map);
+  const icon=L.divIcon({
+    html:`<div style="width:32px;height:32px;background:#00D4AA;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:3px solid #090f1e;box-shadow:0 0 0 5px rgba(0,212,170,.2)"></div>`,
+    iconSize:[32,32],iconAnchor:[16,32],className:''
+  });
+  L.marker([43.236,76.929],{icon}).addTo(map)
+   .bindPopup('<b>ЦЦР / DDC</b><br>ул. Сатпаева, 90А').openPopup();
+});
+</script>
+</body>
+</html>
