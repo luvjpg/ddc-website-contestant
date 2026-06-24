@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>О компании — ЦЦР</title>
+<script>(function(){var t=localStorage.getItem('ddc-theme');if(t)document.documentElement.setAttribute('data-theme',t);})()</script>
+
 <meta name="description" content="О компании АО «Цифровой центр развития» — история, команда, миссия и ценности">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,7 +50,12 @@
 }
 
 /* ======================== RESET ======================== */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0; -webkit-tap-highlight-color: transparent;
+  outline: none;}
+  .btn, .nav-links, .filter-btn, .lang-btn,
+.svc-card, .partner-logo, .ham, .logo-mark {
+  user-select: none;
+}
 html{scroll-behavior:smooth}
 body{font-family:var(--font);background:var(--bg);color:var(--text);transition:background var(--ease),color var(--ease);overflow-x:hidden;line-height:1.6}
 a{color:inherit;text-decoration:none}
@@ -76,8 +83,12 @@ button{font-family:var(--font);cursor:pointer}
 .logo-words{display:flex;flex-direction:column;line-height:1.15}
 .logo-main{font-size:15px;font-weight:700;color:var(--text)}
 
+.logo-main-footer{font-size:15px;font-weight:700;color:var(--text)}
+.logo-sub-footer{font-size:10px;color:var(--text3);font-weight:400}
+
 .logo-main-mobile{font-size:15px;font-weight:700;color:var(--text); display: none;}
 .logo-sub-mobile{font-size:10px;color:var(--text3);font-weight:400; display: none;}
+
 
 @media (max-width: 768px) {
     .logo-main, .logo-sub {
@@ -317,8 +328,8 @@ button{font-family:var(--font);cursor:pointer}
         <div class="logo-words">
           <span class="logo-main" data-i18n="logo_main">Цифровой центр развития</span>
           <span class="logo-sub" data-i18n="logo_sub">Национальный банк Республики Казахстан</span>
-          <span class="logo-main-mobile">ЦЦР</span>
-          <span class="logo-sub-mobile">Нацбанк РК</span>
+          <span class="logo-main-mobile" data-i18n="logo_main_mobile">ЦЦР</span>
+          <span class="logo-sub-mobile" data-i18n="logo_sub_mobile">Нацбанк РК</span>
         </div>
       </a>
       <ul class="nav-links">
@@ -594,8 +605,8 @@ button{font-family:var(--font);cursor:pointer}
         <div class="nav-logo">
           <div class="logo-mark"><img src="img/ddc icon.svg" alt="" style="width: auto; height: 40px;" class="ddc-logo"></div>
           <div class="logo-words">
-            <span class="logo-main" data-i18n="logo_main">Цифровой центр развития</span>
-            <span class="logo-sub" data-i18n="logo_sub">Национальный банк Республики Казахстан</span>
+            <span class="logo-main-footer" data-i18n="logo_main">Цифровой центр развития</span>
+            <span class="logo-sub-footer" data-i18n="logo_sub">Национальный банк Республики Казахстан</span>
           </div>
         </div>
         <p data-i18n="ft_desc">Дочернее предприятие Национального банка Республики Казахстан. Надёжная ИТ-инфраструктура с 1995 года.</p>
@@ -639,6 +650,7 @@ button{font-family:var(--font);cursor:pointer}
 const T = {
   ru:{
     logo_main:'Цифровой центр развития',logo_sub:'Национальный банк Республики Казахстан',
+    logo_main_mobile:'ЦЦР', logo_sub_mobile:'Нацбанк РК',
     nav_home:'Главная', nav_about:'О компании', nav_svc:'Услуги', nav_mission:'Миссия', nav_contact:'Контакты',
     ph_title:'О компании <span class="hl">ЦЦР</span>',
     ph_lead:'30 лет надёжности, инноваций и цифрового развития в сердце финансовой системы Казахстана.',
@@ -684,6 +696,7 @@ const T = {
   },
   kz:{
     logo_main:'Цифрлық даму орталығы',logo_sub:'Қазақстан Республикасының Ұлттық Банкі',
+    logo_main_mobile:'ЦДО', logo_sub_mobile:'ҚР Ұлттық Банкі',
     nav_home:'Басты бет', nav_about:'Компания туралы', nav_svc:'Қызметтер', nav_mission:'Миссия', nav_contact:'Байланыс',
     ph_title:'«ЦДО» компаниясы туралы <span class="hl">ЦДО</span>',
     ph_lead:'Қазақстан қаржы жүйесінің жүрегінде 30 жыл сенімділік, инновация және цифрлық даму.',
@@ -729,6 +742,7 @@ const T = {
   },
   en:{
     logo_main:'Digital Development Centre',logo_sub:'National Bank of the Republic of Kazakhstan',
+    logo_main_mobile:'DDC', logo_sub_mobile:'National Bank of RK',
     nav_home:'Home', nav_about:'About', nav_svc:'Services', nav_mission:'Mission', nav_contact:'Contact',
     ph_title:'About <span class="hl">DDC</span>',
     ph_lead:'30 years of reliability, innovation and digital progress at the heart of Kazakhstan\'s financial system.',
@@ -774,10 +788,12 @@ const T = {
   }
 };
 
-let lang='ru', dark=true;
+let lang = localStorage.getItem('ddc-lang') || 'ru';
+let dark = localStorage.getItem('ddc-theme') !== 'light';
 
 function setLang(l){
   lang=l;
+  localStorage.setItem('ddc-lang', l);
   document.documentElement.lang=l==='kz'?'kk':l;
   ['ru','kz','en'].forEach(x=>{
     ['lb-','mlb-'].forEach(p=>{const b=document.getElementById(p+x);if(b)b.classList.toggle('active',x===l);});
@@ -793,6 +809,7 @@ function setLang(l){
 function toggleTheme(){
   dark=!dark;
   document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+  localStorage.setItem('ddc-theme', dark ? 'dark' : 'light');
 }
 
 function toggleMob(){document.getElementById('mobMenu').classList.toggle('open')}
@@ -858,6 +875,9 @@ function doSearch(q){
 }
 document.getElementById('srchOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeSearch();});
 document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch();}});
+
+// Применить сохранённые настройки при загрузке
+setLang(lang);
 </script>
 </body>
 </html>
