@@ -115,7 +115,7 @@ section{padding:96px 0}
   font-size:clamp(26px,3.8vw,46px);font-weight:800;
   line-height:1.12;letter-spacing:-.02em;color:var(--text);margin-bottom:14px;
 }
-.section-sub{font-size:17px;color:var(--text2);max-width:580px;line-height:1.7; margin-bottom: 30px;}
+.section-sub{font-size:17px;color:var(--text2);max-width:580px;line-height:1.7}
 
 /* ========================
    BUTTONS
@@ -156,9 +156,6 @@ section{padding:96px 0}
 .logo-words{display:flex;flex-direction:column;line-height:1.15}
 .logo-main{font-size:15px;font-weight:700;color:var(--text)}
 .logo-sub{font-size:10px;color:var(--text3);font-weight:400}
-
-.logo-main-footer{font-size:15px;font-weight:700;color:var(--text)}
-.logo-sub-footer{font-size:10px;color:var(--text3);font-weight:400}
 
 .logo-main-mobile{font-size:15px;font-weight:700;color:var(--text); display: none;}
 .logo-sub-mobile{font-size:10px;color:var(--text3);font-weight:400; display: none;}
@@ -609,7 +606,7 @@ section{padding:96px 0}
       <p class="hero-desc" data-i18n="hero_desc">АО «Цифровой центр развития» — ИТ-компания с 30-летней историей, обеспечивающая надёжную работу государственных финансовых систем и порталов Республики Казахстан.</p>
       <div class="hero-actions">
         <a href="#services" class="btn btn-primary"><span data-i18n="hero_cta1">Наши услуги</span> →</a>
-        <a href="contact.html"  class="btn btn-outline"><span data-i18n="hero_cta2">Связаться</span></a>
+        <a href="#contact"  class="btn btn-outline"><span data-i18n="hero_cta2">Связаться</span></a>
       </div>
     </div>
   </div>
@@ -642,6 +639,57 @@ section{padding:96px 0}
   </div>
 </div>
 
+<!-- ======== SERVICES ======== -->
+<section id="services">
+  <div class="container">
+    <div class="fade">
+      <div class="eyebrow" data-i18n="svc_eyebrow">Что мы делаем</div>
+      <h2 class="section-title" data-i18n="svc_title">Услуги и решения</h2>
+      <p class="section-sub" data-i18n="svc_sub">Комплексная ИТ-поддержка финансовой инфраструктуры — от разработки до сопровождения.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card fade"><div class="svc-icon">🖥️</div><div class="svc-title" data-i18n="s1t">Сопровождение ИТ-систем</div><div class="svc-desc" data-i18n="s1d">Техническая поддержка и администрирование государственных информационных систем 24/7 с гарантией SLA.</div></div>
+      <div class="svc-card fade" style="transition-delay:.06s"><div class="svc-icon">📊</div><div class="svc-title" data-i18n="s2t">Обработка данных</div><div class="svc-desc" data-i18n="s2d">Профессиональная обработка, хранение и управление большими объёмами финансовой и государственной информации.</div></div>
+      <div class="svc-card fade" style="transition-delay:.12s"><div class="svc-icon">🏛️</div><div class="svc-title" data-i18n="s3t">Портал госзакупок</div><div class="svc-desc" data-i18n="s3d">Оператор единого портала государственных закупок РК. Обеспечение прозрачности тендерных процедур.</div></div>
+      <div class="svc-card fade" style="transition-delay:.18s"><div class="svc-icon">🔐</div><div class="svc-title" data-i18n="s4t">Информационная безопасность</div><div class="svc-desc" data-i18n="s4d">Защита критической финансовой инфраструктуры, аудит безопасности, внедрение стандартов ISO 27001.</div></div>
+      <div class="svc-card fade" style="transition-delay:.24s"><div class="svc-icon">🚀</div><div class="svc-title" data-i18n="s5t">Цифровая трансформация</div><div class="svc-desc" data-i18n="s5d">Помощь государственным органам в переходе к цифровым процессам, внедрение современных платформ.</div></div>
+      <div class="svc-card fade" style="transition-delay:.30s"><div class="svc-icon">🎓</div><div class="svc-title" data-i18n="s6t">Консультации и обучение</div><div class="svc-desc" data-i18n="s6d">Экспертные консультации в области ИТ-архитектуры и подготовка специалистов для государственных систем.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== ABOUT ======== -->
+<div class="about-wrap">
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="fade">
+          <div class="eyebrow" data-i18n="about_eyebrow">О компании</div>
+          <h2 class="section-title" data-i18n="about_title">30 лет в сердце финансовой системы</h2>
+          <p class="section-sub" data-i18n="about_d1">ЦЦР — дочернее предприятие Национального банка РК, основанное в 1995 году. Мы обеспечиваем бесперебойную работу ключевых государственных сервисов.</p>
+          <br>
+          <p class="section-sub" data-i18n="about_d2">Сертифицированы по ISO 9001. Работаем с банками второго уровня, министерствами и государственными органами по всей стране.</p>
+          <br>
+          <a href="#contact" class="btn btn-primary" style="margin-top:8px;display:inline-flex">
+            <span data-i18n="about_cta">Узнать больше</span> →
+          </a>
+        </div>
+        <div class="fade" style="transition-delay:.18s">
+          <div class="about-card">
+            <div class="eyebrow" data-i18n="tl_ey">История</div>
+            <ul class="timeline">
+              <li class="tl-item"><span class="tl-year">1995</span><span class="tl-text" data-i18n="tl1">Основание компании как Банковского сервисного бюро НБК</span></li>
+              <li class="tl-item"><span class="tl-year">2003</span><span class="tl-text" data-i18n="tl2">Сертификация системы менеджмента качества ISO 9001</span></li>
+              <li class="tl-item"><span class="tl-year">2010</span><span class="tl-text" data-i18n="tl3">Запуск единого портала государственных закупок РК</span></li>
+              <li class="tl-item"><span class="tl-year">2019</span><span class="tl-text" data-i18n="tl4">Информационная система контроля подакцизных товаров</span></li>
+              <li class="tl-item"><span class="tl-year">2024</span><span class="tl-text" data-i18n="tl5">Ребрендинг в АО «Цифровой центр развития» (ЦЦР)</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 
 <!-- ======== NEWS ======== -->
 <section id="news">
@@ -680,70 +728,84 @@ section{padding:96px 0}
   </div>
 </section>
 
-
-<!-- ======== ABOUT ======== -->
-<div class="about-wrap">
-  <section id="about">
+<!-- ======== CONTACT ======== -->
+<div class="contact-wrap">
+  <section id="contact">
     <div class="container">
-      <div class="about-grid">
-        <div class="fade">
-          <div class="eyebrow" data-i18n="about_eyebrow">О компании</div>
-          <h2 class="section-title" data-i18n="about_title">30 лет в сердце финансовой системы</h2>
-          <p class="section-sub" data-i18n="about_d1">ЦЦР — дочернее предприятие Национального банка РК, основанное в 1995 году. Мы обеспечиваем бесперебойную работу ключевых государственных сервисов.</p>
-          <br>
-          <p class="section-sub" data-i18n="about_d2">Сертифицированы по ISO 9001. Работаем с банками второго уровня, министерствами и государственными органами по всей стране.</p>
-          <br>
-          <a href="about.html" class="btn btn-primary" style="margin-top:8px;display:inline-flex">
-            <span data-i18n="about_cta">Узнать больше</span> →
-          </a>
+      <div class="fade">
+        <div class="eyebrow" data-i18n="ct_ey">Свяжитесь с нами</div>
+        <h2 class="section-title" data-i18n="ct_title">Мы готовы помочь</h2>
+        <p class="section-sub" data-i18n="ct_sub">Оставьте заявку и наш специалист свяжется с вами в течение одного рабочего дня.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="form-stack fade">
+          <div class="form-row2">
+            <div class="form-group">
+              <label class="form-label" data-i18n="f_name">Ваше имя</label>
+              <input class="form-input" id="fn" type="text" placeholder="Алибек Сейткали">
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="f_org">Организация</label>
+              <input class="form-input" id="fo" type="text" placeholder="АО «Компания»">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" id="fe" type="email" placeholder="email@company.kz">
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="f_svc">Интересующая услуга</label>
+            <select class="form-sel" id="fs">
+              <option data-i18n="f_svc_def">Выберите услугу</option>
+              <option data-i18n="s1t">Сопровождение ИТ-систем</option>
+              <option data-i18n="s2t">Обработка данных</option>
+              <option data-i18n="s3t">Портал госзакупок</option>
+              <option data-i18n="s4t">Информационная безопасность</option>
+              <option data-i18n="s5t">Цифровая трансформация</option>
+              <option data-i18n="s6t">Консультации и обучение</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="f_msg">Сообщение</label>
+            <textarea class="form-ta" id="fm" placeholder="Опишите ваш запрос..."></textarea>
+          </div>
+          <button class="btn btn-primary" id="submitBtn" onclick="submitForm()" style="width:100%;justify-content:center">
+            <span data-i18n="f_send">Отправить заявку</span>
+          </button>
+          <div class="form-ok" id="formOk">✓ <span data-i18n="f_ok">Заявка отправлена! Свяжемся в течение рабочего дня.</span></div>
         </div>
+
         <div class="fade" style="transition-delay:.18s">
-          <div class="about-card">
-            <div class="eyebrow" data-i18n="tl_ey">История</div>
-            <ul class="timeline">
-              <li class="tl-item"><span class="tl-year">1995</span><span class="tl-text" data-i18n="tl1">Основание компании как Банковского сервисного бюро НБК</span></li>
-              <li class="tl-item"><span class="tl-year">2003</span><span class="tl-text" data-i18n="tl2">Сертификация системы менеджмента качества ISO 9001</span></li>
-              <li class="tl-item"><span class="tl-year">2010</span><span class="tl-text" data-i18n="tl3">Запуск единого портала государственных закупок РК</span></li>
-              <li class="tl-item"><span class="tl-year">2019</span><span class="tl-text" data-i18n="tl4">Информационная система контроля подакцизных товаров</span></li>
-              <li class="tl-item"><span class="tl-year">2024</span><span class="tl-text" data-i18n="tl5">Ребрендинг в АО «Цифровой центр развития» (ЦЦР)</span></li>
-            </ul>
+          <div class="map-wrap">
+            <iframe 
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2506.011769712716!2d71.423756!3d51.0897903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x424585b809c925b3%3A0x790839653ff04cde!2z0L_RgC3Rgi4g0JzQsNC90LPQuNC70LjQuiDQldC7LiA1Nywg0JDRgdGC0LDQvdCwIDAyMDAwMA!5e0!3m2!1sru!2skz!4v1782144125219!5m2!1sru!2skz"
+  width="100%"
+  height="450"
+  style="border:0;"
+  allowfullscreen=""
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+          </div>
+          <div class="contact-info">
+            <div class="contact-row">
+              <span class="contact-icon">📍</span>
+              <div><div class="contact-detail-label" data-i18n="c_addr_lbl">Адрес</div><div class="contact-detail-val" data-i18n="c_addr">пр-т. Мангилик Ел. 57, Астана 020000, Казахстан</div></div>
+            </div>
+            <div class="contact-row">
+              <span class="contact-icon">📞</span>
+              <div><div class="contact-detail-label" data-i18n="c_phone_lbl">Телефон</div><div class="contact-detail-val">+7 (727) 258-49-58</div></div>
+            </div>
+            <div class="contact-row">
+              <span class="contact-icon">✉️</span>
+              <div><div class="contact-detail-label">Email</div><div class="contact-detail-val" style="color:var(--accent)">info@bsbnb.kz</div></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 </div>
-
-
-
-<!-- ======== SERVICES ======== -->
-<section id="services">
-  <div class="container">
-    <div class="fade">
-      <div class="eyebrow" data-i18n="svc_eyebrow">Что мы делаем</div>
-      <h2 class="section-title" data-i18n="svc_title">Услуги и решения</h2>
-      <p class="section-sub" data-i18n="svc_sub">Комплексная ИТ-поддержка финансовой инфраструктуры — от разработки до сопровождения.</p>
-    </div>
-    <a href="services.html" class="btn btn-primary" style="margin-top:8px;display:inline-flex">
-            <span data-i18n="about_cta">Узнать больше</span> →
-          </a>
-    <div class="services-grid">
-      <div class="svc-card fade"><div class="svc-icon">🖥️</div><div class="svc-title" data-i18n="s1t">Сопровождение ИТ-систем</div><div class="svc-desc" data-i18n="s1d">Техническая поддержка и администрирование государственных информационных систем 24/7 с гарантией SLA.</div></div>
-      <div class="svc-card fade" style="transition-delay:.06s"><div class="svc-icon">📊</div><div class="svc-title" data-i18n="s2t">Обработка данных</div><div class="svc-desc" data-i18n="s2d">Профессиональная обработка, хранение и управление большими объёмами финансовой и государственной информации.</div></div>
-      <div class="svc-card fade" style="transition-delay:.12s"><div class="svc-icon">🏛️</div><div class="svc-title" data-i18n="s3t">Портал госзакупок</div><div class="svc-desc" data-i18n="s3d">Оператор единого портала государственных закупок РК. Обеспечение прозрачности тендерных процедур.</div></div>
-      <div class="svc-card fade" style="transition-delay:.18s"><div class="svc-icon">🔐</div><div class="svc-title" data-i18n="s4t">Информационная безопасность</div><div class="svc-desc" data-i18n="s4d">Защита критической финансовой инфраструктуры, аудит безопасности, внедрение стандартов ISO 27001.</div></div>
-      <div class="svc-card fade" style="transition-delay:.24s"><div class="svc-icon">🚀</div><div class="svc-title" data-i18n="s5t">Цифровая трансформация</div><div class="svc-desc" data-i18n="s5d">Помощь государственным органам в переходе к цифровым процессам, внедрение современных платформ.</div></div>
-      <div class="svc-card fade" style="transition-delay:.30s"><div class="svc-icon">🎓</div><div class="svc-title" data-i18n="s6t">Консультации и обучение</div><div class="svc-desc" data-i18n="s6d">Экспертные консультации в области ИТ-архитектуры и подготовка специалистов для государственных систем.</div></div>
-    </div>
-    
-  </div>
-</section>
-
-
-
-
-
-
 
 <!-- ======== FOOTER ======== -->
 <footer class="footer">
@@ -753,8 +815,8 @@ section{padding:96px 0}
         <div class="nav-logo">
           <div class="logo-mark"><img src="img/ddc icon.svg" alt="" style="width: auto; height: 40px;" class="ddc-logo"></div>
           <div class="logo-words">
-            <span class="logo-main-footer" data-i18n="logo_main">Цифровой центр развития</span>
-            <span class="logo-sub-footer" data-i18n="logo_sub">Национальный банк Республики Казахстан</span>
+            <span class="logo-main" data-i18n="logo_main">Цифровой центр развития</span>
+            <span class="logo-sub" data-i18n="logo_sub">Национальный банк Республики Казахстан</span>
           </div>
         </div>
         <p data-i18n="ft_desc">Дочернее предприятие Национального банка Республики Казахстан. Надёжная ИТ-инфраструктура с 1995 года.</p>

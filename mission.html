@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Миссия — ЦЦР</title>
+<script>(function(){var t=localStorage.getItem('ddc-theme');if(t)document.documentElement.setAttribute('data-theme',t);})()</script>
+
 <meta name="description" content="Миссия, видение и стратегия АО «Цифровой центр развития» — цифровое будущее финансовой системы Казахстана">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,6 +72,9 @@ button{font-family:var(--font);cursor:pointer}
 .logo-words{display:flex;flex-direction:column;line-height:1.15}
 .logo-main{font-size:15px;font-weight:700;color:var(--text)}
 .logo-sub{font-size:10px;color:var(--text3);font-weight:400}
+
+.logo-main-footer{font-size:15px;font-weight:700;color:var(--text)}
+.logo-sub-footer{font-size:10px;color:var(--text3);font-weight:400}
 
 .logo-main-mobile{font-size:15px;font-weight:700;color:var(--text); display: none;}
 .logo-sub-mobile{font-size:10px;color:var(--text3);font-weight:400; display: none;}
@@ -315,8 +320,8 @@ button{font-family:var(--font);cursor:pointer}
         <div class="logo-words">
           <span class="logo-main" data-i18n="logo_main">Цифровой центр развития</span>
           <span class="logo-sub" data-i18n="logo_sub">Национальный банк Республики Казахстан</span>
-          <span class="logo-main-mobile">ЦЦР</span>
-          <span class="logo-sub-mobile">Нацбанк РК</span>
+          <span class="logo-main-mobile" data-i18n="logo_main_mobile">ЦЦР</span>
+          <span class="logo-sub-mobile" data-i18n="logo_sub_mobile">Нацбанк РК</span>
         </div>
       </a>
       <ul class="nav-links">
@@ -547,8 +552,8 @@ button{font-family:var(--font);cursor:pointer}
         <div class="nav-logo">
           <div class="logo-mark"><img src="img/ddc icon.svg" alt="" style="width: auto; height: 40px;" class="ddc-logo"></div>
           <div class="logo-words">
-            <span class="logo-main" data-i18n="logo_main">Цифровой центр развития</span>
-            <span class="logo-sub" data-i18n="logo_sub">Национальный банк Республики Казахстан</span>
+            <span class="logo-main-footer" data-i18n="logo_main">Цифровой центр развития</span>
+            <span class="logo-sub-footer" data-i18n="logo_sub">Национальный банк Республики Казахстан</span>
           </div>
         </div>
         <p data-i18n="ft_desc">Дочернее предприятие Национального банка Республики Казахстан. Надёжная ИТ-инфраструктура с 1995 года.</p>
@@ -591,6 +596,7 @@ button{font-family:var(--font);cursor:pointer}
 const T={
   ru:{
     logo_main:'Цифровой центр развития',logo_sub:'Национальный банк Республики Казахстан',
+    logo_main_mobile:'ЦЦР', logo_sub_mobile:'Нацбанк РК',
     nav_home:'Главная',nav_about:'О компании',nav_svc:'Услуги',nav_mission:'Миссия',nav_contact:'Контакты',
     ph_title:'Миссия и <span class="hl">видение</span>',
     ph_lead:'Мы знаем, зачем существуем, куда движемся и как хотим изменить цифровой ландшафт Казахстана.',
@@ -629,6 +635,7 @@ const T={
   },
   kz:{
     logo_main:'Цифрлық даму орталығы',logo_sub:'Қазақстан Республикасының Ұлттық Банкі',
+    logo_main_mobile:'ЦДО', logo_sub_mobile:'ҚР Ұлттық Банкі',
     nav_home:'Басты бет',nav_about:'Компания туралы',nav_svc:'Қызметтер',nav_mission:'Миссия',nav_contact:'Байланыс',
     ph_title:'Миссия және <span class="hl">көзқарас</span>',
     ph_lead:'Біз неліктен өмір сүретінімізді, қайда бара жатқанымызды және Қазақстанның цифрлық ландшафтын қалай өзгерткіміз келетінін білеміз.',
@@ -667,6 +674,7 @@ const T={
   },
   en:{
     logo_main:'Digital Development Centre',logo_sub:'National Bank of the Republic of Kazakhstan',
+    logo_main_mobile:'DDC', logo_sub_mobile:'National Bank of RK',
     nav_home:'Home',nav_about:'About',nav_svc:'Services',nav_mission:'Mission',nav_contact:'Contact',
     ph_title:'Mission & <span class="hl">Vision</span>',
     ph_lead:'We know why we exist, where we are going and how we want to transform the digital landscape of Kazakhstan.',
@@ -705,14 +713,15 @@ const T={
   }
 };
 
-let lang='ru',dark=true;
+let lang = localStorage.getItem('ddc-lang') || 'ru';
+let dark = localStorage.getItem('ddc-theme') !== 'light';
 function setLang(l){
-  lang=l;document.documentElement.lang=l==='kz'?'kk':l;
+  lang=l;localStorage.setItem('ddc-lang', l);document.documentElement.lang=l==='kz'?'kk':l;
   ['ru','kz','en'].forEach(x=>{['lb-','mlb-'].forEach(p=>{const b=document.getElementById(p+x);if(b)b.classList.toggle('active',x===l)})});
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(T[l][k]!==undefined)el.innerHTML=T[l][k]});
   const si=document.getElementById('srchInput');if(si)si.placeholder=T[l].search_hint||'';
 }
-function toggleTheme(){dark=!dark;document.documentElement.setAttribute('data-theme',dark?'dark':'light');}
+function toggleTheme(){dark=!dark;document.documentElement.setAttribute('data-theme',dark?'dark':'light');localStorage.setItem('ddc-theme', dark ? 'dark' : 'light');}
 function toggleMob(){document.getElementById('mobMenu').classList.toggle('open')}
 window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',scrollY>20)});
 const fadeObs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')})},{threshold:0.08});
@@ -738,6 +747,9 @@ function doSearch(q){
 }
 document.getElementById('srchOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeSearch()});
 document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch()}});
+
+// Применить сохранённые настройки при загрузке
+setLang(lang);
 </script>
 </body>
 </html>
