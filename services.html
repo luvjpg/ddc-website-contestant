@@ -47,6 +47,33 @@
   .search-icon {
     content: url("img/magnifier\ dark.png");
   }
+  .lock-icon {
+    content: url("img/lock-dark.png");
+  }
+  .museum-icon {
+    content: url("img/museum-dark.png");
+  }
+  .graduation-icon {
+    content: url("img/graduation-cap-dark.png");
+  }
+  .rocket-icon {
+    content: url("img/rocket-dark.png");
+  }
+  .laptop-icon {
+    content: url("img/laptop-dark.png");
+  }
+  .graph-icon {
+    content: url("img/graph-dark.png");
+  }
+  .technology-icon {
+    content: url("img/technology-dark.png");
+  }
+  .verify-icon {
+    content: url("img/verify-dark.png");
+  }
+  .deal-icon {
+    content: url("img/deal-dark.png");
+  }
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0; -webkit-tap-highlight-color: transparent;
   outline: none;}
@@ -59,6 +86,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);transition:b
 a{color:inherit;text-decoration:none}
 button{font-family:var(--font);cursor:pointer}
 .container{max-width:1200px;margin:0 auto;padding:0 24px}
+.container-navbar{max-width:100vw;margin:0 auto;padding:0 24px}
 
 .eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
 .section-title{font-size:clamp(26px,3.8vw,46px);font-weight:800;line-height:1.12;letter-spacing:-.02em;color:var(--text);margin-bottom:14px}
@@ -266,7 +294,7 @@ button{font-family:var(--font);cursor:pointer}
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--text3);
+  color: var(--text2);
   font-size: 17px;
   font-weight: 500;
   transition: color var(--ease);
@@ -303,6 +331,20 @@ button{font-family:var(--font);cursor:pointer}
   transform: translateY(-2px);
 }
 
+
+.container-stats,section, .stats-bar, .about-wrap,
+.contact-wrap, .footer, .page-hero,
+.process-section, .sla-section,
+.partners-section, .cta-section {
+  position: relative;
+  z-index: 1;
+}
+
+tr {
+  background-color: #080f1e;
+}
+
+
 @media(max-width:1024px){
   .svc-grid{grid-template-columns:repeat(2,1fr)}
   .svc-card.featured{grid-column:span 2;grid-template-columns:1fr}
@@ -330,6 +372,9 @@ button{font-family:var(--font);cursor:pointer}
 </head>
 <body>
 
+    <canvas id="circuit" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+
 <!-- SEARCH OVERLAY -->
 <div class="srch-overlay" id="srchOverlay">
   <div class="srch-box">
@@ -349,7 +394,7 @@ button{font-family:var(--font);cursor:pointer}
 
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
-  <div class="container">
+  <div class="container-navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
         <div class="logo-mark"><img src="img/ddc icon.svg" alt="" style="width: auto; height: 40px;" class="ddc-logo"></div>
@@ -429,7 +474,7 @@ button{font-family:var(--font);cursor:pointer}
       <!-- Featured: IT support -->
       <div class="svc-card featured fade" data-cat="it">
         <div class="svc-content">
-          <div class="svc-icon">🖥️</div>
+          <div class="svc-icon"><img src="img/laptop.png" alt="" style="width: 50%; height: 50%;" class="laptop-icon"></div>
           <span class="svc-tag" data-i18n="f_it">ИТ-поддержка</span>
           <div class="svc-title" data-i18n="s1t">Сопровождение ИТ-систем</div>
           <div class="svc-desc" data-i18n="s1d">Техническая поддержка и администрирование государственных информационных систем в режиме 24/7. Мониторинг, диагностика и устранение неисправностей с гарантированным временем реакции по SLA.</div>
@@ -447,13 +492,13 @@ button{font-family:var(--font);cursor:pointer}
         </div>
         <div class="svc-visual">
           <div class="svc-visual-bg"></div>
-          <span style="position:relative;z-index:1;font-size:72px">🖥️</span>
+          <span style="position:relative;z-index:1;font-size:72px"><img src="img/it-systems.jpg" alt="" style="object-fit: cover; height: 500px;"></span>
         </div>
       </div>
 
       <!-- Data Processing -->
       <div class="svc-card fade" data-cat="data" style="transition-delay:.06s">
-        <div class="svc-icon">📊</div>
+        <div class="svc-icon"><img src="img/graph.png" alt="" style="width: 50%; height: 50%;" class="graph-icon"></div>
         <span class="svc-tag" data-i18n="f_data">Данные</span>
         <div class="svc-title" data-i18n="s2t">Обработка данных</div>
         <div class="svc-desc" data-i18n="s2d">Профессиональная обработка, хранение и управление большими объёмами финансовой и государственной информации.</div>
@@ -471,7 +516,7 @@ button{font-family:var(--font);cursor:pointer}
 
       <!-- Procurement Portal -->
       <div class="svc-card fade" data-cat="digital" style="transition-delay:.10s">
-        <div class="svc-icon">🏛️</div>
+        <div class="svc-icon"><img src="img/museum.png" alt="" style="width: 50%; height: 50%;" class="museum-icon"></div>
         <span class="svc-tag" data-i18n="f_dig">Цифровизация</span>
         <div class="svc-title" data-i18n="s3t">Портал госзакупок</div>
         <div class="svc-desc" data-i18n="s3d">Оператор единого портала государственных закупок Республики Казахстан. Обеспечение прозрачности и доступности тендерных процедур для всех участников рынка.</div>
@@ -489,7 +534,7 @@ button{font-family:var(--font);cursor:pointer}
 
       <!-- Information Security -->
       <div class="svc-card fade" data-cat="security" style="transition-delay:.14s">
-        <div class="svc-icon">🔐</div>
+        <div class="svc-icon"><img src="img/lock.png" alt="" style="width: 50%; height: 50%;" class="lock-icon"></div>
         <span class="svc-tag" data-i18n="f_sec">Безопасность</span>
         <div class="svc-title" data-i18n="s4t">Информационная безопасность</div>
         <div class="svc-desc" data-i18n="s4d">Защита критической финансовой инфраструктуры, аудит безопасности, внедрение стандартов ISO 27001 и регуляторных требований НБК.</div>
@@ -507,7 +552,7 @@ button{font-family:var(--font);cursor:pointer}
 
       <!-- Digital Transformation -->
       <div class="svc-card fade" data-cat="digital" style="transition-delay:.18s">
-        <div class="svc-icon">🚀</div>
+        <div class="svc-icon"><img src="img/technology.png" alt="" style="width: 50%; height: 50%;" class="technology-icon"></div>
         <span class="svc-tag" data-i18n="f_dig">Цифровизация</span>
         <div class="svc-title" data-i18n="s5t">Цифровая трансформация</div>
         <div class="svc-desc" data-i18n="s5d">Помощь государственным органам в переходе к цифровым процессам, внедрение современных платформ и автоматизация рутинных операций.</div>
@@ -525,7 +570,7 @@ button{font-family:var(--font);cursor:pointer}
 
       <!-- Consulting -->
       <div class="svc-card fade" data-cat="it" style="transition-delay:.22s">
-        <div class="svc-icon">🎓</div>
+        <div class="svc-icon"><img src="img/graduation-cap.png" alt="" style="width: 50%; height: 50%;" class="graduation-icon"></div>
         <span class="svc-tag" data-i18n="f_it">ИТ-поддержка</span>
         <div class="svc-title" data-i18n="s6t">Консультации и обучение</div>
         <div class="svc-desc" data-i18n="s6d">Экспертные консультации в области ИТ-архитектуры и подготовка специалистов для работы с государственными информационными системами.</div>
@@ -690,7 +735,7 @@ button{font-family:var(--font);cursor:pointer}
         </div>
         <p data-i18n="ft_desc">Дочернее предприятие Национального банка Республики Казахстан. Надёжная ИТ-инфраструктура с 1995 года.</p>
         <div class="footer-socials">
-  <a href="https://www.instagram.com/bsbnb.kz/" target="_blank" rel="noopener" class="insta-btn" aria-label="Instagram">
+  <a href="https://www.instagram.com/ddc_nbk?igsh=MWo5cGNmc3JwMjNhMg==" target="_blank" rel="noopener" class="insta-btn" aria-label="Instagram">
     <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
       <circle cx="12" cy="12" r="4"/>
@@ -904,6 +949,268 @@ document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='k'){
 
 // Применить сохранённые настройки при загрузке
 setLang(lang);
+
+(function() {
+  const canvas = document.getElementById('circuit');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+
+  let W, H, nodes, pulses;
+
+  const ACCENT = '0,212,170';
+  const BASE_NODE_COUNT = 35;
+  const MAX_DIST = 220;
+  const MAX_CONNECTIONS = 4;
+  const PULSE_SPEED = 0.2;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    init();
+  }
+
+  function getNodeCount() {
+
+    const area = W * H;
+    if (area < 300000)
+      return 12;
+
+    if (area < 700000)
+      return 20;
+
+    if (area < 1200000)
+      return 30;
+
+    return BASE_NODE_COUNT;
+  }
+
+  // равномерное распределение точек
+  function createNodes(count) {
+
+    const result = [];
+
+    const cols = Math.ceil(Math.sqrt(count));
+    const rows = Math.ceil(count / cols);
+
+    const cellW = W / cols;
+    const cellH = H / rows;
+
+    for (let i = 0; i < count; i++) {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+
+      result.push({
+
+        x:
+          col * cellW +
+          cellW / 2 +
+          (Math.random() - 0.5) * cellW * 0.7,
+
+
+        y:
+          row * cellH +
+          cellH / 2 +
+          (Math.random() - 0.5) * cellH * 0.7
+
+      });
+    }
+    return result;
+  }
+
+  function init() {
+    const count = getNodeCount();
+    nodes = createNodes(count);
+
+    const edges = [];
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx =
+          nodes[i].x - nodes[j].x;
+
+        const dy =
+          nodes[i].y - nodes[j].y;
+
+        const dist =
+          Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < MAX_DIST) {
+
+          const connectionsI =
+            edges.filter(e =>
+              e.i === i ||
+              e.j === i
+            ).length;
+
+          const connectionsJ =
+            edges.filter(e =>
+              e.i === j ||
+              e.j === j
+            ).length;
+          if (
+            connectionsI < MAX_CONNECTIONS &&
+            connectionsJ < MAX_CONNECTIONS
+          ) {
+            edges.push({
+
+              i,
+              j,
+              dist
+
+            });
+          }
+        }
+      }
+    }
+
+    pulses = edges.map(e => ({
+      ...e,
+
+      t: Math.random(),
+
+      speed:
+        (0.3 + Math.random() * 0.5)
+        *
+        PULSE_SPEED
+        /
+        e.dist
+    }));
+  }
+
+  function draw() {
+    ctx.clearRect(
+      0,
+      0,
+      W,
+      H
+    );
+
+    const isDark =
+      document.documentElement
+      .getAttribute('data-theme') !== 'light';
+
+    const lineColor =
+      isDark
+      ?
+      `rgba(${ACCENT},0.12)`
+      :
+      `rgba(0,120,100,0.10)`;
+
+    const nodeColor =
+      isDark
+      ?
+      `rgba(${ACCENT},0.3)`
+      :
+      `rgba(0,120,100,0.25)`;
+
+    const pulseColor =
+      isDark
+      ?
+      `rgba(${ACCENT},1)`
+      :
+      `rgba(0,150,120,0.9)`;
+
+    // линии
+    pulses.forEach(p => {
+      const a = nodes[p.i];
+      const b = nodes[p.j];
+      ctx.beginPath();
+      ctx.moveTo(
+        a.x,
+        a.y
+      );
+
+      ctx.lineTo(
+        b.x,
+        b.y
+      );
+      ctx.strokeStyle = lineColor;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+
+    // узлы
+    nodes.forEach(n => {
+
+      ctx.beginPath();
+      ctx.arc(
+        n.x,
+        n.y,
+        2,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fillStyle = nodeColor;
+      ctx.fill();
+    });
+
+    // импульсы
+    pulses.forEach(p => {
+
+      const a = nodes[p.i];
+      const b = nodes[p.j];
+
+      const x =
+        a.x +
+        (b.x - a.x) *
+        p.t;
+
+      const y =
+        a.y +
+        (b.y - a.y) *
+        p.t;
+
+      const glow =
+        ctx.createRadialGradient(
+          x,
+          y,
+          0,
+          x,
+          y,
+          7
+        );
+
+      glow.addColorStop(
+        0,
+        pulseColor
+      );
+
+      glow.addColorStop(
+        1,
+        'rgba(0,0,0,0)'
+      );
+
+      ctx.beginPath();
+      ctx.arc(
+        x,
+        y,
+        7,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fillStyle = glow;
+      ctx.fill();
+
+      // бесконечное движение
+      p.t += p.speed;
+      if (p.t > 1) {
+
+        p.t = 0;
+
+      }
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener(
+    'resize',
+    resize
+  );
+  resize();
+  draw();
+})();
+
 </script>
 
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Наверх">

@@ -47,6 +47,37 @@
   .search-icon {
     content: url("img/magnifier\ dark.png");
   }
+
+  .lock-icon {
+    content: url("img/lock-dark.png");
+  }
+  .museum-icon {
+    content: url("img/museum-dark.png");
+  }
+  .graduation-icon {
+    content: url("img/graduation-cap-dark.png");
+  }
+  .rocket-icon {
+    content: url("img/rocket-dark.png");
+  }
+  .laptop-icon {
+    content: url("img/laptop-dark.png");
+  }
+  .graph-icon {
+    content: url("img/graph-dark.png");
+  }
+  .technology-icon {
+    content: url("img/technology-dark.png");
+  }
+  .verify-icon {
+    content: url("img/verify-dark.png");
+  }
+  .deal-icon {
+    content: url("img/deal-dark.png");
+  }
+  .gear-icon {
+    content: url("img/gear-dark.png");
+  }
 }
 
 /* ======================== RESET ======================== */
@@ -61,6 +92,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);transition:b
 a{color:inherit;text-decoration:none}
 button{font-family:var(--font);cursor:pointer}
 .container{max-width:1200px;margin:0 auto;padding:0 24px}
+.container-navbar{max-width:100vw;margin:0 auto;padding:0 24px}
 
 /* ======================== TYPOGRAPHY ======================== */
 .eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
@@ -160,8 +192,8 @@ button{font-family:var(--font);cursor:pointer}
 .page-lead{font-size:18px;color:var(--text2);max-width:620px;line-height:1.7}
 
 /* ======================== CONTENT SECTIONS ======================== */
-.content-section{padding:80px 0}
-.content-section.alt{background:var(--surf);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.content-section{padding:100px 0}
+.content-section.alt{background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 
 /* Who we are */
 .who-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
@@ -283,7 +315,7 @@ button{font-family:var(--font);cursor:pointer}
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--text3);
+  color: var(--text2);
   font-size: 17px;
   font-weight: 500;
   transition: color var(--ease);
@@ -320,6 +352,165 @@ button{font-family:var(--font);cursor:pointer}
   transform: translateY(-2px);
 }
 
+.container-stats,section, .stats-bar, .about-wrap,
+.contact-wrap, .footer, .page-hero,
+.process-section, .sla-section,
+.partners-section, .cta-section {
+  position: relative;
+  z-index: 1;
+}
+
+/* 1. Вертикальная линия от родителя вниз */
+.tree-vline {
+  width: 2px;
+  height: 40px;
+  background: var(--line);
+  margin: 0 auto;
+}
+
+/* 2. Горизонтальная перекладина над детьми */
+.tree-hbar {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 12px;
+  padding-top: 40px;
+  flex-wrap: wrap;
+}
+.tree-hbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: var(--line);
+}
+
+/* 3. Вертикальная капля к каждой карточке */
+.tree-hbar > .tree-child {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.tree-hbar > .tree-child::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 40px;
+  background: var(--line);
+} 
+
+/* ---- PERSON CARD ---- */
+.person-card{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:20px 16px;
+  text-align:center;transition:all var(--ease);
+  min-width:160px;max-width:200px;
+}
+.person-card:hover{border-color:var(--baccent);transform:translateY(-3px);box-shadow:0 4px 20px rgba(0,212,170,0.12)}
+.person-card.chairman{border-color:var(--baccent);background:var(--surf2)}
+.person-card.chairman .person-role{color:var(--accent)}
+.person-card.vacancy{opacity:.6}
+ 
+/* Photo placeholder */
+.person-photo{
+  width:150px;height:150px;border-radius:50%;
+  background:var(--bg2);border:2px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 12px;overflow:hidden;position:relative;
+  font-size:28px;color:var(--text3);
+}
+
+.person-photo svg{width:32px;height:32px;opacity:.5}
+.person-photo.chairman-photo{border-color:var(--accent);border-width:2px}
+ 
+.person-name{font-size:15px;font-weight:600;color:var(--text);line-height:1.35;margin-bottom:6px}
+.person-role{font-size:13px;color:var(--text2);line-height:1.45;font-weight:400}
+.person-badge{
+  display:inline-block;margin-top:8px;
+  font-size:11px;font-weight:700;padding:2px 8px;
+  border-radius:100px;background:var(--accent-glow);
+  color:var(--accent);border:1px solid var(--baccent);
+  letter-spacing:.04em;
+}
+.person-badge.vacant{background:rgba(245,180,0,.08);color:#f5b800;border-color:rgba(245,180,0,.25)}
+ 
+/* ---- TREE STRUCTURE ---- */
+ 
+/* Root node centered */
+.tree-root{display:flex;justify-content:center;margin-bottom:0}
+ 
+/* Vertical connector from root down */
+.tree-vline{
+  width:2px;height:40px;
+  background:var(--line);
+  margin:0 auto;
+}
+ 
+/* Horizontal bar connecting children */
+.tree-hbar-wrap{display:flex;justify-content:center}
+.tree-hbar{
+  position:relative;
+  display:flex;
+  justify-content:space-around;
+  align-items:flex-start;
+  gap:12px;
+  padding-top:40px; /* space for vertical drops */
+}
+/* Top horizontal line spanning all children */
+.tree-hbar::before{
+  content:'';position:absolute;
+  top:0;left:calc(50% / var(--children, 4) + 8px);right:calc(50% / var(--children, 4) + 8px);
+  height:2px;background:var(--line);
+}
+/* Vertical drop from horizontal bar to each child */
+.tree-hbar > .tree-child{
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;
+}
+.tree-hbar > .tree-child::before{
+  content:'';
+  position:absolute;top:-40px;left:50%;transform:translateX(-50%);
+  width:2px;height:40px;background:var(--line);
+}
+ 
+/* Section divider */
+.org-divider{
+  height:1px;background:var(--border);
+  margin:40px 0;
+}
+ 
+/* Reporting-to block (flat row) */
+.reporting-label{
+  font-size:12px;font-weight:600;color:var(--text2);
+  text-transform:uppercase;letter-spacing:.08em;
+  margin-bottom:16px;display:flex;align-items:center;gap:8px;
+}
+.reporting-label::after{content:'';flex:1;height:1px;background:var(--text3)}
+.reporting-row{
+  display:flex;gap:16px;flex-wrap:wrap;
+  justify-content:flex-start;
+}
+ 
+/* ---- RESPONSIVE ---- */
+.tree-hbar{flex-wrap:wrap;justify-content:center}
+@media(max-width:768px){
+  .tree-hbar::before{display:none}
+  .tree-hbar > .tree-child::before{display:none}
+  .tree-hbar{padding-top:0;gap:12px}
+  .tree-vline{height:20px}
+  .reporting-row{justify-content:center}
+  .person-card{min-width:140px}
+}
+
+
+
 /* ======================== RESPONSIVE ======================== */
 @media(max-width:1024px){
   .who-grid{grid-template-columns:1fr;gap:40px}
@@ -348,6 +539,9 @@ button{font-family:var(--font);cursor:pointer}
 </head>
 <body>
 
+  <canvas id="circuit" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+
 <!-- ======== SEARCH OVERLAY ======== -->
 <div class="srch-overlay" id="srchOverlay">
   <div class="srch-box">
@@ -367,7 +561,7 @@ button{font-family:var(--font);cursor:pointer}
 
 <!-- ======== NAVBAR ======== -->
 <nav class="navbar" id="navbar">
-  <div class="container">
+  <div class="container-navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
         <div class="logo-mark"><img src="img/ddc icon.svg" alt="" style="width: auto; height: 40px; " class="ddc-logo"></div>
@@ -445,21 +639,21 @@ button{font-family:var(--font);cursor:pointer}
       </div>
       <div class="who-visual fade" style="transition-delay:.15s">
         <div class="info-card">
-          <div class="info-card-icon">🏛️</div>
+          <div class="info-card-icon"><img src="img/museum.png" alt="" style="width: 50%; height: 50%;" class="museum-icon"></div>
           <div class="info-card-body">
             <div class="info-card-title" data-i18n="ic1t">Дочернее предприятие НБК</div>
             <div class="info-card-desc" data-i18n="ic1d">Стопроцентная дочерняя организация Национального банка Республики Казахстан, основана в 1995 году.</div>
           </div>
         </div>
         <div class="info-card">
-          <div class="info-card-icon">✅</div>
+          <div class="info-card-icon"><img src="img/verify.png" alt="" style="width: 50%; height: 50%;" class="verify-icon"></div>
           <div class="info-card-body">
             <div class="info-card-title" data-i18n="ic2t">Сертификат ISO 9001</div>
             <div class="info-card-desc" data-i18n="ic2d">Система менеджмента качества сертифицирована по международному стандарту ISO 9001. Качество подтверждено аудитом.</div>
           </div>
         </div>
         <div class="info-card">
-          <div class="info-card-icon">⚡</div>
+          <div class="info-card-icon"><img src="img/gear.png" alt="" style="width: 50%; height: 50%;" class="gear-icon"></div>
           <div class="info-card-body">
             <div class="info-card-title" data-i18n="ic3t">Поддержка 24/7</div>
             <div class="info-card-desc" data-i18n="ic3d">Круглосуточная техническая поддержка государственных информационных систем с гарантированным SLA.</div>
@@ -478,7 +672,7 @@ button{font-family:var(--font);cursor:pointer}
 </section>
 
 <!-- ======== STATS ======== -->
-<div style="background:var(--surf);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+<div style="background:var(--surf);border-top:1px solid var(--border);border-bottom:1px solid var(--border)" class="container-stats">
   <div class="container">
     <div class="stats-row">
       <div class="stat-cell fade">
@@ -565,27 +759,27 @@ button{font-family:var(--font);cursor:pointer}
     </div>
     <div class="values-grid">
       <div class="val-card fade">
-        <div class="val-icon">🛡️</div>
+        <div class="val-icon"><img src="img/lock.png" alt="" style="width: 10%; height: 10%;" class="lock-icon"></div>
         <div class="val-title" data-i18n="v1t">Надёжность</div>
         <div class="val-desc" data-i18n="v1d">Государственные финансовые системы не имеют права на сбой. Мы гарантируем максимальное время работы (uptime) и мгновенное реагирование на инциденты 24/7/365.</div>
       </div>
       <div class="val-card fade" style="transition-delay:.07s">
-        <div class="val-icon">🔍</div>
+        <div class="val-icon"><img src="img/verify.png" alt="" style="width: 10%; height: 10%;" class="verify-icon"></div>
         <div class="val-title" data-i18n="v2t">Прозрачность</div>
         <div class="val-desc" data-i18n="v2d">Открытость в работе — основа доверия. Мы публикуем финансовую отчётность, раскрываем информацию о деятельности и соблюдаем высшие стандарты корпоративного управления.</div>
       </div>
       <div class="val-card fade" style="transition-delay:.14s">
-        <div class="val-icon">🚀</div>
+        <div class="val-icon"><img src="img/technology.png" alt="" style="width: 10%; height: 10%;" class="technology-icon"></div>
         <div class="val-title" data-i18n="v3t">Инновации</div>
         <div class="val-desc" data-i18n="v3d">Мы не просто поддерживаем системы — мы развиваем их. Внедряем передовые технологии, следим за мировыми трендами и применяем лучшие практики ИТ-отрасли.</div>
       </div>
       <div class="val-card fade" style="transition-delay:.21s">
-        <div class="val-icon">🤝</div>
+        <div class="val-icon"><img src="img/deal.png" alt="" style="width: 10%; height: 10%;" class="deal-icon"></div>
         <div class="val-title" data-i18n="v4t">Партнёрство</div>
         <div class="val-desc" data-i18n="v4d">Строим долгосрочные отношения с клиентами на основе взаимного доверия. Понимаем специфику государственного сектора и говорим с партнёрами на одном языке.</div>
       </div>
       <div class="val-card fade" style="transition-delay:.28s">
-        <div class="val-icon">🎓</div>
+        <div class="val-icon"><img src="img/graduation-cap.png" alt="" style="width: 10%; height: 10%;" class="graduation-icon"></div>
         <div class="val-title" data-i18n="v5t">Экспертиза</div>
         <div class="val-desc" data-i18n="v5d">30 лет — это тысячи реализованных проектов и бесценный опыт. Наши специалисты — сертифицированные профессионалы с глубоким знанием финансовых ИТ-систем.</div>
       </div>
@@ -606,26 +800,92 @@ button{font-family:var(--font);cursor:pointer}
       <h2 class="section-title" data-i18n="team_title">Команда, которой доверяют</h2>
       <p class="section-sub" data-i18n="team_sub">Опытные руководители с многолетней экспертизой в области ИТ и финансового сектора.</p>
     </div>
-    <div class="team-grid">
-      <div class="team-card fade">
-        <div class="team-avatar">👤</div>
-        <div class="team-name" data-i18n="tm1n">Председатель правления</div>
-        <div class="team-role" data-i18n="tm1r">CEO</div>
-        <div class="team-desc" data-i18n="tm1d">Стратегическое руководство компанией, развитие ключевых партнёрств с государственными органами и Национальным банком РК.</div>
-      </div>
-      <div class="team-card fade" style="transition-delay:.08s">
-        <div class="team-avatar">👤</div>
-        <div class="team-name" data-i18n="tm2n">Технический директор</div>
-        <div class="team-role" data-i18n="tm2r">CTO</div>
-        <div class="team-desc" data-i18n="tm2d">Управление ИТ-архитектурой, надзор за поддержкой государственных систем, внедрение новых технологических решений.</div>
-      </div>
-      <div class="team-card fade" style="transition-delay:.16s">
-        <div class="team-avatar">👤</div>
-        <div class="team-name" data-i18n="tm3n">Директор по безопасности</div>
-        <div class="team-role" data-i18n="tm3r">CISO</div>
-        <div class="team-desc" data-i18n="tm3d">Обеспечение информационной безопасности, соответствие стандартам ISO 27001, защита критической финансовой инфраструктуры.</div>
-      </div>
+
+
+<!-- ПРАВЛЕНИЕ -->
+<div style="margin-top:56px">
+  <div class="reporting-label" data-i18n="org_management">Правление</div>
+  <div style="display:flex;justify-content:center;margin-bottom:0">
+    <div class="person-card chairman">
+      <div class="person-photo  chairman-photo"><img src="img/malik.png" alt="Имя" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="person-name" data-i18n="org_name_amardinov">Амардинов Малик Алимжанович</div>
+      <div class="person-role" data-i18n="org_amardinov_role">Председатель Правления, член Правления</div>
+      <span class="person-badge">CEO</span>
     </div>
+  </div>
+  <div class="tree-vline"></div>
+  <div class="tree-hbar-wrap">
+    <div class="tree-hbar">
+      <div class="tree-child"><div class="person-card">
+        <div class="person-photo"><img src="img/erlan.png" alt="Имя" style="width:100%;height:100%;object-fit:cover"></div>
+        <div class="person-name" data-i18n="org_name_durmagambetov">Дурмагамбетов Ерлан Дмитриевич</div>
+        <div class="person-role" data-i18n="org_first_deputy">Первый Заместитель Председателя Правления</div>
+        <span class="person-badge" data-i18n="org_member_mgmt">Член Правления</span>
+      </div></div>
+      <div class="tree-child"><div class="person-card">
+        <div class="person-photo"><img src="img/argyn.png" alt="Имя" style="width:100%;height:100%;object-fit:cover"></div>
+        <div class="person-name" data-i18n="org_name_kentbekov">Кентбеков Аргын Салаватович</div>
+        <div class="person-role" data-i18n="org_deputy">Заместитель Председателя Правления</div>
+        <span class="person-badge" data-i18n="org_member_mgmt">Член Правления</span>
+      </div></div>
+      <div class="tree-child"><div class="person-card">
+        <div class="person-photo"><img src="img/bakytzhan.png" alt="Имя" style="width:100%;height:100%;object-fit:cover"></div>
+        <div class="person-name" data-i18n="org_name_imazhanov">Имажанов Бахытжан Гылымбекович</div>
+        <div class="person-role" data-i18n="org_deputy">Заместитель Председателя Правления</div>
+        <span class="person-badge" data-i18n="org_member_mgmt">Член Правления</span>
+      </div></div>
+      <div class="tree-child"><div class="person-card">
+        <div class="person-photo"><img src="img/dauren.png" alt="Имя" style="width:100%;height:100%;object-fit:cover"></div>
+        <div class="person-name" data-i18n="org_name_mazhrenov">Мажренов Даурен Муратович</div>
+        <div class="person-role" data-i18n="org_deputy">Заместитель Председателя Правления</div>
+        <span class="person-badge" data-i18n="org_member_mgmt">Член Правления</span>
+      </div></div>
+    </div>
+  </div>
+</div>
+    <!-- СОВЕТ ДИРЕКТОРОВ -->
+<div style="margin-top:40px">
+  <div class="reporting-label" data-i18n="org_board">Совет директоров</div>
+  <div class="tree-root" style="display:flex;justify-content:center;margin-bottom:0">
+    <div class="person-card chairman">
+      <div class="person-photo chairman-photo"><img src="img/binur.jpg" alt="Имя" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="person-name" data-i18n="org_name_zhalenov">Жаленов Бинур Муратович</div>
+      <div class="person-role" data-i18n="org_zhalenov_role">Заместитель председателя НБРК, руководитель цифровой трансформации</div>
+      <span class="person-badge" data-i18n="org_chairman_board">Председатель Совета директоров</span>
+    </div>
+  </div>
+  <div class="tree-vline"></div>
+  <div class="tree-hbar-wrap">
+    <div class="tree-hbar">
+      <div class="tree-child"><div class="person-card">
+        <div class="person-photo"><img src="img/ashat.png" alt="Имя" style="width:100%;height:100%;object-fit:cover"></div>
+        <div class="person-name" data-i18n="org_name_uzbekov">Узбеков Асхат Архатович</div>
+        <div class="person-role" data-i18n="org_dit_dir">Директор ДИТ НБРК</div>
+        <span class="person-badge" data-i18n="org_member_board">Член Совета директоров</span>
+      </div></div>
+      <div class="tree-child"><div class="person-card">
+        <div class="person-photo"><img src="img/abay.png" alt="Имя" style="width:100%;height:100%;object-fit:cover"></div>
+        <div class="person-name" data-i18n="org_name_alpamysov">Алпамысов Абай Абдисаметович</div>
+        <div class="person-role" data-i18n="org_ind_dir">Независимый директор</div>
+        <span class="person-badge" data-i18n="org_member_board">Член Совета директоров</span>
+      </div></div>
+      <div class="tree-child"><div class="person-card">
+        <div class="person-photo"><img src="img/bayan.png" alt="Имя" style="width:100%;height:100%;object-fit:cover"></div>
+        <div class="person-name" data-i18n="org_name_konirbaev">Конирбаев Баян Кайратович</div>
+        <div class="person-role" data-i18n="org_ind_dir">Независимый директор</div>
+        <span class="person-badge" data-i18n="org_member_board">Член Совета директоров</span>
+      </div></div>
+      <div class="tree-child"><div class="person-card">
+        <div class="person-photo"><img src="img/marat.png" alt="Имя" style="width:100%;height:100%;object-fit:cover"></div>
+        <div class="person-name" data-i18n="org_name_marat">Марат Аскар</div>
+        <div class="person-role" data-i18n="org_ind_dir">Независимый директор</div>
+        <span class="person-badge" data-i18n="org_member_board">Член Совета директоров</span>
+      </div></div>
+    </div>
+  </div>
+  
+
+
   </div>
 </section>
 
@@ -657,7 +917,7 @@ button{font-family:var(--font);cursor:pointer}
         </div>
         <p data-i18n="ft_desc">Дочернее предприятие Национального банка Республики Казахстан. Надёжная ИТ-инфраструктура с 1995 года.</p>
         <div class="footer-socials">
-  <a href="https://www.instagram.com/bsbnb.kz/" target="_blank" rel="noopener" class="insta-btn" aria-label="Instagram">
+  <a href="https://www.instagram.com/ddc_nbk?igsh=MWo5cGNmc3JwMjNhMg==" target="_blank" rel="noopener" class="insta-btn" aria-label="Instagram">
     <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
       <circle cx="12" cy="12" r="4"/>
@@ -749,6 +1009,27 @@ const T = {
     ft_zakup:'Госзакупки РК', ft_rights:'Все права защищены.', ft_iso:'Сертифицирован по ISO 9001',
     s1t:'Сопровождение ИТ-систем', s3t:'Портал госзакупок', s4t:'Информационная безопасность', s5t:'Цифровая трансформация',
     search_hint:'Начните вводить запрос...',
+    org_board:'Совет директоров',
+org_management:'Правление',
+org_chairman_board:'Председатель Совета директоров',
+org_member_board:'Член Совета директоров',
+org_member_mgmt:'Член Правления',
+org_zhalenov_role:'Заместитель председателя НБРК, руководитель цифровой трансформации',
+org_dit_dir:'Директор ДИТ НБРК',
+org_ind_dir:'Независимый директор',
+org_amardinov_role:'Председатель Правления, член Правления',
+org_first_deputy:'Первый Заместитель Председателя Правления',
+org_deputy:'Заместитель Председателя Правления',
+org_name_zhalenov:'Жаленов Бинур Муратович',
+org_name_uzbekov:'Узбеков Асхат Архатович',
+org_name_alpamysov:'Алпамысов Абай Абдисаметович',
+org_name_konirbaev:'Конирбаев Баян Кайратович',
+org_name_marat:'Марат Аскар',
+org_name_amardinov:'Амардинов Малик Алимжанович',
+org_name_durmagambetov:'Дурмагамбетов Ерлан Дмитриевич',
+org_name_kentbekov:'Кентбеков Аргын Салаватович',
+org_name_imazhanov:'Имажанов Бахытжан Гылымбекович',
+org_name_mazhrenov:'Мажренов Даурен Муратович',
   },
   kz:{
     logo_main:'Цифрлық даму орталығы',logo_sub:'Қазақстан Республикасының Ұлттық Банкі',
@@ -795,6 +1076,27 @@ const T = {
     ft_zakup:'ҚР мемлекеттік сатып алулары', ft_rights:'Барлық құқықтар қорғалған.', ft_iso:'ISO 9001 бойынша сертификатталған',
     s1t:'ЖТ-жүйелерді сүйемелдеу', s3t:'Мемлекеттік сатып алулар порталы', s4t:'Ақпараттық қауіпсіздік', s5t:'Цифрлық трансформация',
     search_hint:'Сұрауды теруді бастаңыз...',
+    org_board:'Директорлар кеңесі',
+org_management:'Басқарма',
+org_chairman_board:'Директорлар кеңесінің төрағасы',
+org_member_board:'Директорлар кеңесінің мүшесі',
+org_member_mgmt:'Басқарма мүшесі',
+org_zhalenov_role:'ҚР ҰБ төрағасының орынбасары, цифрлық трансформация жетекшісі',
+org_dit_dir:'ҚР ҰБ АТД директоры',
+org_ind_dir:'Тәуелсіз директор',
+org_amardinov_role:'Басқарма төрағасы, басқарма мүшесі',
+org_first_deputy:'Басқарма төрағасының бірінші орынбасары',
+org_deputy:'Басқарма төрағасының орынбасары',
+org_name_zhalenov:'Жаленов Бинур Муратович',
+org_name_uzbekov:'Өзбеков Асхат Архатұлы',
+org_name_alpamysov:'Алпамысов Абай Абдисаметұлы',
+org_name_konirbaev:'Қонырбаев Баян Қайратұлы',
+org_name_marat:'Марат Асқар',
+org_name_amardinov:'Амардинов Мәлік Әлімжанұлы',
+org_name_durmagambetov:'Дурмагамбетов Ерлан Дмитриевич',
+org_name_kentbekov:'Кентбеков Арғын Салаватұлы',
+org_name_imazhanov:'Имажанов Бақытжан Ғылымбекұлы',
+org_name_mazhrenov:'Мажренов Дәурен Муратұлы',
   },
   en:{
     logo_main:'Digital Development Centre',logo_sub:'National Bank of the Republic of Kazakhstan',
@@ -841,6 +1143,27 @@ const T = {
     ft_zakup:'Public Procurement RK', ft_rights:'All rights reserved.', ft_iso:'ISO 9001 Certified',
     s1t:'IT Systems Maintenance', s3t:'Public Procurement Portal', s4t:'Information Security', s5t:'Digital Transformation',
     search_hint:'Start typing to search...',
+    org_board:'Board of Directors',
+org_management:'Management Board',
+org_chairman_board:'Chairman of the Board of Directors',
+org_member_board:'Member of the Board of Directors',
+org_member_mgmt:'Member of the Management Board',
+org_zhalenov_role:'Deputy Chairman of the NBK, Head of Digital Transformation',
+org_dit_dir:'Director of the IT Department, NBK',
+org_ind_dir:'Independent Director',
+org_amardinov_role:'Chairman of the Management Board, Board Member',
+org_first_deputy:'First Deputy Chairman of the Management Board',
+org_deputy:'Deputy Chairman of the Management Board',
+org_name_zhalenov:'Zhalenov Binur Muratovich',
+org_name_uzbekov:'Uzbekov Askhat Arkhatovich',
+org_name_alpamysov:'Alpamysov Abai Abdisametovich',
+org_name_konirbaev:'Konirbaev Bayan Kairatovich',
+org_name_marat:'Marat Askar',
+org_name_amardinov:'Amardinov Malik Alimzhanovich',
+org_name_durmagambetov:'Durmagambetov Yerlan Dmitrievich',
+org_name_kentbekov:'Kentbekov Argyn Salavatovich',
+org_name_imazhanov:'Imazhanov Bakytzkhan Gylymbekovich',
+org_name_mazhrenov:'Mazhrenov Dauren Muratovich',
   }
 };
 
@@ -935,6 +1258,269 @@ document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='k'){
 
 // Применить сохранённые настройки при загрузке
 setLang(lang);
+
+
+(function() {
+  const canvas = document.getElementById('circuit');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+
+  let W, H, nodes, pulses;
+
+  const ACCENT = '0,212,170';
+  const BASE_NODE_COUNT = 35;
+  const MAX_DIST = 220;
+  const MAX_CONNECTIONS = 4;
+  const PULSE_SPEED = 0.2;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    init();
+  }
+
+  function getNodeCount() {
+
+    const area = W * H;
+    if (area < 300000)
+      return 12;
+
+    if (area < 700000)
+      return 20;
+
+    if (area < 1200000)
+      return 30;
+
+    return BASE_NODE_COUNT;
+  }
+
+  // равномерное распределение точек
+  function createNodes(count) {
+
+    const result = [];
+
+    const cols = Math.ceil(Math.sqrt(count));
+    const rows = Math.ceil(count / cols);
+
+    const cellW = W / cols;
+    const cellH = H / rows;
+
+    for (let i = 0; i < count; i++) {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+
+      result.push({
+
+        x:
+          col * cellW +
+          cellW / 2 +
+          (Math.random() - 0.5) * cellW * 0.7,
+
+
+        y:
+          row * cellH +
+          cellH / 2 +
+          (Math.random() - 0.5) * cellH * 0.7
+
+      });
+    }
+    return result;
+  }
+
+  function init() {
+    const count = getNodeCount();
+    nodes = createNodes(count);
+
+    const edges = [];
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx =
+          nodes[i].x - nodes[j].x;
+
+        const dy =
+          nodes[i].y - nodes[j].y;
+
+        const dist =
+          Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < MAX_DIST) {
+
+          const connectionsI =
+            edges.filter(e =>
+              e.i === i ||
+              e.j === i
+            ).length;
+
+          const connectionsJ =
+            edges.filter(e =>
+              e.i === j ||
+              e.j === j
+            ).length;
+          if (
+            connectionsI < MAX_CONNECTIONS &&
+            connectionsJ < MAX_CONNECTIONS
+          ) {
+            edges.push({
+
+              i,
+              j,
+              dist
+
+            });
+          }
+        }
+      }
+    }
+
+    pulses = edges.map(e => ({
+      ...e,
+
+      t: Math.random(),
+
+      speed:
+        (0.3 + Math.random() * 0.5)
+        *
+        PULSE_SPEED
+        /
+        e.dist
+    }));
+  }
+
+  function draw() {
+    ctx.clearRect(
+      0,
+      0,
+      W,
+      H
+    );
+
+    const isDark =
+      document.documentElement
+      .getAttribute('data-theme') !== 'light';
+
+    const lineColor =
+      isDark
+      ?
+      `rgba(${ACCENT},0.12)`
+      :
+      `rgba(0,120,100,0.10)`;
+
+    const nodeColor =
+      isDark
+      ?
+      `rgba(${ACCENT},0.3)`
+      :
+      `rgba(0,120,100,0.25)`;
+
+    const pulseColor =
+      isDark
+      ?
+      `rgba(${ACCENT},1)`
+      :
+      `rgba(0,150,120,0.9)`;
+
+    // линии
+    pulses.forEach(p => {
+      const a = nodes[p.i];
+      const b = nodes[p.j];
+      ctx.beginPath();
+      ctx.moveTo(
+        a.x,
+        a.y
+      );
+
+      ctx.lineTo(
+        b.x,
+        b.y
+      );
+      ctx.strokeStyle = lineColor;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+
+    // узлы
+    nodes.forEach(n => {
+
+      ctx.beginPath();
+      ctx.arc(
+        n.x,
+        n.y,
+        2,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fillStyle = nodeColor;
+      ctx.fill();
+    });
+
+    // импульсы
+    pulses.forEach(p => {
+
+      const a = nodes[p.i];
+      const b = nodes[p.j];
+
+      const x =
+        a.x +
+        (b.x - a.x) *
+        p.t;
+
+      const y =
+        a.y +
+        (b.y - a.y) *
+        p.t;
+
+      const glow =
+        ctx.createRadialGradient(
+          x,
+          y,
+          0,
+          x,
+          y,
+          7
+        );
+
+      glow.addColorStop(
+        0,
+        pulseColor
+      );
+
+      glow.addColorStop(
+        1,
+        'rgba(0,0,0,0)'
+      );
+
+      ctx.beginPath();
+      ctx.arc(
+        x,
+        y,
+        7,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fillStyle = glow;
+      ctx.fill();
+
+      // бесконечное движение
+      p.t += p.speed;
+      if (p.t > 1) {
+
+        p.t = 0;
+
+      }
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener(
+    'resize',
+    resize
+  );
+  resize();
+  draw();
+})();
+
 </script>
 
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Наверх">

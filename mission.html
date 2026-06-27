@@ -45,6 +45,52 @@
   .search-icon {
     content: url("img/magnifier\ dark.png");
   }
+
+  .lock-icon {
+    content: url("img/lock-dark.png");
+  }
+  .museum-icon {
+    content: url("img/museum-dark.png");
+  }
+  .graduation-icon {
+    content: url("img/graduation-cap-dark.png");
+  }
+  .rocket-icon {
+    content: url("img/rocket-dark.png");
+  }
+  .laptop-icon {
+    content: url("img/laptop-dark.png");
+  }
+  .graph-icon {
+    content: url("img/graph-dark.png");
+  }
+  .technology-icon {
+    content: url("img/technology-dark.png");
+  }
+  .verify-icon {
+    content: url("img/verify-dark.png");
+  }
+  .deal-icon {
+    content: url("img/deal-dark.png");
+  }
+  .target-icon {
+    content: url("img/target-dark.png");
+  }
+  .shield-icon {
+    content: url("img/shield-dark.png");
+  }
+  .rise-icon {
+    content: url("img/rise-dark.png");
+  }
+  .lightning-icon {
+    content: url("img/lightning-bolt-dark.png");
+  }
+  .earth-icon {
+    content: url("img/earth-grid-dark.png");
+  }
+  .people-icon {
+    content: url("img/multiple-users-silhouette-dark.png");
+  }
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -52,6 +98,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);transition:b
 a{color:inherit;text-decoration:none}
 button{font-family:var(--font);cursor:pointer}
 .container{max-width:1200px;margin:0 auto;padding:0 24px}
+.container-navbar{max-width:100vw;margin:0 auto;padding:0 24px}
 
 .eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
 .section-title{font-size:clamp(26px,3.8vw,46px);font-weight:800;line-height:1.12;letter-spacing:-.02em;color:var(--text);margin-bottom:14px}
@@ -87,6 +134,8 @@ button{font-family:var(--font);cursor:pointer}
     .logo-main-mobile, .logo-sub-mobile {
         display: inline;
     }
+
+    
 }
 
 .nav-links{display:flex;align-items:center;gap:2px;list-style:none}
@@ -124,7 +173,7 @@ button{font-family:var(--font);cursor:pointer}
 .srch-snip{font-size:12px;color:var(--text2)}
 
 /* PAGE HERO */
-.page-hero{padding:130px 0 72px;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+.page-hero{padding:130px 0 72px;position:relative;overflow:hidden;border-bottom:1px solid var(--border); background-color: var(--bg);}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 100% 100% at 10% 50%,black 0%,transparent 70%);pointer-events:none;opacity:.5}
 .hero-glow{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,170,0.08) 0%,transparent 65%);top:50%;left:-80px;transform:translateY(-50%);pointer-events:none}
 .breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text3);margin-bottom:20px}
@@ -276,7 +325,7 @@ button{font-family:var(--font);cursor:pointer}
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--text3);
+  color: var(--text2);
   font-size: 17px;
   font-weight: 500;
   transition: color var(--ease);
@@ -313,6 +362,15 @@ button{font-family:var(--font);cursor:pointer}
   transform: translateY(-2px);
 }
 
+
+.container-stats,section, .stats-bar, .about-wrap,
+.contact-wrap, .footer, .page-hero,
+.process-section, .sla-section,
+.partners-section, .cta-section, .strategy-section, .pillars-section {
+  position: relative;
+  z-index: 1;
+}
+
 /* ANIMATIONS */
 .fade{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
 .fade.in{opacity:1;transform:translateY(0)}
@@ -340,6 +398,9 @@ button{font-family:var(--font);cursor:pointer}
 </head>
 <body>
 
+    <canvas id="circuit" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+
 <!-- SEARCH -->
 <div class="srch-overlay" id="srchOverlay">
   <div class="srch-box">
@@ -359,7 +420,7 @@ button{font-family:var(--font);cursor:pointer}
 
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
-  <div class="container">
+  <div class="container-navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
         <div class="logo-mark"><img src="img/ddc icon.svg" alt="" style="width: auto; height: 40px;" class="ddc-logo"></div>
@@ -425,7 +486,7 @@ button{font-family:var(--font);cursor:pointer}
 <div class="mission-block">
   <div class="container">
     <div class="mission-card fade">
-      <div class="mission-icon">🎯</div>
+      <div class="mission-icon"><img src="img/target.png" alt="" style="width: 7%; height: 7%;" class="target-icon"></div>
       <div class="mission-quote" data-i18n="mission_quote">
         Обеспечить <span class="hl">надёжную и современную</span> цифровую инфраструктуру для финансовой системы Казахстана — чтобы государственные сервисы работали безупречно для каждого гражданина страны.
       </div>
@@ -445,19 +506,19 @@ button{font-family:var(--font);cursor:pointer}
     <div class="pillars-grid fade" style="transition-delay:.1s">
       <div class="pillar">
         <div class="pillar-num">01</div>
-        <div class="pillar-icon">🛡️</div>
+        <div class="pillar-icon"><img src="img/shield.png" alt="" style="width: 10%; height: 10%;" class="shield-icon"></div>
         <div class="pillar-title" data-i18n="p1t">Надёжность без компромиссов</div>
         <div class="pillar-desc" data-i18n="p1d">Финансовая система страны не может позволить себе простой. Мы строим инфраструктуру с резервированием на каждом уровне — от серверов до каналов связи — и гарантируем доступность 99.9% времени.</div>
       </div>
       <div class="pillar">
         <div class="pillar-num">02</div>
-        <div class="pillar-icon">🚀</div>
+        <div class="pillar-icon"><img src="img/technology.png" alt="" style="width: 10%; height: 10%;" class="technology-icon"></div>
         <div class="pillar-title" data-i18n="p2t">Технологии на службе государства</div>
         <div class="pillar-desc" data-i18n="p2d">Передовые ИТ-решения должны быть доступны не только частному бизнесу, но и государственному сектору. Мы переносим лучшие мировые практики в казахстанские госсистемы.</div>
       </div>
       <div class="pillar">
         <div class="pillar-num">03</div>
-        <div class="pillar-icon">🌱</div>
+        <div class="pillar-icon"><img src="img/rise.png" alt="" style="width: 10%; height: 10%;" class="rise-icon"></div>
         <div class="pillar-title" data-i18n="p3t">Устойчивое развитие</div>
         <div class="pillar-desc" data-i18n="p3d">Мы инвестируем в людей, технологии и процессы с горизонтом 10+ лет. Устойчивое развитие — это не лозунг, а принцип планирования каждого проекта.</div>
       </div>
@@ -478,28 +539,28 @@ button{font-family:var(--font);cursor:pointer}
       </div>
       <div class="vision-cards fade" style="transition-delay:.15s">
         <div class="vision-card">
-          <div class="vc-icon">⚡</div>
+          <div class="vc-icon"><img src="img/lightning-bolt.png" alt="" style="width: 50%; height: 50%;" class="lightning-icon"></div>
           <div>
             <div class="vc-title" data-i18n="vc1t">Скорость</div>
             <div class="vc-desc" data-i18n="vc1d">Государственные сервисы работают мгновенно. Нулевые задержки, нулевые очереди — всё доступно онлайн 24/7.</div>
           </div>
         </div>
         <div class="vision-card">
-          <div class="vc-icon">🔒</div>
+          <div class="vc-icon"><img src="img/lock.png" alt="" style="width: 50%; height: 50%;" class="lock-icon"></div>
           <div>
             <div class="vc-title" data-i18n="vc2t">Безопасность</div>
             <div class="vc-desc" data-i18n="vc2d">Данные граждан и финансовая информация защищены по стандартам мирового уровня. Никаких компромиссов.</div>
           </div>
         </div>
         <div class="vision-card">
-          <div class="vc-icon">🌐</div>
+          <div class="vc-icon"><img src="img/earth-grid.png" alt="" style="width: 50%; height: 50%;" class="earth-icon"></div>
           <div>
             <div class="vc-title" data-i18n="vc3t">Доступность</div>
             <div class="vc-desc" data-i18n="vc3d">Цифровые сервисы одинаково доступны в Алматы и в отдалённом районе. Инклюзивная цифровизация для всех.</div>
           </div>
         </div>
         <div class="vision-card">
-          <div class="vc-icon">📈</div>
+          <div class="vc-icon"><img src="img/verify.png" alt="" style="width: 50%; height: 50%;" class="verify-icon"></div>
           <div>
             <div class="vc-title" data-i18n="vc4t">Прозрачность</div>
             <div class="vc-desc" data-i18n="vc4d">Каждая транзакция прослеживаема. Государственные закупки открыты. Доверие граждан к финансовой системе на максимуме.</div>
@@ -553,22 +614,22 @@ button{font-family:var(--font);cursor:pointer}
     </div>
     <div class="sdg-grid">
       <div class="sdg-card fade">
-        <div class="sdg-icon">🏦</div>
+        <div class="sdg-icon"><img src="img/museum.png" alt="" style="width: 15%; height: 15%;" class="museum-icon"></div>
         <div class="sdg-title" data-i18n="sdg1t">Финансовая доступность</div>
         <div class="sdg-desc" data-i18n="sdg1d">Цифровые финансовые сервисы доступны каждому гражданину страны независимо от места проживания</div>
       </div>
       <div class="sdg-card fade" style="transition-delay:.06s">
-        <div class="sdg-icon">🤝</div>
+        <div class="sdg-icon"><img src="img/deal.png" alt="" style="width: 15%; height: 15%;" class="deal-icon"></div>
         <div class="sdg-title" data-i18n="sdg2t">Борьба с коррупцией</div>
         <div class="sdg-desc" data-i18n="sdg2d">Прозрачный портал госзакупок исключает непрозрачные схемы и обеспечивает честную конкуренцию</div>
       </div>
       <div class="sdg-card fade" style="transition-delay:.12s">
-        <div class="sdg-icon">🧑‍💻</div>
+        <div class="sdg-icon"><img src="img/multiple-users-silhouette.png" alt="" style="width: 15%; height: 15%;" class="people-icon"></div>
         <div class="sdg-title" data-i18n="sdg3t">Цифровые рабочие места</div>
         <div class="sdg-desc" data-i18n="sdg3d">200+ высококвалифицированных рабочих мест в ИТ-секторе Казахстана с конкурентными условиями труда</div>
       </div>
       <div class="sdg-card fade" style="transition-delay:.18s">
-        <div class="sdg-icon">📡</div>
+        <div class="sdg-icon"><img src="img/technology.png" alt="" style="width: 15%; height: 15%;" class="technology-icon"></div>
         <div class="sdg-title" data-i18n="sdg4t">Цифровой суверенитет</div>
         <div class="sdg-desc" data-i18n="sdg4d">Критическая финансовая инфраструктура страны находится под управлением казахстанской компании</div>
       </div>
@@ -604,7 +665,7 @@ button{font-family:var(--font);cursor:pointer}
         </div>
         <p data-i18n="ft_desc">Дочернее предприятие Национального банка Республики Казахстан. Надёжная ИТ-инфраструктура с 1995 года.</p>
         <div class="footer-socials">
-  <a href="https://www.instagram.com/bsbnb.kz/" target="_blank" rel="noopener" class="insta-btn" aria-label="Instagram">
+  <a href="https://www.instagram.com/ddc_nbk?igsh=MWo5cGNmc3JwMjNhMg==" target="_blank" rel="noopener" class="insta-btn" aria-label="Instagram">
     <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
       <circle cx="12" cy="12" r="4"/>
@@ -806,6 +867,269 @@ document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='k'){
 
 // Применить сохранённые настройки при загрузке
 setLang(lang);
+
+
+(function() {
+  const canvas = document.getElementById('circuit');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+
+  let W, H, nodes, pulses;
+
+  const ACCENT = '0,212,170';
+  const BASE_NODE_COUNT = 35;
+  const MAX_DIST = 220;
+  const MAX_CONNECTIONS = 4;
+  const PULSE_SPEED = 0.2;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    init();
+  }
+
+  function getNodeCount() {
+
+    const area = W * H;
+    if (area < 300000)
+      return 12;
+
+    if (area < 700000)
+      return 20;
+
+    if (area < 1200000)
+      return 30;
+
+    return BASE_NODE_COUNT;
+  }
+
+  // равномерное распределение точек
+  function createNodes(count) {
+
+    const result = [];
+
+    const cols = Math.ceil(Math.sqrt(count));
+    const rows = Math.ceil(count / cols);
+
+    const cellW = W / cols;
+    const cellH = H / rows;
+
+    for (let i = 0; i < count; i++) {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+
+      result.push({
+
+        x:
+          col * cellW +
+          cellW / 2 +
+          (Math.random() - 0.5) * cellW * 0.7,
+
+
+        y:
+          row * cellH +
+          cellH / 2 +
+          (Math.random() - 0.5) * cellH * 0.7
+
+      });
+    }
+    return result;
+  }
+
+  function init() {
+    const count = getNodeCount();
+    nodes = createNodes(count);
+
+    const edges = [];
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx =
+          nodes[i].x - nodes[j].x;
+
+        const dy =
+          nodes[i].y - nodes[j].y;
+
+        const dist =
+          Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < MAX_DIST) {
+
+          const connectionsI =
+            edges.filter(e =>
+              e.i === i ||
+              e.j === i
+            ).length;
+
+          const connectionsJ =
+            edges.filter(e =>
+              e.i === j ||
+              e.j === j
+            ).length;
+          if (
+            connectionsI < MAX_CONNECTIONS &&
+            connectionsJ < MAX_CONNECTIONS
+          ) {
+            edges.push({
+
+              i,
+              j,
+              dist
+
+            });
+          }
+        }
+      }
+    }
+
+    pulses = edges.map(e => ({
+      ...e,
+
+      t: Math.random(),
+
+      speed:
+        (0.3 + Math.random() * 0.5)
+        *
+        PULSE_SPEED
+        /
+        e.dist
+    }));
+  }
+
+  function draw() {
+    ctx.clearRect(
+      0,
+      0,
+      W,
+      H
+    );
+
+    const isDark =
+      document.documentElement
+      .getAttribute('data-theme') !== 'light';
+
+    const lineColor =
+      isDark
+      ?
+      `rgba(${ACCENT},0.12)`
+      :
+      `rgba(0,120,100,0.10)`;
+
+    const nodeColor =
+      isDark
+      ?
+      `rgba(${ACCENT},0.3)`
+      :
+      `rgba(0,120,100,0.25)`;
+
+    const pulseColor =
+      isDark
+      ?
+      `rgba(${ACCENT},1)`
+      :
+      `rgba(0,150,120,0.9)`;
+
+    // линии
+    pulses.forEach(p => {
+      const a = nodes[p.i];
+      const b = nodes[p.j];
+      ctx.beginPath();
+      ctx.moveTo(
+        a.x,
+        a.y
+      );
+
+      ctx.lineTo(
+        b.x,
+        b.y
+      );
+      ctx.strokeStyle = lineColor;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+
+    // узлы
+    nodes.forEach(n => {
+
+      ctx.beginPath();
+      ctx.arc(
+        n.x,
+        n.y,
+        2,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fillStyle = nodeColor;
+      ctx.fill();
+    });
+
+    // импульсы
+    pulses.forEach(p => {
+
+      const a = nodes[p.i];
+      const b = nodes[p.j];
+
+      const x =
+        a.x +
+        (b.x - a.x) *
+        p.t;
+
+      const y =
+        a.y +
+        (b.y - a.y) *
+        p.t;
+
+      const glow =
+        ctx.createRadialGradient(
+          x,
+          y,
+          0,
+          x,
+          y,
+          7
+        );
+
+      glow.addColorStop(
+        0,
+        pulseColor
+      );
+
+      glow.addColorStop(
+        1,
+        'rgba(0,0,0,0)'
+      );
+
+      ctx.beginPath();
+      ctx.arc(
+        x,
+        y,
+        7,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fillStyle = glow;
+      ctx.fill();
+
+      // бесконечное движение
+      p.t += p.speed;
+      if (p.t > 1) {
+
+        p.t = 0;
+
+      }
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener(
+    'resize',
+    resize
+  );
+  resize();
+  draw();
+})();
+
 </script>
 
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Наверх">
