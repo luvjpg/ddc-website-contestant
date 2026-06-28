@@ -449,7 +449,7 @@ button{font-family:var(--font);cursor:pointer}
 /* Vertical connector from root down */
 .tree-vline{
   width:2px;height:40px;
-  background:var(--line);
+  background:#458e80;
   margin:0 auto;
 }
  
@@ -460,14 +460,14 @@ button{font-family:var(--font);cursor:pointer}
   display:flex;
   justify-content:space-around;
   align-items:flex-start;
-  gap:12px;
+  gap:70px;
   padding-top:40px; /* space for vertical drops */
 }
 /* Top horizontal line spanning all children */
 .tree-hbar::before{
   content:'';position:absolute;
-  top:0;left:calc(50% / var(--children, 4) + 8px);right:calc(50% / var(--children, 4) + 8px);
-  height:2px;background:var(--line);
+  top:0;
+  height:2px;background: #458e80;
 }
 /* Vertical drop from horizontal bar to each child */
 .tree-hbar > .tree-child{
@@ -477,7 +477,7 @@ button{font-family:var(--font);cursor:pointer}
 .tree-hbar > .tree-child::before{
   content:'';
   position:absolute;top:-40px;left:50%;transform:translateX(-50%);
-  width:2px;height:40px;background:var(--line);
+  width:2px;height:40px;background:#458e80;
 }
  
 /* Section divider */
@@ -497,9 +497,39 @@ button{font-family:var(--font);cursor:pointer}
   display:flex;gap:16px;flex-wrap:wrap;
   justify-content:flex-start;
 }
+
+.org-tabs {
+  display: flex;
+  background: var(--surf);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 40px;
+  width: fit-content;
+}
+.org-tab {
+  padding: 10px 28px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  background: transparent;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all var(--ease);
+}
+.org-tab:hover { color: var(--text); }
+.org-tab.active {
+  background: var(--surf2);
+  color: var(--text);
+  font-weight: 600;
+}
+
+[data-theme="dark"]  { --line: rgba(0,212,170,0.3); }
+[data-theme="light"] { --line: rgba(0,180,140,0.4); }
  
-/* ---- RESPONSIVE ---- */
-.tree-hbar{flex-wrap:wrap;justify-content:center}
+
 @media(max-width:768px){
   .tree-hbar::before{display:none}
   .tree-hbar > .tree-child::before{display:none}
@@ -804,8 +834,12 @@ button{font-family:var(--font);cursor:pointer}
 
 <!-- ПРАВЛЕНИЕ -->
 <div style="margin-top:56px">
-  <div class="reporting-label" data-i18n="org_management">Правление</div>
-  <div style="display:flex;justify-content:center;margin-bottom:0">
+  <div class="org-tabs">
+    <button class="org-tab active" onclick="switchOrg('board', this)" data-i18n="org_management">Правление</button>
+    <button class="org-tab" onclick="switchOrg('management', this)"  data-i18n="org_board">Совет директоров</button>
+  </div>
+  <div id="org-board">
+    <div style="display:flex;justify-content:center;margin-bottom:0">
     <div class="person-card chairman">
       <div class="person-photo  chairman-photo"><img src="img/malik.png" alt="Имя" style="width:100%;height:100%;object-fit:cover"></div>
       <div class="person-name" data-i18n="org_name_amardinov">Амардинов Малик Алимжанович</div>
@@ -842,11 +876,12 @@ button{font-family:var(--font);cursor:pointer}
       </div></div>
     </div>
   </div>
+  </div>
+  
 </div>
     <!-- СОВЕТ ДИРЕКТОРОВ -->
-<div style="margin-top:40px">
-  <div class="reporting-label" data-i18n="org_board">Совет директоров</div>
-  <div class="tree-root" style="display:flex;justify-content:center;margin-bottom:0">
+  <div id="org-management" style="display:none;margin-top:40px">
+    <div class="tree-root" style="display:flex;justify-content:center;margin-bottom:0">
     <div class="person-card chairman">
       <div class="person-photo chairman-photo"><img src="img/binur.jpg" alt="Имя" style="width:100%;height:100%;object-fit:cover"></div>
       <div class="person-name" data-i18n="org_name_zhalenov">Жаленов Бинур Муратович</div>
@@ -883,6 +918,7 @@ button{font-family:var(--font);cursor:pointer}
       </div></div>
     </div>
   </div>
+  
   
 
 
@@ -1418,7 +1454,7 @@ setLang(lang);
       ?
       `rgba(${ACCENT},1)`
       :
-      `rgba(0,150,120,0.9)`;
+      `rgba(${ACCENT},0.3)`;
 
     // линии
     pulses.forEach(p => {
@@ -1520,6 +1556,12 @@ setLang(lang);
   resize();
   draw();
 })();
+function switchOrg(tab, btn) {
+  document.getElementById('org-board').style.display      = tab === 'board'      ? 'block' : 'none';
+  document.getElementById('org-management').style.display = tab === 'management' ? 'block' : 'none';
+  document.querySelectorAll('.org-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
 
 </script>
 

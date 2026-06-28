@@ -433,6 +433,27 @@ button{font-family:var(--font);cursor:pointer}
 
 
 
+.cv-upload {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg2);
+  border: 1px dashed var(--border2);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all var(--ease);
+}
+.cv-upload:hover {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+.cv-upload-icon { font-size: 18px; }
+.cv-upload-text { font-size: 14px; color: var(--text2); }
+.cv-upload-text.selected { color: var(--accent); font-weight: 500; }
+
+
+
 .container-stats,section, .info-strip, .stats-bar, .about-wrap,
 .contact-wrap, .footer, .page-hero,
 .process-section, .sla-section,
@@ -445,7 +466,10 @@ button{font-family:var(--font);cursor:pointer}
 
 /* ANIMATIONS */
 .fade{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
-.fade.in{opacity:1;transform:translateY(0)}
+.fade.in{opacity:1;transform:translateY(0); padding-left: 20px; padding-right: 20px;}
+
+
+.vac-cont{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px;align-items:start}
 
 @media(max-width:1024px){
   
@@ -467,6 +491,7 @@ button{font-family:var(--font);cursor:pointer}
   .footer-bottom{flex-direction:column;text-align:center}
   .page-hero{padding:110px 0 52px}
   .faq-list{max-width:100%}
+  .vac-cont{grid-template-columns: 1fr;}
 }
 @media(max-width:480px){
   .container-cs{max-width:1200px;margin:0 auto;padding:0}
@@ -737,6 +762,120 @@ button{font-family:var(--font);cursor:pointer}
   </div>
 </section>
 
+
+<!-- ======== ВАКАНСИИ ======== -->
+<section style="padding:0 0 80px">
+  <div class="container-cs">
+    <div class="fade">
+      <div class="eyebrow" data-i18n="cv_ey">Карьера</div>
+      <h2 class="section-title" data-i18n="cv_title">Отправить резюме</h2>
+      <p class="section-sub" data-i18n="cv_sub">Не нашли подходящую вакансию? Отправьте резюме — мы сохраним его и свяжемся когда появится подходящая позиция.</p>
+    </div>
+
+    <div class="vac-cont"   >
+
+      <!-- Форма -->
+      <div class="form-card fade">
+        <div class="form-stack" id="cvFormStack">
+          <div class="form-row2">
+            <div class="form-group">
+              <label class="form-label" data-i18n="cv_name">Ваше имя *</label>
+              <input class="form-input" id="cvName" type="text" placeholder="Алибек Сейткали">
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="cv_age">Возраст</label>
+              <input class="form-input" id="cvAge" type="number" placeholder="25" min="16" max="70">
+            </div>
+          </div>
+          <div class="form-row2">
+            <div class="form-group">
+              <label class="form-label">Email *</label>
+              <input class="form-input" id="cvEmail" type="email" placeholder="email@gmail.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="cv_phone">Телефон</label>
+              <input class="form-input" id="cvPhone" type="tel" placeholder="+7 (___) ___-__-__">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="cv_direction">Направление *</label>
+            <select class="form-sel" id="cvDir">
+              <option value="" data-i18n="cv_dir_def">Выберите направление</option>
+              <option data-i18n="cv_dir1">Разработка программного обеспечения</option>
+              <option data-i18n="cv_dir2">Информационная безопасность</option>
+              <option data-i18n="cv_dir3">Системное администрирование</option>
+              <option data-i18n="cv_dir4">Управление проектами</option>
+              <option data-i18n="cv_dir5">Анализ данных</option>
+              <option data-i18n="cv_dir6">Другое</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="cv_exp">Опыт работы</label>
+            <select class="form-sel" id="cvExp">
+              <option data-i18n="cv_exp0">Без опыта / Стажировка</option>
+              <option data-i18n="cv_exp1">1–2 года</option>
+              <option data-i18n="cv_exp2">3–5 лет</option>
+              <option data-i18n="cv_exp3">5+ лет</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="cv_about">О себе</label>
+            <textarea class="form-ta" id="cvAbout" placeholder="Коротко о себе, ключевые навыки, ссылка на GitHub / LinkedIn..." style="min-height:100px"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="cv_file">Резюме (PDF или DOCX)</label>
+            <label class="cv-upload" id="cvUploadLabel">
+              <input type="file" id="cvFile" accept=".pdf,.doc,.docx" style="display:none" onchange="handleFile(this)">
+              <span class="cv-upload-icon">📎</span>
+              <span class="cv-upload-text" id="cvUploadText" data-i18n="cv_upload">Нажмите чтобы выбрать файл</span>
+            </label>
+          </div>
+          <button class="btn btn-primary" id="cvSubmitBtn" onclick="submitCV()" style="width:100%;justify-content:center">
+            <span data-i18n="cv_send">Отправить резюме</span>
+          </button>
+        </div>
+        <div class="form-ok" id="cvFormOk">
+          <div class="form-ok-icon"><img src="img/accept.png" alt="" style="width: 10%; height: 10%;" class="accept-icon"></div>
+          <div class="form-ok-title" data-i18n="cv_ok_title">Резюме отправлено!</div>
+          <div class="form-ok-desc" data-i18n="cv_ok_desc">Мы сохранили ваши данные и свяжемся с вами при появлении подходящей вакансии.</div>
+        </div>
+      </div>
+
+      <!-- Почему ЦЦР -->
+      <div class="fade" style="transition-delay:.15s;display:flex;flex-direction:column;gap:14px;background:var(--surf);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;">
+        <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px" data-i18n="cv_why_title">Почему ЦЦР?</div>
+
+        <div class="vision-card">
+          <div class="vc-icon"><img src="img/verify.png" alt="" style="width: 5%; height: 5%;" class="verify-icon"></div>
+          <div>
+            <div class="vc-title" data-i18n="cv_why1t" style="color: var(--accent);">Стабильность</div>
+            <div class="vc-desc" data-i18n="cv_why1d">Дочернее предприятие Национального банка РК — надёжный работодатель с 30-летней историей.</div>
+          </div>
+        </div>
+        <div class="vision-card">
+          <div class="vc-icon"><img src="img/graduation-cap.png" alt="" style="width: 5%; height: 5%;" class="graduation-icon"></div>
+          <div>
+            <div class="vc-title" data-i18n="cv_why2t" style="color: var(--accent);">Развитие</div>
+            <div class="vc-desc" data-i18n="cv_why2d">Обучение, сертификация, участие в крупных государственных проектах цифровой трансформации.</div>
+          </div>
+        </div>
+        <div class="vision-card">
+          <div class="vc-icon"><img src="img/multiple-users-silhouette.png" alt="" style="width: 5%; height: 5%;" class="people-icon"></div>
+          <div>
+            <div class="vc-title" data-i18n="cv_why3t" style="color: var(--accent);">Команда</div>
+            <div class="vc-desc" data-i18n="cv_why3d">200+ профессионалов, открытая культура, современные инструменты и гибкий подход к работе.</div>
+          </div>
+        </div>
+
+        <a href="mailto:hr@bsbnb.kz" class="btn btn-outline" style="margin-top:8px;width:fit-content">
+          ✉ hr@bsbnb.kz
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- DEPARTMENTS -->
 <section class="dept-section">
   <div class="container">
@@ -932,7 +1071,24 @@ const T={
     s1t:'Сопровождение ИТ-систем',s3t:'Портал госзакупок',s4t:'Информационная безопасность',s5t:'Цифровая трансформация',
     search_hint:'Начните вводить запрос...',
     err_required:'Пожалуйста, заполните обязательные поля (имя, email, сообщение)',
-    err_email:'Введите корректный email адрес',
+    err_email:'Введите корректный email адрес', cv_ey:'Карьера', cv_title:'Отправить резюме',
+cv_sub:'Не нашли подходящую вакансию? Отправьте резюме — мы свяжемся когда появится подходящая позиция.',
+cv_name:'Ваше имя *', cv_age:'Возраст', cv_phone:'Телефон',
+cv_direction:'Направление *', cv_dir_def:'Выберите направление',
+cv_dir1:'Разработка ПО', cv_dir2:'Информационная безопасность',
+cv_dir3:'Системное администрирование', cv_dir4:'Управление проектами',
+cv_dir5:'Анализ данных', cv_dir6:'Другое',
+cv_exp:'Опыт работы', cv_exp0:'Без опыта / Стажировка',
+cv_exp1:'1–2 года', cv_exp2:'3–5 лет', cv_exp3:'5+ лет',
+cv_about:'О себе', cv_file:'Резюме (PDF или DOCX)',
+cv_upload:'Нажмите чтобы выбрать файл',
+cv_send:'Отправить резюме',
+cv_ok_title:'Резюме отправлено!',
+cv_ok_desc:'Мы сохранили ваши данные и свяжемся при появлении подходящей вакансии.',
+cv_why_title:'Почему ЦЦР?',
+cv_why1t:'Стабильность', cv_why1d:'Дочернее предприятие Национального банка РК — надёжный работодатель с 30-летней историей.',
+cv_why2t:'Развитие', cv_why2d:'Обучение, сертификация, участие в крупных государственных проектах.',
+cv_why3t:'Команда', cv_why3d:'200+ профессионалов, открытая культура и современные инструменты.', 
   },
   kz:{
     logo_main:'Цифрлық даму орталығы',logo_sub:'Қазақстан Республикасының Ұлттық Банкі',
@@ -971,7 +1127,24 @@ const T={
     s1t:'ЖТ-жүйелерді сүйемелдеу',s3t:'Мемлекеттік сатып алулар порталы',s4t:'Ақпараттық қауіпсіздік',s5t:'Цифрлық трансформация',
     search_hint:'Сұрауды теруді бастаңыз...',
     err_required:'Міндетті өрістерді толтырыңыз (аты, email, хабарлама)',
-    err_email:'Дұрыс email мекенжайын енгізіңіз',
+    err_email:'Дұрыс email мекенжайын енгізіңіз', cv_ey:'Мансап', cv_title:'Түйіндеме жіберу',
+cv_sub:'Қолайлы бос орын таппадыңыз ба? Түйіндемеңізді жіберіңіз — қолайлы лауазым пайда болғанда хабарласамыз.',
+cv_name:'Сіздің атыңыз *', cv_age:'Жасы', cv_phone:'Телефон',
+cv_direction:'Бағыт *', cv_dir_def:'Бағытты таңдаңыз',
+cv_dir1:'Бағдарламалық қамтамасыз етуді әзірлеу', cv_dir2:'Ақпараттық қауіпсіздік',
+cv_dir3:'Жүйелік әкімшілендіру', cv_dir4:'Жобаларды басқару',
+cv_dir5:'Деректерді талдау', cv_dir6:'Басқа',
+cv_exp:'Жұмыс тәжірибесі', cv_exp0:'Тәжірибесіз / Тағылымдама',
+cv_exp1:'1–2 жыл', cv_exp2:'3–5 жыл', cv_exp3:'5+ жыл',
+cv_about:'Өзіңіз туралы', cv_file:'Түйіндеме (PDF немесе DOCX)',
+cv_upload:'Файлды таңдау үшін басыңыз',
+cv_send:'Түйіндеме жіберу',
+cv_ok_title:'Түйіндеме жіберілді!',
+cv_ok_desc:'Деректеріңізді сақтадық, қолайлы бос орын пайда болғанда хабарласамыз.',
+cv_why_title:'Неліктен ЦДО?',
+cv_why1t:'Тұрақтылық', cv_why1d:'ҚР Ұлттық банкінің еншілес кәсіпорны — 30 жылдық тарихы бар сенімді жұмыс беруші.',
+cv_why2t:'Даму', cv_why2d:'Оқыту, сертификаттау, ірі мемлекеттік жобаларға қатысу.',
+cv_why3t:'Команда', cv_why3d:'200+ маман, ашық мәдениет және заманауи құралдар.',
   },
   en:{
     logo_main:'Digital Development Centre',logo_sub:'National Bank of the Republic of Kazakhstan',
@@ -1010,7 +1183,24 @@ const T={
     s1t:'IT Systems Maintenance',s3t:'Public Procurement Portal',s4t:'Information Security',s5t:'Digital Transformation',
     search_hint:'Start typing to search...',
     err_required:'Please fill in required fields (name, email, message)',
-    err_email:'Please enter a valid email address',
+    err_email:'Please enter a valid email address', cv_ey:'Careers', cv_title:'Send Your CV',
+cv_sub:"Didn't find a suitable vacancy? Send your CV — we'll contact you when a matching position opens.",
+cv_name:'Your Name *', cv_age:'Age', cv_phone:'Phone',
+cv_direction:'Direction *', cv_dir_def:'Select direction',
+cv_dir1:'Software Development', cv_dir2:'Information Security',
+cv_dir3:'System Administration', cv_dir4:'Project Management',
+cv_dir5:'Data Analysis', cv_dir6:'Other',
+cv_exp:'Work Experience', cv_exp0:'No experience / Internship',
+cv_exp1:'1–2 years', cv_exp2:'3–5 years', cv_exp3:'5+ years',
+cv_about:'About yourself', cv_file:'CV (PDF or DOCX)',
+cv_upload:'Click to select file',
+cv_send:'Send CV',
+cv_ok_title:'CV Sent!',
+cv_ok_desc:"We've saved your details and will contact you when a suitable vacancy appears.",
+cv_why_title:'Why DDC?',
+cv_why1t:'Stability', cv_why1d:'Subsidiary of the National Bank of Kazakhstan — a reliable employer with 30 years of history.',
+cv_why2t:'Growth', cv_why2d:'Training, certification, participation in major government digital transformation projects.',
+cv_why3t:'Team', cv_why3d:'200+ professionals, open culture and modern tools.',
   }
 };
 
@@ -1266,7 +1456,7 @@ setLang(lang);
       ?
       `rgba(${ACCENT},1)`
       :
-      `rgba(0,150,120,0.9)`;
+      `rgba(${ACCENT},0.3)`;
 
     // линии
     pulses.forEach(p => {
@@ -1368,6 +1558,30 @@ setLang(lang);
   resize();
   draw();
 })();
+
+
+function handleFile(input) {
+  const text = document.getElementById('cvUploadText');
+  if (input.files.length) {
+    text.textContent = input.files[0].name;
+    text.classList.add('selected');
+  }
+}
+
+function submitCV() {
+  const name  = document.getElementById('cvName').value.trim();
+  const email = document.getElementById('cvEmail').value.trim();
+  const dir   = document.getElementById('cvDir').value;
+  const L = T[lang];
+  if (!name || !email || !dir) { alert(L.err_required); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert(L.err_email); return; }
+  const btn = document.getElementById('cvSubmitBtn');
+  btn.style.opacity = '.6'; btn.disabled = true;
+  setTimeout(() => {
+    document.getElementById('cvFormStack').style.display = 'none';
+    document.getElementById('cvFormOk').classList.add('show');
+  }, 1100);
+}
 
 </script>
 
