@@ -774,6 +774,17 @@ button{font-family:var(--font);cursor:pointer}
 }
 .chat-send:hover { background: var(--accent-dim); }
 .chat-send svg { width: 16px; height: 16px; color: #080f1e; }
+
+
+button,
+a,
+input,
+textarea,
+select {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
+}
  
 @media (max-width: 480px) {
   .chat-window { width: calc(100vw - 32px); right: 16px; bottom: 84px; }

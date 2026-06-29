@@ -722,6 +722,16 @@ button{font-family:var(--font);cursor:pointer}
 
 .vac-cont{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px;align-items:start}
 
+button,
+a,
+input,
+textarea,
+select {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
+}
+
 @media(max-width:1024px){
   
   .info-strip-inner{grid-template-columns:repeat(2,1fr)}
