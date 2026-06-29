@@ -328,7 +328,7 @@ button{font-family:var(--font);cursor:pointer}
 .scroll-top {
   position: fixed;
   bottom: 32px;
-  right: 32px;
+  right: 92px;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -530,6 +530,255 @@ button{font-family:var(--font);cursor:pointer}
 
 [data-theme="dark"]  { --line: rgba(0,212,170,0.3); }
 [data-theme="light"] { --line: rgba(0,180,140,0.4); }
+
+
+/* =====================
+   CHAT WIDGET
+   ===================== */
+ 
+/* Toggle button */
+.chat-toggle {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0,212,170,0.4);
+  z-index: 9990;
+  transition: all var(--ease);
+}
+.chat-toggle:hover {
+  background: var(--accent-dim);
+  transform: scale(1.08);
+}
+.chat-toggle svg { width: 24px; height: 24px; color: #080f1e; transition: all var(--ease); }
+.chat-toggle .icon-chat { display: block; }
+.chat-toggle .icon-close { display: none; }
+.chat-toggle.open .icon-chat { display: none; }
+.chat-toggle.open .icon-close { display: block; }
+ 
+/* Unread badge */
+.chat-badge {
+  position: absolute;
+  top: -2px; right: -2px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #f55;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--bg);
+  animation: badge-pop .3s ease;
+}
+@keyframes badge-pop { from { transform: scale(0); } to { transform: scale(1); } }
+ 
+/* Chat window */
+.chat-window {
+  position: fixed;
+  bottom: 96px;
+  right: 28px;
+  width: 360px;
+  max-height: 520px;
+  background: var(--surf);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 16px 60px rgba(0,0,0,0.4);
+  z-index: 9989;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: scale(0.92) translateY(16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all .25s cubic-bezier(0.4,0,0.2,1);
+  transform-origin: bottom right;
+}
+.chat-window.open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+ 
+/* Header */
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surf2);
+  flex-shrink: 0;
+}
+.chat-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.chat-header-info { flex: 1; }
+.chat-header-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.chat-header-status {
+  font-size: 11px; color: var(--accent);
+  display: flex; align-items: center; gap: 5px;
+}
+.status-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.3} }
+.chat-close {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text3);
+  font-size: 14px;
+  transition: all var(--ease);
+}
+.chat-close:hover { color: var(--text); background: var(--bg2); }
+ 
+/* Messages */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scroll-behavior: smooth;
+}
+.chat-messages::-webkit-scrollbar { width: 4px; }
+.chat-messages::-webkit-scrollbar-track { background: transparent; }
+.chat-messages::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+ 
+/* Message bubbles */
+.msg {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  animation: msg-in .2s ease;
+}
+@keyframes msg-in { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.msg.user { flex-direction: row-reverse; }
+ 
+.msg-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.msg.user .msg-avatar { background: var(--surf2); border: 1px solid var(--border2); }
+ 
+.msg-bubble {
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+}
+.msg.user .msg-bubble {
+  background: var(--accent);
+  color: #080f1e;
+  border-color: transparent;
+  border-radius: 16px 16px 4px 16px;
+}
+.msg.bot .msg-bubble { border-radius: 16px 16px 16px 4px; }
+ 
+/* Typing indicator */
+.typing-bubble {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 16px;
+}
+.typing-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--text3);
+  animation: typing 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: .2s; }
+.typing-dot:nth-child(3) { animation-delay: .4s; }
+@keyframes typing { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+ 
+/* Quick reply chips */
+.quick-replies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 16px 8px;
+}
+.qr-chip {
+  padding: 6px 12px;
+  border-radius: 100px;
+  border: 1px solid var(--baccent);
+  background: var(--accent-glow);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--ease);
+  white-space: nowrap;
+}
+.qr-chip:hover { background: var(--accent); color: #080f1e; }
+ 
+/* Input */
+.chat-input-wrap {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.chat-input {
+  flex: 1;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 9px 16px;
+  font-size: 13px;
+  color: var(--text);
+  font-family: var(--font);
+  outline: none;
+  transition: all var(--ease);
+}
+.chat-input:focus { border-color: var(--accent); }
+.chat-input::placeholder { color: var(--text3); }
+.chat-send {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--ease);
+}
+.chat-send:hover { background: var(--accent-dim); }
+.chat-send svg { width: 16px; height: 16px; color: #080f1e; }
+ 
+@media (max-width: 480px) {
+  .chat-window { width: calc(100vw - 32px); right: 16px; bottom: 84px; }
+  .chat-toggle { right: 16px; bottom: 16px; }
+}
  
 
 @media(max-width:768px){
@@ -565,6 +814,7 @@ button{font-family:var(--font);cursor:pointer}
   .footer-bottom{flex-direction:column;text-align:center}
   .cta-block{padding:36px 24px}
   .page-hero{padding:110px 0 52px}
+  .scroll-top{right: 22px; bottom: 92px;}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
@@ -573,6 +823,57 @@ button{font-family:var(--font);cursor:pointer}
 
   <canvas id="circuit" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
 
+
+  <!-- =====================================================================
+  ЧАТ-ВИДЖЕТ
+  ===================================================================== -->
+ 
+<!-- Кнопка открытия -->
+<button class="chat-toggle" id="chatToggle" onclick="toggleChat()" aria-label="Открыть чат">
+  <svg class="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+  <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+  </svg>
+  <div class="chat-badge" id="chatBadge">1</div>
+</button>
+ 
+<!-- Окно чата -->
+<div class="chat-window" id="chatWindow">
+ 
+  <!-- Шапка -->
+  <div class="chat-header">
+    <div class="chat-avatar">🤖</div>
+    <div class="chat-header-info">
+      <div class="chat-header-name" id="botName">Цифровой ассистент ЦЦР</div>
+      <div class="chat-header-status">
+        <div class="status-dot"></div>
+        <span id="botStatus">Онлайн</span>
+      </div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+ 
+  <!-- Сообщения -->
+  <div class="chat-messages" id="chatMessages"></div>
+ 
+  <!-- Быстрые ответы -->
+  <div class="quick-replies" id="quickReplies"></div>
+ 
+  <!-- Ввод -->
+  <div class="chat-input-wrap">
+    <input class="chat-input" id="chatInput" type="text"
+      placeholder="Напишите вопрос..."
+      onkeydown="if(event.key==='Enter')sendMessage()"
+      autocomplete="off">
+    <button class="chat-send" onclick="sendMessage()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
 
 <!-- ======== SEARCH OVERLAY ======== -->
 <div class="srch-overlay" id="srchOverlay">
@@ -1563,6 +1864,394 @@ function switchOrg(tab, btn) {
   document.querySelectorAll('.org-tab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 }
+
+
+
+
+/* =====================================================================
+   БАЗА ЗНАНИЙ — ответы по ключевым словам
+   ===================================================================== */
+const KB = {
+  ru: {
+    greeting: {
+      keys: ['привет','здравствуй','добрый','здравствуйте','хай','hello','hi'],
+      answer: '👋 Привет! Я цифровой ассистент АО «Цифровой центр развития». Помогу вам узнать об услугах, контактах и истории компании. Что вас интересует?',
+      chips: ['Услуги', 'Контакты', 'О компании', 'Вакансии']
+    },
+    services: {
+      keys: ['услуг','сервис','чем занимает','что делает','предлагает','решени'],
+      answer: '🛠️ ЦЦР предоставляет следующие услуги:\n\n• Сопровождение ИТ-систем (24/7)\n• Обработка и хранение данных\n• Оператор портала госзакупок\n• Информационная безопасность\n• Цифровая трансформация\n• Консультации и обучение\n\nПо какой услуге хотите узнать подробнее?',
+      chips: ['ИТ-сопровождение', 'Госзакупки', 'Безопасность', 'Оставить заявку']
+    },
+    it: {
+      keys: ['ит-сопровожд','поддержк','администрир','сервер','мониторинг','uptime','sla'],
+      answer: '🖥️ Сопровождение ИТ-систем — наша ключевая услуга:\n\n• Мониторинг инфраструктуры 24/7/365\n• Время реакции на инцидент — от 15 минут\n• Uptime ≥ 99.9%\n• Администрирование серверов, сетей, БД\n• Управление инцидентами по ITIL\n\nДля подключения — оставьте заявку на странице Контакты.',
+      chips: ['Оставить заявку', 'Другие услуги']
+    },
+    procurement: {
+      keys: ['госзакуп','тендер','закупк','goszakup','портал закупок'],
+      answer: '🏛️ ЦЦР является официальным оператором единого портала государственных закупок Республики Казахстан (goszakup.gov.kz).\n\nПортал обеспечивает:\n• Прозрачное размещение тендеров\n• Электронную подачу заявок\n• Интеграцию с государственными реестрами\n• Поддержку участников 24/7',
+      chips: ['Контакты', 'Другие услуги']
+    },
+    security: {
+      keys: ['безопасност','кибер','iso 27001','защит','soc','уязвимост','аудит'],
+      answer: '🔐 Услуги информационной безопасности:\n\n• Аудит и оценка рисков\n• Защита от кибератак (SOC)\n• Шифрование и управление ключами\n• Соответствие ISO 27001 и требованиям НБК\n\nДля сообщения об уязвимости: security@bsbnb.kz',
+      chips: ['Оставить заявку', 'Контакты']
+    },
+    digital: {
+      keys: ['цифровизац','трансформац','облак','автоматизац','devops'],
+      answer: '🚀 Цифровая трансформация:\n\n• Анализ и реинжиниринг бизнес-процессов\n• Внедрение облачных решений\n• Автоматизация документооборота\n• Обучение и сопровождение сотрудников\n\nРаботаем с государственными органами и банками по всему Казахстану.',
+      chips: ['Оставить заявку', 'Все услуги']
+    },
+    contact: {
+      keys: ['контакт','адрес','где находит','офис','приехать','как добрат'],
+      answer: '📍 Контактная информация:\n\n📍 г. Алматы, ул. Сатпаева, 90А\n📞 +7 (727) 258-49-58\n✉️ info@bsbnb.kz\n🌐 bsbnb.kz\n\nРежим работы: Пн–Пт, 09:00–18:00\nТехподдержка: 24/7/365',
+      chips: ['Написать на email', 'Как проехать']
+    },
+    phone: {
+      keys: ['телефон','номер','позвонить','звонок'],
+      answer: '📞 Телефон: +7 (727) 258-49-58\n\nМногоканальный, пн–пт с 09:00 до 18:00.\nДля технических инцидентов — support@bsbnb.kz, работаем 24/7.',
+      chips: ['Email', 'Адрес']
+    },
+    email: {
+      keys: ['email','почта','написать','электронн'],
+      answer: '✉️ Email-адреса по отделам:\n\n• Общие вопросы: info@bsbnb.kz\n• Техподдержка: support@bsbnb.kz\n• Продажи: sales@bsbnb.kz\n• HR / Вакансии: hr@bsbnb.kz\n• Безопасность: security@bsbnb.kz\n• PR: pr@bsbnb.kz',
+      chips: ['Телефон', 'Адрес']
+    },
+    about: {
+      keys: ['о компани','что такое ццр','кто вы','история','основан','1995','расскаж'],
+      answer: '🏢 АО «Цифровой центр развития» (ЦЦР) — дочернее предприятие Национального банка Республики Казахстан.\n\n• Основана в 1995 году\n• 200+ сотрудников\n• 50+ ИТ-систем под поддержкой\n• ISO 9001 сертификация\n• Ребрендинг в ЦЦР в 2024 году\n\nОбеспечиваем цифровую инфраструктуру финансовой системы Казахстана.',
+      chips: ['Услуги', 'Контакты', 'Вакансии']
+    },
+    mission: {
+      keys: ['миссия','видение','цель','стратег','2030'],
+      answer: '🎯 Миссия ЦЦР:\n\n«Обеспечить надёжную и современную цифровую инфраструктуру для финансовой системы Казахстана — чтобы государственные сервисы работали безупречно для каждого гражданина страны.»\n\nВидение: Казахстан 2030 — цифровой лидер Центральной Азии.',
+      chips: ['О компании', 'Услуги']
+    },
+    careers: {
+      keys: ['вакансия','работа','трудоустройств','резюме','карьер','hr','устроиться'],
+      answer: '💼 Мы регулярно набираем ИТ-специалистов!\n\nОтправьте резюме на: hr@bsbnb.kz\n\nНаправления:\n• Разработка ПО\n• Информационная безопасность\n• Системное администрирование\n• Управление проектами\n• Анализ данных\n\nТакже можно заполнить форму на странице Контакты.',
+      chips: ['Отправить резюме', 'Контакты']
+    },
+    hours: {
+      keys: ['часы','режим','работает','время работ','расписани','когда открыт'],
+      answer: '🕐 Режим работы:\n\nПн–Пт: 09:00–18:00\nСб–Вс: выходной\n\nТехническая поддержка: 24/7/365\nEmail: support@bsbnb.kz\nТелефон: +7 (727) 258-49-58',
+      chips: ['Телефон', 'Email']
+    },
+    iso: {
+      keys: ['iso','сертификат','стандарт','качеств'],
+      answer: '✅ ЦЦР сертифицирован по ISO 9001 — международный стандарт системы менеджмента качества.\n\nТакже соответствуем требованиям ISO 27001 в области информационной безопасности и регуляторным требованиям Национального банка РК.',
+      chips: ['О компании', 'Услуги']
+    },
+    tender: {
+      keys: ['участ в тендер','подать заявк на тендер','как участвовать'],
+      answer: '📋 Для участия в тендерах ЦЦР:\n\nВсе закупки проводятся через официальный портал: goszakup.gov.kz\n\nПо вопросам тендеров: legal@bsbnb.kz\n\nСледите за актуальными закупками на портале.',
+      chips: ['Контакты', 'Госзакупки']
+    },
+    thanks: {
+      keys: ['спасибо','благодар','рахмет','thanks'],
+      answer: '😊 Пожалуйста! Если появятся ещё вопросы — всегда готов помочь. Хорошего дня!',
+      chips: ['Услуги', 'Контакты']
+    },
+    fallback: '🤔 Извините, не совсем понял вопрос. Попробуйте спросить иначе или выберите одну из тем:\n\n• Услуги компании\n• Контактная информация\n• О компании\n• Вакансии\n• Госзакупки'
+  },
+ 
+  kz: {
+    greeting: {
+      keys: ['сәлем','қайырлы','сәлеметсіз','хай'],
+      answer: '👋 Сәлем! Мен «Цифрлық даму орталығы» АҚ-ның цифрлық ассистентімін. Қызметтер, байланыс және компания тарихы туралы ақпарат беруге дайынмын. Не білгіңіз келеді?',
+      chips: ['Қызметтер', 'Байланыс', 'Компания туралы', 'Бос орындар']
+    },
+    services: {
+      keys: ['қызмет','сервис','не істейд','шешім'],
+      answer: '🛠️ ЦДО қызметтері:\n\n• ЖТ-жүйелерді сүйемелдеу (24/7)\n• Деректерді өңдеу және сақтау\n• Мемлекеттік сатып алулар порталының операторы\n• Ақпараттық қауіпсіздік\n• Цифрлық трансформация\n• Кеңес беру және оқыту',
+      chips: ['ЖТ-сүйемелдеу', 'Мемсатып алу', 'Қауіпсіздік', 'Өтінім қалдыру']
+    },
+    contact: {
+      keys: ['байланыс','мекенжай','офис','телефон','қайда орналас'],
+      answer: '📍 Байланыс ақпараты:\n\n📍 Алматы қ., Сәтпаев к-сі, 90А\n📞 +7 (727) 258-49-58\n✉️ info@bsbnb.kz\n🌐 bsbnb.kz\n\nЖұмыс уақыты: Дс–Жм, 09:00–18:00\nТехқолдау: 24/7/365',
+      chips: ['Email', 'Мекенжай']
+    },
+    about: {
+      keys: ['компания','кім','тарих','1995','ццо туралы'],
+      answer: '🏢 «Цифрлық даму орталығы» АҚ (ЦДО) — Қазақстан Республикасы Ұлттық банкінің еншілес кәсіпорны.\n\n• 1995 жылы құрылған\n• 200+ қызметкер\n• 50+ ЖТ-жүйе қолдауда\n• ISO 9001 сертификатталған',
+      chips: ['Қызметтер', 'Байланыс']
+    },
+    careers: {
+      keys: ['бос орын','жұмыс','түйіндеме','мансап'],
+      answer: '💼 Біз ЖТ-мамандарын тұрақты іріктейміз!\n\nТүйіндемеңізді жіберіңіз: hr@bsbnb.kz\n\nБағыттар:\n• Бағдарламалық қамтамасыз етуді әзірлеу\n• Ақпараттық қауіпсіздік\n• Жүйелік әкімшілендіру\n• Жобаларды басқару',
+      chips: ['Байланыс']
+    },
+    thanks: {
+      keys: ['рахмет','спасибо','алғыс'],
+      answer: '😊 Өтінеміз! Сұрақтарыңыз болса — әрқашан көмектесуге дайынмын. Жақсы күн тілеймін!',
+      chips: ['Қызметтер', 'Байланыс']
+    },
+    fallback: '🤔 Кешіріңіз, сұрақты түсінбедім. Басқаша сұрап көріңіз немесе тақырыпты таңдаңыз:\n\n• Қызметтер\n• Байланыс\n• Компания туралы\n• Бос орындар'
+  },
+ 
+  en: {
+    greeting: {
+      keys: ['hello','hi','hey','good morning','good afternoon'],
+      answer: "👋 Hello! I'm the digital assistant of DDC JSC (Digital Development Centre). I can help you learn about our services, contacts and company history. What would you like to know?",
+      chips: ['Services', 'Contacts', 'About us', 'Careers']
+    },
+    services: {
+      keys: ['service','what do you do','offer','solution','provide'],
+      answer: '🛠️ DDC provides the following services:\n\n• IT Systems Maintenance (24/7)\n• Data Processing & Storage\n• Public Procurement Portal operator\n• Information Security\n• Digital Transformation\n• Consulting & Training\n\nWhich service would you like to know more about?',
+      chips: ['IT Maintenance', 'Procurement', 'Security', 'Send Request']
+    },
+    it: {
+      keys: ['it support','maintenance','server','monitoring','uptime','sla','infrastructure'],
+      answer: '🖥️ IT Systems Maintenance — our core service:\n\n• 24/7/365 infrastructure monitoring\n• Incident response time — from 15 minutes\n• Uptime ≥ 99.9%\n• Server, network and database administration\n• ITIL-based incident management',
+      chips: ['Send Request', 'Other Services']
+    },
+    procurement: {
+      keys: ['procurement','tender','goszakup','public procurement'],
+      answer: '🏛️ DDC is the official operator of the unified Public Procurement Portal of Kazakhstan (goszakup.gov.kz).\n\nThe portal provides:\n• Transparent tender placement\n• Electronic bid submission\n• Integration with state registries\n• 24/7 participant support',
+      chips: ['Contacts', 'Other Services']
+    },
+    security: {
+      keys: ['security','cyber','iso 27001','protection','soc','vulnerability'],
+      answer: '🔐 Information Security services:\n\n• Audit and risk assessment\n• Cyber attack protection (SOC)\n• Encryption and key management\n• ISO 27001 and NBK compliance\n\nTo report a vulnerability: security@bsbnb.kz',
+      chips: ['Send Request', 'Contacts']
+    },
+    contact: {
+      keys: ['contact','address','office','where','location','find you'],
+      answer: '📍 Contact Information:\n\n📍 Almaty, Satpaev St., 90A\n📞 +7 (727) 258-49-58\n✉️ info@bsbnb.kz\n🌐 bsbnb.kz\n\nWorking hours: Mon–Fri, 09:00–18:00\nTechnical support: 24/7/365',
+      chips: ['Send email', 'Get directions']
+    },
+    email: {
+      keys: ['email','write','contact us','mail'],
+      answer: '✉️ Email addresses by department:\n\n• General: info@bsbnb.kz\n• Tech Support: support@bsbnb.kz\n• Sales: sales@bsbnb.kz\n• HR / Careers: hr@bsbnb.kz\n• Security: security@bsbnb.kz\n• PR: pr@bsbnb.kz',
+      chips: ['Phone', 'Address']
+    },
+    about: {
+      keys: ['about','who are you','history','founded','1995','company','tell me'],
+      answer: '🏢 DDC JSC (Digital Development Centre) is a subsidiary of the National Bank of the Republic of Kazakhstan.\n\n• Founded in 1995\n• 200+ employees\n• 50+ IT systems supported\n• ISO 9001 certified\n• Rebranded to DDC in 2024\n\nWe ensure the digital infrastructure of Kazakhstan\'s financial system.',
+      chips: ['Services', 'Contacts', 'Careers']
+    },
+    careers: {
+      keys: ['career','job','vacancy','cv','resume','work','hire','employment'],
+      answer: '💼 We regularly recruit IT specialists!\n\nSend your CV to: hr@bsbnb.kz\n\nDepartments:\n• Software Development\n• Information Security\n• System Administration\n• Project Management\n• Data Analysis',
+      chips: ['Send CV', 'Contacts']
+    },
+    hours: {
+      keys: ['hours','working','open','schedule','when'],
+      answer: '🕐 Working Hours:\n\nMon–Fri: 09:00–18:00\nSat–Sun: closed\n\nTechnical support: 24/7/365\nEmail: support@bsbnb.kz',
+      chips: ['Phone', 'Email']
+    },
+    thanks: {
+      keys: ['thank','thanks','great','awesome','helpful'],
+      answer: "😊 You're welcome! Feel free to ask if you have any more questions. Have a great day!",
+      chips: ['Services', 'Contacts']
+    },
+    fallback: "🤔 I'm not sure I understood that. Please try rephrasing or choose a topic:\n\n• Services\n• Contact information\n• About the company\n• Careers\n• Procurement"
+  }
+};
+ 
+/* Быстрые ответы чипов — маппинг текст → вопрос */
+const CHIP_MAP = {
+  // ru
+  'Услуги': 'услуги', 'Контакты': 'контакты', 'О компании': 'о компании',
+  'Вакансии': 'вакансии', 'ИТ-сопровождение': 'ит-сопровождение',
+  'Госзакупки': 'госзакупки', 'Безопасность': 'безопасность',
+  'Оставить заявку': 'контакты', 'Другие услуги': 'услуги',
+  'Телефон': 'телефон', 'Email': 'email', 'Адрес': 'адрес',
+  'Написать на email': 'email', 'Как проехать': 'адрес',
+  'Отправить резюме': 'вакансии', 'Все услуги': 'услуги',
+  // kz
+  'Қызметтер': 'қызметтер', 'Байланыс': 'байланыс',
+  'Компания туралы': 'компания туралы', 'Бос орындар': 'бос орын',
+  'ЖТ-сүйемелдеу': 'жт-сүйемелдеу', 'Мемсатып алу': 'мемлекеттік сатып алу',
+  'Қауіпсіздік': 'қауіпсіздік', 'Өтінім қалдыру': 'байланыс',
+  // en
+  'Services': 'services', 'Contacts': 'contacts', 'About us': 'about',
+  'Careers': 'careers', 'IT Maintenance': 'it support',
+  'Procurement': 'procurement', 'Security': 'security',
+  'Send Request': 'contacts', 'Other Services': 'services',
+  'Phone': 'phone', 'Address': 'address',
+  'Send email': 'email', 'Get directions': 'address',
+  'Send CV': 'careers', 'All Services': 'services',
+};
+ 
+/* =====================================================================
+   ЛОГИКА БОТА
+   ===================================================================== */
+let chatOpen = false;
+let botLang = 'ru'; // синхронизируется с lang сайта если он определён
+ 
+function getCurrentLang() {
+  if (typeof lang !== 'undefined') return lang;
+  return botLang;
+}
+ 
+function findAnswer(text) {
+  const l = getCurrentLang();
+  const kb = KB[l] || KB.ru;
+  const q = text.toLowerCase();
+ 
+  for (const key in kb) {
+    if (key === 'fallback') continue;
+    const entry = kb[key];
+    if (entry.keys && entry.keys.some(k => q.includes(k))) {
+      return entry;
+    }
+  }
+  return null;
+}
+ 
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chatWindow').classList.toggle('open', chatOpen);
+  document.getElementById('chatToggle').classList.toggle('open', chatOpen);
+ 
+  // Убрать бейдж
+  if (chatOpen) {
+    const badge = document.getElementById('chatBadge');
+    if (badge) badge.remove();
+    // Фокус на инпут
+    setTimeout(() => document.getElementById('chatInput').focus(), 300);
+  }
+}
+ 
+function addMessage(text, role) {
+  const messages = document.getElementById('chatMessages');
+  const msg = document.createElement('div');
+  msg.className = `msg ${role}`;
+ 
+  const avatar = document.createElement('div');
+  avatar.className = 'msg-avatar';
+  avatar.textContent = role === 'bot' ? '🤖' : '👤';
+ 
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+  // Поддержка переносов строк
+  bubble.style.whiteSpace = 'pre-wrap';
+  bubble.textContent = text;
+ 
+  msg.appendChild(avatar);
+  msg.appendChild(bubble);
+  messages.appendChild(msg);
+  messages.scrollTop = messages.scrollHeight;
+}
+ 
+function showTyping() {
+  const messages = document.getElementById('chatMessages');
+  const typing = document.createElement('div');
+  typing.className = 'msg bot';
+  typing.id = 'typingIndicator';
+  typing.innerHTML = `
+    <div class="msg-avatar">🤖</div>
+    <div class="msg-bubble typing-bubble">
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    </div>`;
+  messages.appendChild(typing);
+  messages.scrollTop = messages.scrollHeight;
+}
+ 
+function removeTyping() {
+  const t = document.getElementById('typingIndicator');
+  if (t) t.remove();
+}
+ 
+function setChips(chips) {
+  const qr = document.getElementById('quickReplies');
+  qr.innerHTML = '';
+  if (!chips) return;
+  chips.forEach(chip => {
+    const btn = document.createElement('button');
+    btn.className = 'qr-chip';
+    btn.textContent = chip;
+    btn.onclick = () => sendChip(chip);
+    qr.appendChild(btn);
+  });
+}
+ 
+function sendChip(chip) {
+  const query = CHIP_MAP[chip] || chip;
+  document.getElementById('chatInput').value = query;
+  sendMessage(chip); // показываем оригинальный текст чипа
+}
+ 
+function sendMessage(displayText) {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+ 
+  const shown = displayText || text;
+  input.value = '';
+  setChips([]); // убираем чипы
+ 
+  // Сообщение пользователя
+  addMessage(shown, 'user');
+ 
+  // Бот печатает
+  showTyping();
+ 
+  setTimeout(() => {
+    removeTyping();
+    const result = findAnswer(text);
+    const l = getCurrentLang();
+    const kb = KB[l] || KB.ru;
+ 
+    if (result) {
+      addMessage(result.answer, 'bot');
+      setChips(result.chips);
+    } else {
+      addMessage(kb.fallback, 'bot');
+      setChips(['Услуги', 'Контакты', 'О компании']);
+    }
+  }, 800 + Math.random() * 400); // небольшая случайность для реализма
+}
+ 
+/* =====================================================================
+   ИНИЦИАЛИЗАЦИЯ — приветственное сообщение
+   ===================================================================== */
+window.addEventListener('DOMContentLoaded', () => {
+  const l = getCurrentLang();
+  const kb = KB[l] || KB.ru;
+ 
+  const welcomes = {
+    ru: '👋 Здравствуйте! Я цифровой ассистент ЦЦР. Готов ответить на ваши вопросы об услугах, контактах и компании.',
+    kz: '👋 Сәлеметсіз! Мен ЦДО-ның цифрлық ассистентімін. Қызметтер мен компания туралы сұрақтарыңызға жауап беруге дайынмын.',
+    en: "👋 Hello! I'm DDC's digital assistant. I'm here to answer your questions about our services, contacts and company."
+  };
+ 
+  setTimeout(() => {
+    addMessage(welcomes[l] || welcomes.ru, 'bot');
+    setChips(
+      l === 'kz' ? ['Қызметтер', 'Байланыс', 'Компания туралы', 'Бос орындар'] :
+      l === 'en' ? ['Services', 'Contacts', 'About us', 'Careers'] :
+      ['Услуги', 'Контакты', 'О компании', 'Вакансии']
+    );
+  }, 400);
+ 
+  // Обновлять язык чипов при смене языка сайта
+  // Если на странице есть функция setLang — патчим её
+  if (typeof window.setLang === 'function') {
+    const origSetLang = window.setLang;
+    window.setLang = function(l) {
+      origSetLang(l);
+      botLang = l;
+      // Обновить placeholder
+      const input = document.getElementById('chatInput');
+      if (input) input.placeholder =
+        l === 'kz' ? 'Сұрақ жазыңыз...' :
+        l === 'en' ? 'Type your question...' : 'Напишите вопрос...';
+      // Обновить статус и имя бота
+      const nameEl = document.getElementById('botName');
+      const statusEl = document.getElementById('botStatus');
+      if (nameEl) nameEl.textContent =
+        l === 'kz' ? 'ЦДО цифрлық ассистенті' :
+        l === 'en' ? 'DDC Digital Assistant' : 'Цифровой ассистент ЦЦР';
+      if (statusEl) statusEl.textContent =
+        l === 'kz' ? 'Онлайн' : l === 'en' ? 'Online' : 'Онлайн';
+    };
+  }
+});
 
 </script>
 
