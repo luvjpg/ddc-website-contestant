@@ -17,6 +17,8 @@
 <link rel="apple-touch-icon" href="img/ddc icon.svg">
 <style>
 :root{
+    --accent2: #ecc271;
+
   --accent:#00D4AA;--accent-dim:#00b090;
   --accent-glow:rgba(0,212,170,0.12);
   --radius-sm:8px;--radius-md:12px;--radius-lg:20px;
@@ -209,7 +211,7 @@ button{font-family:var(--font);cursor:pointer}
 .breadcrumb a:hover{color:var(--accent)}
 .breadcrumb span{color:var(--text2)}
 .page-title{font-size:clamp(32px,5vw,60px);font-weight:800;line-height:1.1;letter-spacing:-.025em;color:var(--text);margin-bottom:16px}
-.page-title .hl{color:var(--accent)}
+.page-title .hl{color:var(--accent2)}
 .page-lead{font-size:18px;color:var(--text2);max-width:580px;line-height:1.7}
 
 /* QUICK INFO STRIP */
@@ -317,7 +319,7 @@ button{font-family:var(--font);cursor:pointer}
 }
 .detail-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
 .detail-val{font-size:14px;color:var(--text);font-weight:500}
-.detail-val a{color:var(--accent)}
+.detail-val a{color:var(--accent2)}
 .detail-val a:hover{text-decoration:underline}
 .detail-sub{font-size:12px;color:var(--text3);margin-top:2px}
 
@@ -349,7 +351,7 @@ button{font-family:var(--font);cursor:pointer}
 .dept-icon{font-size:24px;margin-bottom:14px}
 .dept-name{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px}
 .dept-desc{font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.55}
-.dept-email{font-size:13px;color:var(--accent);display:flex;align-items:center;gap:6px}
+.dept-email{font-size:13px;color:var(--accent2);display:flex;align-items:center;gap:6px}
 .dept-email:hover{text-decoration:underline}
 
 /* FAQ */
@@ -610,7 +612,7 @@ button{font-family:var(--font);cursor:pointer}
         <div class="info-cell-icon"><img src="img/mail.png" alt="" style="width: 50%; height: 50%;" class="mail-icon"></div>
         <div>
           <div class="info-cell-label">Email</div>
-          <div class="info-cell-val"><a href="mailto:info@bsbnb.kz" style="color:var(--accent)">info@bsbnb.kz</a></div>
+          <div class="info-cell-val"><a href="mailto:info@bsbnb.kz" style="color:var(--accent2)">info@bsbnb.kz</a></div>
         </div>
       </div>
       <div class="info-cell">
@@ -639,7 +641,7 @@ button{font-family:var(--font);cursor:pointer}
           <div class="form-row2">
             <div class="form-group">
               <label class="form-label" data-i18n="f_name">Ваше имя *</label>
-              <input class="form-input" id="fn" type="text" placeholder="Алибек Сейткали" autocomplete="name">
+              <input class="form-input" id="fn" type="text" placeholder="Имя Фамилия" autocomplete="name">
             </div>
             <div class="form-group">
               <label class="form-label" data-i18n="f_org">Организация</label>
@@ -780,7 +782,7 @@ button{font-family:var(--font);cursor:pointer}
           <div class="form-row2">
             <div class="form-group">
               <label class="form-label" data-i18n="cv_name">Ваше имя *</label>
-              <input class="form-input" id="cvName" type="text" placeholder="Алибек Сейткали">
+              <input class="form-input" id="cvName" type="text" placeholder="Имя Фамилия">
             </div>
             <div class="form-group">
               <label class="form-label" data-i18n="cv_age">Возраст</label>
@@ -848,21 +850,21 @@ button{font-family:var(--font);cursor:pointer}
         <div class="vision-card">
           <div class="vc-icon"><img src="img/verify.png" alt="" style="width: 5%; height: 5%;" class="verify-icon"></div>
           <div>
-            <div class="vc-title" data-i18n="cv_why1t" style="color: var(--accent);">Стабильность</div>
+            <div class="vc-title" data-i18n="cv_why1t" style="color: var(--accent2);">Стабильность</div>
             <div class="vc-desc" data-i18n="cv_why1d">Дочернее предприятие Национального банка РК — надёжный работодатель с 30-летней историей.</div>
           </div>
         </div>
         <div class="vision-card">
           <div class="vc-icon"><img src="img/graduation-cap.png" alt="" style="width: 5%; height: 5%;" class="graduation-icon"></div>
           <div>
-            <div class="vc-title" data-i18n="cv_why2t" style="color: var(--accent);">Развитие</div>
+            <div class="vc-title" data-i18n="cv_why2t" style="color: var(--accent2);">Развитие</div>
             <div class="vc-desc" data-i18n="cv_why2d">Обучение, сертификация, участие в крупных государственных проектах цифровой трансформации.</div>
           </div>
         </div>
         <div class="vision-card">
           <div class="vc-icon"><img src="img/multiple-users-silhouette.png" alt="" style="width: 5%; height: 5%;" class="people-icon"></div>
           <div>
-            <div class="vc-title" data-i18n="cv_why3t" style="color: var(--accent);">Команда</div>
+            <div class="vc-title" data-i18n="cv_why3t" style="color: var(--accent2);">Команда</div>
             <div class="vc-desc" data-i18n="cv_why3d">200+ профессионалов, открытая культура, современные инструменты и гибкий подход к работе.</div>
           </div>
         </div>
@@ -1001,7 +1003,6 @@ button{font-family:var(--font);cursor:pointer}
         <div class="fc-title" data-i18n="nav_svc">Услуги</div>
         <ul class="fc-links">
           <li><a href="services.html" data-i18n="s1t">Сопровождение ИТ-систем</a></li>
-          <li><a href="services.html" data-i18n="s3t">Портал госзакупок</a></li>
           <li><a href="services.html" data-i18n="s4t">Информационная безопасность</a></li>
           <li><a href="services.html" data-i18n="s5t">Цифровая трансформация</a></li>
         </ul>
@@ -1011,15 +1012,14 @@ button{font-family:var(--font);cursor:pointer}
         <ul class="fc-links">
           <li><a href="about.html"   data-i18n="nav_about">О компании</a></li>
           <li><a href="mission.html" data-i18n="nav_mission">Миссия</a></li>
-          <li><a href="#"            data-i18n="ft_rep">Финансовая отчётность</a></li>
           <li><a href="contact.html" data-i18n="nav_contact">Контакты</a></li>
         </ul>
       </div>
       <div>
         <div class="fc-title" data-i18n="ft_links">Ссылки</div>
         <ul class="fc-links">
-          <li><a href="https://nationalbank.kz" target="_blank">Нацбанк РК</a></li>
-          <li><a href="https://goszakup.gov.kz" target="_blank" data-i18n="ft_zakup">Госзакупки РК</a></li>
+          <li><a href="https://nationalbank.kz/ru" target="_blank">Нацбанк РК</a></li>
+          <li><a href="https://zakup.nationalbank.kz/" target="_blank" data-i18n="ft_zakup">Госзакупки РК</a></li>
           <li><a href="mailto:info@bsbnb.kz">info@bsbnb.kz</a></li>
         </ul>
       </div>

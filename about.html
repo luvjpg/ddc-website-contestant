@@ -17,6 +17,8 @@
 <style>
 /* ======================== VARIABLES ======================== */
 :root {
+    --accent2: #ecc271;
+
   --accent:#00D4AA; --accent-dim:#00b090;
   --accent-glow:rgba(0,212,170,0.12); --accent-glow2:rgba(0,212,170,0.22);
   --radius-sm:8px; --radius-md:12px; --radius-lg:20px;
@@ -188,7 +190,7 @@ button{font-family:var(--font);cursor:pointer}
 .breadcrumb a:hover{color:var(--accent)}
 .breadcrumb span{color:var(--text2)}
 .page-title{font-size:clamp(32px,5vw,60px);font-weight:800;line-height:1.1;letter-spacing:-.025em;color:var(--text);margin-bottom:16px}
-.page-title .hl{color:var(--accent)}
+.page-title .hl{color:var(--accent2)}
 .page-lead{font-size:18px;color:var(--text2);max-width:620px;line-height:1.7}
 
 /* ======================== CONTENT SECTIONS ======================== */
@@ -199,7 +201,7 @@ button{font-family:var(--font);cursor:pointer}
 .who-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
 .who-text p{font-size:16px;color:var(--text2);line-height:1.75;margin-bottom:18px}
 .who-text p:last-child{margin-bottom:0}
-.who-text strong{color:var(--text);font-weight:600}
+.who-text strong{color:var(--accent2);font-weight:600}
 
 .who-visual{display:flex;flex-direction:column;gap:14px}
 .info-card{
@@ -977,15 +979,14 @@ button{font-family:var(--font);cursor:pointer}
         <ul class="fc-links">
           <li><a href="about.html"   data-i18n="nav_about">О компании</a></li>
           <li><a href="mission.html" data-i18n="nav_mission">Миссия</a></li>
-          <li><a href="#"            data-i18n="ft_rep">Финансовая отчётность</a></li>
-          <li><a href="#"            data-i18n="ft_hr">Карьера</a></li>
+          <li><a href="contact.html"            data-i18n="ft_hr">Карьера</a></li>
         </ul>
       </div>
       <div>
         <div class="fc-title" data-i18n="ft_links">Ссылки</div>
         <ul class="fc-links">
-          <li><a href="https://nationalbank.kz" target="_blank">Нацбанк РК</a></li>
-          <li><a href="https://goszakup.gov.kz" target="_blank" data-i18n="ft_zakup">Госзакупки РК</a></li>
+          <li><a href="https://nationalbank.kz/ru" target="_blank">Нацбанк РК</a></li>
+          <li><a href="https://zakup.nationalbank.kz/" target="_blank" data-i18n="ft_zakup">Госзакупки РК</a></li>
           <li><a href="contact.html" data-i18n="nav_contact">Контакты</a></li>
         </ul>
       </div>

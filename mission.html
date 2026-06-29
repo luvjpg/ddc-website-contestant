@@ -15,6 +15,8 @@
 <link rel="apple-touch-icon" href="img/ddc icon.svg">
 <style>
 :root{
+    --accent2: #ecc271;
+
   --accent:#00D4AA;--accent-dim:#00b090;
   --accent-glow:rgba(0,212,170,0.12);
   --radius-sm:8px;--radius-md:12px;--radius-lg:20px;
@@ -181,7 +183,7 @@ button{font-family:var(--font);cursor:pointer}
 .breadcrumb a:hover{color:var(--accent)}
 .breadcrumb span{color:var(--text2)}
 .page-title{font-size:clamp(32px,5vw,60px);font-weight:800;line-height:1.1;letter-spacing:-.025em;color:var(--text);margin-bottom:16px}
-.page-title .hl{color:var(--accent)}
+.page-title .hl{color:var(--accent2)}
 .page-lead{font-size:18px;color:var(--text2);max-width:620px;line-height:1.7}
 .page-hero-inner{position:relative;z-index:1}
 
@@ -210,7 +212,7 @@ button{font-family:var(--font);cursor:pointer}
   color:var(--text);line-height:1.35;letter-spacing:-.01em;
   position:relative;z-index:1;margin-bottom:24px;
 }
-.mission-quote .hl{color:var(--accent)}
+.mission-quote .hl{color:var(--accent2)}
 .mission-author{font-size:14px;color:var(--text3);position:relative;z-index:1}
 
 /* PILLARS */
@@ -679,7 +681,6 @@ button{font-family:var(--font);cursor:pointer}
         <div class="fc-title" data-i18n="nav_svc">Услуги</div>
         <ul class="fc-links">
           <li><a href="services.html" data-i18n="s1t">Сопровождение ИТ-систем</a></li>
-          <li><a href="services.html" data-i18n="s3t">Портал госзакупок</a></li>
           <li><a href="services.html" data-i18n="s4t">Информационная безопасность</a></li>
           <li><a href="services.html" data-i18n="s5t">Цифровая трансформация</a></li>
         </ul>
@@ -689,15 +690,14 @@ button{font-family:var(--font);cursor:pointer}
         <ul class="fc-links">
           <li><a href="about.html"   data-i18n="nav_about">О компании</a></li>
           <li><a href="mission.html" data-i18n="nav_mission">Миссия</a></li>
-          <li><a href="#"            data-i18n="ft_rep">Финансовая отчётность</a></li>
-          <li><a href="#"            data-i18n="ft_hr">Карьера</a></li>
+          <li><a href="contact.html"            data-i18n="ft_hr">Карьера</a></li>
         </ul>
       </div>
       <div>
         <div class="fc-title" data-i18n="ft_links">Ссылки</div>
         <ul class="fc-links">
-          <li><a href="https://nationalbank.kz" target="_blank">Нацбанк РК</a></li>
-          <li><a href="https://goszakup.gov.kz" target="_blank" data-i18n="ft_zakup">Госзакупки РК</a></li>
+          <li><a href="https://nationalbank.kz/ru" target="_blank">Нацбанк РК</a></li>
+          <li><a href="https://zakup.nationalbank.kz/" target="_blank" data-i18n="ft_zakup">Госзакупки РК</a></li>
           <li><a href="contact.html" data-i18n="nav_contact">Контакты</a></li>
         </ul>
       </div>
