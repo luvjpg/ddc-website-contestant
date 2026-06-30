@@ -139,7 +139,7 @@ button{font-family:var(--font);cursor:pointer}
 .lang-btn.active{background:var(--accent);color:#080f1e}
 .ham{display:none;flex-direction:column;gap:4px;padding:7px;border:1px solid var(--border);background:var(--surf);border-radius:var(--radius-sm)}
 .ham span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:all var(--ease)}
-.mob-menu{display:none;position:fixed;top:68px;left:0;right:0;bottom:0;background:var(--bg);z-index:999;padding:28px 24px;flex-direction:column;gap:8px;overflow-y:auto}
+.mob-menu{display:none;position:fixed;top:68px;left:0;right:0;bottom:0;background:var(--bg);z-index:9999;padding:28px 24px;flex-direction:column;gap:8px;overflow-y:auto}
 .mob-menu.open{display:flex}
 .mob-menu a{padding:13px 16px;border-radius:var(--radius-md);font-size:17px;font-weight:500;color:var(--text);border:1px solid var(--border);background:var(--surf);transition:all var(--ease)}
 .mob-menu a:hover{border-color:var(--accent);color:var(--accent)}
@@ -253,17 +253,7 @@ button{font-family:var(--font);cursor:pointer}
 .sla-badge.blue{background:rgba(56,130,220,.12);color:#5b9cf6;border:1px solid rgba(56,130,220,.25)}
 .sla-badge.amber{background:rgba(245,180,0,.1);color:#f5b800;border:1px solid rgba(245,180,0,.25)}
 
-/* PARTNERS */
-.partners-section{padding:64px 0;border-top:1px solid var(--border)}
-.partners-label{font-size:13px;color:var(--text3);text-align:center;margin-bottom:36px;font-weight:500;letter-spacing:.04em}
-.partners-row{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap}
-.partner-logo{
-  background:var(--surf);border:1px solid var(--border);
-  border-radius:var(--radius-md);padding:16px 28px;
-  font-size:13px;font-weight:700;color:var(--text3);
-  transition:all var(--ease);white-space:nowrap;
-}
-.partner-logo:hover{border-color:var(--baccent);color:var(--text);background:var(--surf2)}
+
 
 /* CTA */
 .cta-section{padding:88px 0;background:var(--surf);border-top:1px solid var(--border)}
@@ -1023,19 +1013,7 @@ select {
   </div>
 </div>
 
-<!-- PARTNERS -->
-<div class="partners-section">
-  <div class="container">
-    <div class="partners-label" data-i18n="partners_lbl">Работаем с ведущими организациями Казахстана</div>
-    <div class="partners-row">
-      <div class="partner-logo">Национальный банк РК</div>
-      <div class="partner-logo">Министерство финансов</div>
-      <div class="partner-logo">goszakup.gov.kz</div>
-      <div class="partner-logo">Банки 2-го уровня</div>
-      <div class="partner-logo">Государственные органы</div>
-    </div>
-  </div>
-</div>
+
 
 <!-- FOOTER -->
 <footer class="footer">
@@ -1081,14 +1059,14 @@ select {
       <div>
         <div class="fc-title" data-i18n="ft_links">Ссылки</div>
         <ul class="fc-links">
-          <li><a href="https://nationalbank.kz/ru" target="_blank">Нацбанк РК</a></li>
+          <li><a href="https://nationalbank.kz/ru" target="_blank" data-i18n="logo_sub_mobile">Нацбанк РК</a></li>
           <li><a href="https://zakup.nationalbank.kz/" target="_blank" data-i18n="ft_zakup">Госзакупки РК</a></li>
           <li><a href="contact.html" data-i18n="nav_contact">Контакты</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-bottom-txt">© 2025 АО «Цифровой центр развития» (ЦЦР). <span data-i18n="ft_rights">Все права защищены.</span></div>
+      <div class="footer-bottom-txt" data-i18n="ft_rights">© 2025 АО «Цифровой центр развития» (ЦЦР). Все права защищены.</div>
       <div class="footer-bottom-txt" data-i18n="ft_iso">Сертифицирован по ISO 9001</div>
     </div>
   </div>
@@ -1129,7 +1107,7 @@ const T={
     cta_btn1:'Оставить заявку',cta_btn2:'О компании',
     partners_lbl:'Работаем с ведущими организациями Казахстана',
     ft_desc:'Дочернее предприятие Национального банка Республики Казахстан. Надёжная ИТ-инфраструктура с 1995 года.',
-    ft_rep:'Финансовая отчётность',ft_hr:'Карьера',ft_links:'Ссылки',ft_zakup:'Госзакупки РК',ft_rights:'Все права защищены.',ft_iso:'Сертифицирован по ISO 9001',
+    ft_rep:'Финансовая отчётность',ft_hr:'Карьера',ft_links:'Ссылки',ft_zakup:'Госзакупки РК',ft_rights:'© 2025 АО «Цифровой центр развития» (ЦЦР). Все права защищены.',ft_iso:'Сертифицирован по ISO 9001',
     search_hint:'Начните вводить запрос...',
   },
   kz:{
@@ -1165,7 +1143,7 @@ const T={
     cta_btn1:'Өтінім қалдыру',cta_btn2:'Компания туралы',
     partners_lbl:'Қазақстанның жетекші ұйымдарымен жұмыс істейміз',
     ft_desc:'Қазақстан Республикасы Ұлттық банкінің еншілес кәсіпорны. 1995 жылдан бері сенімді ЖТ-инфрақұрылым.',
-    ft_rep:'Қаржылық есептілік',ft_hr:'Мансап',ft_links:'Сілтемелер',ft_zakup:'ҚР мемлекеттік сатып алулары',ft_rights:'Барлық құқықтар қорғалған.',ft_iso:'ISO 9001 бойынша сертификатталған',
+    ft_rep:'Қаржылық есептілік',ft_hr:'Мансап',ft_links:'Сілтемелер',ft_zakup:'ҚР мемлекеттік сатып алулары',ft_rights:'© 2025 «Цифрлық даму орталығы» АҚ (ЦДО). Барлық құқықтар қорғалған.',ft_iso:'ISO 9001 бойынша сертификатталған',
     search_hint:'Сұрауды теруді бастаңыз...',
   },
   en:{
@@ -1201,7 +1179,7 @@ const T={
     cta_btn1:'Send Request',cta_btn2:'About Us',
     partners_lbl:'Working with Kazakhstan\'s leading organisations',
     ft_desc:'Subsidiary of the National Bank of the Republic of Kazakhstan. Reliable IT infrastructure since 1995.',
-    ft_rep:'Financial Reports',ft_hr:'Careers',ft_links:'Links',ft_zakup:'Public Procurement RK',ft_rights:'All rights reserved.',ft_iso:'ISO 9001 Certified',
+    ft_rep:'Financial Reports',ft_hr:'Careers',ft_links:'Links',ft_zakup:'Public Procurement RK',ft_rights:'© 2025 «Digital Development Center» JSC (DDC). All rights reserved.',ft_iso:'ISO 9001 Certified',
     search_hint:'Start typing to search...',
   }
 };
@@ -1588,7 +1566,7 @@ const KB = {
       chips: ['О компании', 'Услуги']
     },
     careers: {
-      keys: ['вакансия','работа','трудоустройств','резюме','карьер','hr','устроиться'],
+      keys: ['вакансии','вакансия','работа','трудоустройств','резюме','карьер','hr','устроиться'],
       answer: '💼 Мы регулярно набираем ИТ-специалистов!\n\nОтправьте резюме на: hr@bsbnb.kz\n\nНаправления:\n• Разработка ПО\n• Информационная безопасность\n• Системное администрирование\n• Управление проектами\n• Анализ данных\n\nТакже можно заполнить форму на странице Контакты.',
       chips: ['Отправить резюме', 'Контакты']
     },
@@ -1867,49 +1845,122 @@ function sendMessage(displayText) {
 }
  
 /* =====================================================================
-   ИНИЦИАЛИЗАЦИЯ — приветственное сообщение
+   ИНИЦИАЛИЗАЦИЯ ЧАТА
    ===================================================================== */
+
+const welcomes = {
+  ru: '👋 Здравствуйте! Я цифровой ассистент ЦЦР. Готов ответить на ваши вопросы об услугах, контактах и компании.',
+  kz: '👋 Сәлеметсіз! Мен ЦДО-ның цифрлық ассистентімін. Қызметтер мен компания туралы сұрақтарыңызға жауап беруге дайынмын.',
+  en: "👋 Hello! I'm DDC's digital assistant. I'm here to answer your questions about our services, contacts and company."
+};
+
+
+function showWelcome() {
+  addMessage(welcomes[botLang] || welcomes.ru, 'bot');
+}
+
+
+function updateChips(lang) {
+  setChips(
+    lang === 'kz' 
+      ? ['Қызметтер', 'Байланыс', 'Компания туралы', 'Бос орындар']
+      : lang === 'en'
+      ? ['Services', 'Contacts', 'About us', 'Careers']
+      : ['Услуги', 'Контакты', 'О компании', 'Вакансии']
+  );
+}
+
+
+/* запуск после загрузки */
 window.addEventListener('DOMContentLoaded', () => {
-  const l = getCurrentLang();
-  const kb = KB[l] || KB.ru;
- 
-  const welcomes = {
-    ru: '👋 Здравствуйте! Я цифровой ассистент ЦЦР. Готов ответить на ваши вопросы об услугах, контактах и компании.',
-    kz: '👋 Сәлеметсіз! Мен ЦДО-ның цифрлық ассистентімін. Қызметтер мен компания туралы сұрақтарыңызға жауап беруге дайынмын.',
-    en: "👋 Hello! I'm DDC's digital assistant. I'm here to answer your questions about our services, contacts and company."
-  };
- 
+
+  botLang = getCurrentLang();
+
   setTimeout(() => {
-    addMessage(welcomes[l] || welcomes.ru, 'bot');
-    setChips(
-      l === 'kz' ? ['Қызметтер', 'Байланыс', 'Компания туралы', 'Бос орындар'] :
-      l === 'en' ? ['Services', 'Contacts', 'About us', 'Careers'] :
-      ['Услуги', 'Контакты', 'О компании', 'Вакансии']
-    );
+    showWelcome();
+    updateChips(botLang);
   }, 400);
- 
-  // Обновлять язык чипов при смене языка сайта
-  // Если на странице есть функция setLang — патчим её
-  if (typeof window.setLang === 'function') {
-    const origSetLang = window.setLang;
-    window.setLang = function(l) {
-      origSetLang(l);
-      botLang = l;
-      // Обновить placeholder
-      const input = document.getElementById('chatInput');
-      if (input) input.placeholder =
-        l === 'kz' ? 'Сұрақ жазыңыз...' :
-        l === 'en' ? 'Type your question...' : 'Напишите вопрос...';
-      // Обновить статус и имя бота
-      const nameEl = document.getElementById('botName');
-      const statusEl = document.getElementById('botStatus');
-      if (nameEl) nameEl.textContent =
-        l === 'kz' ? 'ЦДО цифрлық ассистенті' :
-        l === 'en' ? 'DDC Digital Assistant' : 'Цифровой ассистент ЦЦР';
-      if (statusEl) statusEl.textContent =
-        l === 'kz' ? 'Онлайн' : l === 'en' ? 'Online' : 'Онлайн';
-    };
-  }
+
+
+  // ждём пока появится setLang
+  const langWatcher = setInterval(() => {
+
+    if (typeof window.setLang === 'function') {
+
+      clearInterval(langWatcher);
+
+      const originalSetLang = window.setLang;
+
+      window.setLang = function(l) {
+
+        // оригинальная смена языка сайта
+        originalSetLang(l);
+
+
+        // язык бота
+        botLang = l;
+
+
+        // очищаем старый чат
+        const messages = document.getElementById('chatMessages');
+        if(messages) messages.innerHTML = '';
+
+
+        // убираем старые кнопки
+        const qr = document.getElementById('quickReplies');
+        if(qr) qr.innerHTML = '';
+
+
+        // обновляем placeholder
+        const input = document.getElementById('chatInput');
+
+        if(input){
+          input.placeholder =
+            l === 'kz'
+            ? 'Сұрақ жазыңыз...'
+            : l === 'en'
+            ? 'Type your question...'
+            : 'Напишите вопрос...';
+        }
+
+
+        // имя бота
+        const name = document.getElementById('botName');
+
+        if(name){
+          name.textContent =
+            l === 'kz'
+            ? 'ЦДО цифрлық ассистенті'
+            : l === 'en'
+            ? 'DDC Digital Assistant'
+            : 'Цифровой ассистент ЦЦР';
+        }
+
+
+        // статус
+        const status = document.getElementById('botStatus');
+
+        if(status){
+          status.textContent =
+            l === 'en'
+            ? 'Online'
+            : 'Онлайн';
+        }
+
+
+        // новое приветствие
+        showWelcome();
+
+
+        // новые кнопки
+        updateChips(l);
+
+      };
+
+    }
+
+  },100);
+
 });
 
 </script>

@@ -234,7 +234,7 @@ section{padding:96px 0}
 /* Mobile menu */
 .mob-menu{
   display:none;position:fixed;top:68px;left:0;right:0;bottom:0;
-  background:var(--bg);z-index:999;
+  background:var(--bg);z-index:9999;
   padding:28px 24px;flex-direction:column;gap:8px;
   overflow-y:auto;
 }
@@ -1027,8 +1027,8 @@ select {
         <div class="stat-label" data-i18n="stat3">ИТ-систем под поддержкой</div>
       </div>
       <div class="stat-item fade" style="transition-delay:.24s">
-        <div class="stat-number" data-count="3" data-suffix="">0</div>
-        <div class="stat-label" data-i18n="stat4">языка интерфейса</div>
+        <div class="stat-number" data-count="1995" data-suffix="">0</div>
+        <div class="stat-label" data-i18n="stat4">год основания</div>
       </div>
     </div>
   </div>
@@ -1049,7 +1049,7 @@ select {
         <div class="news-body">
           <span class="news-tag" data-i18n="ntag1">Компания</span>
           <div class="news-title" data-i18n="n1t">Назначение нового председателя правления ЦЦР</div>
-          <div class="news-date">15 мая 2025</div>
+          <div class="news-date" data-i18n="date15">15 мая 2025</div>
         </div>
       </div>
       <div class="news-card fade" style="transition-delay:.08s">
@@ -1057,7 +1057,7 @@ select {
         <div class="news-body">
           <span class="news-tag" data-i18n="ntag2">Услуги</span>
           <div class="news-title" data-i18n="n2t">Обновление портала государственных закупок — новые возможности</div>
-          <div class="news-date">3 апреля 2025</div>
+          <div class="news-date" data-i18n="date3">3 апреля 2025</div>
         </div>
       </div>
       <div class="news-card fade" style="transition-delay:.16s">
@@ -1065,7 +1065,7 @@ select {
         <div class="news-body">
           <span class="news-tag" data-i18n="ntag3">Цифровизация</span>
           <div class="news-title" data-i18n="n3t">ЦЦР внедряет новые стандарты информационной безопасности</div>
-          <div class="news-date">12 марта 2025</div>
+          <div class="news-date" data-i18n="date12">12 марта 2025</div>
         </div>
       </div>
     </div>
@@ -1181,14 +1181,14 @@ select {
       <div>
         <div class="fc-title" data-i18n="ft_links">Ссылки</div>
         <ul class="fc-links">
-          <li><a href="https://nationalbank.kz/ru" target="_blank">Нацбанк РК</a></li>
+          <li><a href="https://nationalbank.kz/ru" target="_blank" data-i18n="logo_sub_mobile">Нацбанк РК</a></li>
           <li><a href="https://zakup.nationalbank.kz/" target="_blank" data-i18n="ft_zakup">Госзакупки РК</a></li>
           <li><a href="contact.html" data-i18n="nav_contact">Контакты</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-bottom-txt">© 2025 АО «Цифровой центр развития» (ЦЦР). <span data-i18n="ft_rights">Все права защищены.</span></div>
+      <div class="footer-bottom-txt" data-i18n="ft_rights">© 2025 АО «Цифровой центр развития» (ЦЦР). Все права защищены.</div>
       <div class="footer-bottom-txt" data-i18n="ft_iso">Сертифицирован по ISO 9001</div>
     </div>
   </div>
@@ -1210,7 +1210,7 @@ const T = {
     hero_h1:'Цифровая основа финансовой системы <span class="hl">Казахстана</span>',
     hero_desc:'АО «Цифровой центр развития» — ИТ-компания с 30-летней историей, обеспечивающая надёжную работу государственных финансовых систем и порталов Республики Казахстан.',
     hero_cta1:'Наши услуги', hero_cta2:'Связаться',
-    stat1:'лет на рынке', stat2:'сотрудников', stat3:'ИТ-систем под поддержкой', stat4:'языка интерфейса',
+    stat1:'лет на рынке', stat2:'сотрудников', stat3:'ИТ-систем под поддержкой', stat4:'год основания',
     svc_eyebrow:'Что мы делаем', svc_title:'Услуги и решения',
     svc_sub:'Комплексная ИТ-поддержка финансовой инфраструктуры — от разработки до сопровождения.',
     s1t:'Сопровождение ИТ-систем', s1d:'Техническая поддержка и администрирование государственных информационных систем 24/7 с гарантией SLA.',
@@ -1243,8 +1243,8 @@ const T = {
     c_addr_lbl:'Адрес', c_addr:'пр-т. Мангилик Ел. 57, Астана 020000, Казахстан', c_phone_lbl:'Телефон',
     ft_desc:'Дочернее предприятие Национального банка Республики Казахстан. Надёжная ИТ-инфраструктура с 1995 года.',
     ft_rep:'Финансовая отчётность', ft_hr:'Карьера', ft_links:'Ссылки',
-    ft_zakup:'Госзакупки РК', ft_rights:'Все права защищены.', ft_iso:'Сертифицирован по ISO 9001',
-    search_hint:'Начните вводить запрос...',
+    ft_zakup:'Госзакупки РК', ft_rights:'© 2025 АО «Цифровой центр развития» (ЦЦР). Все права защищены.', ft_iso:'Сертифицирован по ISO 9001',
+    search_hint:'Начните вводить запрос...', date15: '15 мая 2025', date3: '3 апреля 2025', date12: '12 марта 2025',
   },
   kz:{
     nav_home:'Басты бет', nav_mission:'Миссия',
@@ -1255,7 +1255,7 @@ const T = {
     hero_h1:'Қазақстан қаржы жүйесінің <span class="hl">цифрлық негізі</span>',
     hero_desc:'«Цифрлық даму орталығы» АҚ — 30 жылдық тарихы бар ЖТ-компания, Қазақстан Республикасының мемлекеттік қаржылық жүйелері мен порталдарының сенімді жұмысын қамтамасыз етеді.',
     hero_cta1:'Біздің қызметтер', hero_cta2:'Байланысу',
-    stat1:'жыл нарықта', stat2:'қызметкер', stat3:'ЖТ-жүйе қолдауда', stat4:'интерфейс тілі',
+    stat1:'жыл нарықта', stat2:'қызметкер', stat3:'ЖТ-жүйе қолдауда', stat4:'құрылған жылы',
     svc_eyebrow:'Біз не істейміз', svc_title:'Қызметтер мен шешімдер',
     svc_sub:'Қаржылық инфрақұрылымды кешенді ЖТ-қолдау — әзірлеуден бастап сүйемелдеуге дейін.',
     s1t:'ЖТ-жүйелерді сүйемелдеу', s1d:'SLA кепілдігімен 24/7 режимінде мемлекеттік ақпараттық жүйелерге техникалық қолдау.',
@@ -1288,8 +1288,8 @@ const T = {
     c_addr_lbl:'Мекенжай', c_addr:'Мәңгілік Ел даңғылы. 57, Астана 020000, Қазақстан', c_phone_lbl:'Телефон',
     ft_desc:'Қазақстан Республикасы Ұлттық банкінің еншілес кәсіпорны. 1995 жылдан бері сенімді ЖТ-инфрақұрылым.',
     ft_rep:'Қаржылық есептілік', ft_hr:'Мансап', ft_links:'Сілтемелер',
-    ft_zakup:'ҚР мемлекеттік сатып алулары', ft_rights:'Барлық құқықтар қорғалған.', ft_iso:'ISO 9001 бойынша сертификатталған',
-    search_hint:'Сұрауды теруді бастаңыз...',
+    ft_zakup:'ҚР мемлекеттік сатып алулары', ft_rights:'© 2025 «Цифрлық даму орталығы» АҚ (ЦДО). Барлық құқықтар қорғалған.', ft_iso:'ISO 9001 бойынша сертификатталған',
+    search_hint:'Сұрауды теруді бастаңыз...', date15: '15 мамыр 2025', date3: '3 сәуір 2025', date12: '12 наурыз 2025',
   },
   en:{
     nav_home:'Home', nav_mission:'Mission',
@@ -1300,7 +1300,7 @@ const T = {
     hero_h1:'The Digital Foundation of <span class="hl">Kazakhstan\'s</span> Financial System',
     hero_desc:'DDC JSC is an IT company with 30 years of history, ensuring the reliable operation of government financial systems and portals of the Republic of Kazakhstan.',
     hero_cta1:'Our Services', hero_cta2:'Get in Touch',
-    stat1:'years in market', stat2:'employees', stat3:'IT systems supported', stat4:'interface languages',
+    stat1:'years in market', stat2:'employees', stat3:'IT systems supported', stat4:'founding year',
     svc_eyebrow:'What we do', svc_title:'Services & Solutions',
     svc_sub:'Comprehensive IT support for financial infrastructure — from development to maintenance.',
     s1t:'IT Systems Maintenance', s1d:'Technical support and administration of government information systems 24/7 with SLA guarantees.',
@@ -1333,8 +1333,8 @@ const T = {
     c_addr_lbl:'Address', c_addr:'Ave. Mangilik El. 57, Astana 020000, Kazakhstan', c_phone_lbl:'Phone',
     ft_desc:'Subsidiary of the National Bank of the Republic of Kazakhstan. Reliable IT infrastructure since 1995.',
     ft_rep:'Financial Reports', ft_hr:'Careers', ft_links:'Links',
-    ft_zakup:'Public Procurement RK', ft_rights:'All rights reserved.', ft_iso:'ISO 9001 Certified',
-    search_hint:'Start typing to search...',
+    ft_zakup:'Public Procurement RK', ft_rights:'© 2025 «Digital Development Center» JSC (DDC). All rights reserved.', ft_iso:'ISO 9001 Certified',
+    search_hint:'Start typing to search...', date15: '15 may 2025', date3: '3 april 2025', date12: '12 march 2025',
   }
 };
 
@@ -1797,7 +1797,7 @@ const KB = {
       chips: ['О компании', 'Услуги']
     },
     careers: {
-      keys: ['вакансия','работа','трудоустройств','резюме','карьер','hr','устроиться'],
+      keys: ['вакансии','вакансия','работа','трудоустройств','резюме','карьер','hr','устроиться'],
       answer: '💼 Мы регулярно набираем ИТ-специалистов!\n\nОтправьте резюме на: hr@bsbnb.kz\n\nНаправления:\n• Разработка ПО\n• Информационная безопасность\n• Системное администрирование\n• Управление проектами\n• Анализ данных\n\nТакже можно заполнить форму на странице Контакты.',
       chips: ['Отправить резюме', 'Контакты']
     },
@@ -2076,49 +2076,122 @@ function sendMessage(displayText) {
 }
  
 /* =====================================================================
-   ИНИЦИАЛИЗАЦИЯ — приветственное сообщение
+   ИНИЦИАЛИЗАЦИЯ ЧАТА
    ===================================================================== */
+
+const welcomes = {
+  ru: '👋 Здравствуйте! Я цифровой ассистент ЦЦР. Готов ответить на ваши вопросы об услугах, контактах и компании.',
+  kz: '👋 Сәлеметсіз! Мен ЦДО-ның цифрлық ассистентімін. Қызметтер мен компания туралы сұрақтарыңызға жауап беруге дайынмын.',
+  en: "👋 Hello! I'm DDC's digital assistant. I'm here to answer your questions about our services, contacts and company."
+};
+
+
+function showWelcome() {
+  addMessage(welcomes[botLang] || welcomes.ru, 'bot');
+}
+
+
+function updateChips(lang) {
+  setChips(
+    lang === 'kz' 
+      ? ['Қызметтер', 'Байланыс', 'Компания туралы', 'Бос орындар']
+      : lang === 'en'
+      ? ['Services', 'Contacts', 'About us', 'Careers']
+      : ['Услуги', 'Контакты', 'О компании', 'Вакансии']
+  );
+}
+
+
+/* запуск после загрузки */
 window.addEventListener('DOMContentLoaded', () => {
-  const l = getCurrentLang();
-  const kb = KB[l] || KB.ru;
- 
-  const welcomes = {
-    ru: '👋 Здравствуйте! Я цифровой ассистент ЦЦР. Готов ответить на ваши вопросы об услугах, контактах и компании.',
-    kz: '👋 Сәлеметсіз! Мен ЦДО-ның цифрлық ассистентімін. Қызметтер мен компания туралы сұрақтарыңызға жауап беруге дайынмын.',
-    en: "👋 Hello! I'm DDC's digital assistant. I'm here to answer your questions about our services, contacts and company."
-  };
- 
+
+  botLang = getCurrentLang();
+
   setTimeout(() => {
-    addMessage(welcomes[l] || welcomes.ru, 'bot');
-    setChips(
-      l === 'kz' ? ['Қызметтер', 'Байланыс', 'Компания туралы', 'Бос орындар'] :
-      l === 'en' ? ['Services', 'Contacts', 'About us', 'Careers'] :
-      ['Услуги', 'Контакты', 'О компании', 'Вакансии']
-    );
+    showWelcome();
+    updateChips(botLang);
   }, 400);
- 
-  // Обновлять язык чипов при смене языка сайта
-  // Если на странице есть функция setLang — патчим её
-  if (typeof window.setLang === 'function') {
-    const origSetLang = window.setLang;
-    window.setLang = function(l) {
-      origSetLang(l);
-      botLang = l;
-      // Обновить placeholder
-      const input = document.getElementById('chatInput');
-      if (input) input.placeholder =
-        l === 'kz' ? 'Сұрақ жазыңыз...' :
-        l === 'en' ? 'Type your question...' : 'Напишите вопрос...';
-      // Обновить статус и имя бота
-      const nameEl = document.getElementById('botName');
-      const statusEl = document.getElementById('botStatus');
-      if (nameEl) nameEl.textContent =
-        l === 'kz' ? 'ЦДО цифрлық ассистенті' :
-        l === 'en' ? 'DDC Digital Assistant' : 'Цифровой ассистент ЦЦР';
-      if (statusEl) statusEl.textContent =
-        l === 'kz' ? 'Онлайн' : l === 'en' ? 'Online' : 'Онлайн';
-    };
-  }
+
+
+  // ждём пока появится setLang
+  const langWatcher = setInterval(() => {
+
+    if (typeof window.setLang === 'function') {
+
+      clearInterval(langWatcher);
+
+      const originalSetLang = window.setLang;
+
+      window.setLang = function(l) {
+
+        // оригинальная смена языка сайта
+        originalSetLang(l);
+
+
+        // язык бота
+        botLang = l;
+
+
+        // очищаем старый чат
+        const messages = document.getElementById('chatMessages');
+        if(messages) messages.innerHTML = '';
+
+
+        // убираем старые кнопки
+        const qr = document.getElementById('quickReplies');
+        if(qr) qr.innerHTML = '';
+
+
+        // обновляем placeholder
+        const input = document.getElementById('chatInput');
+
+        if(input){
+          input.placeholder =
+            l === 'kz'
+            ? 'Сұрақ жазыңыз...'
+            : l === 'en'
+            ? 'Type your question...'
+            : 'Напишите вопрос...';
+        }
+
+
+        // имя бота
+        const name = document.getElementById('botName');
+
+        if(name){
+          name.textContent =
+            l === 'kz'
+            ? 'ЦДО цифрлық ассистенті'
+            : l === 'en'
+            ? 'DDC Digital Assistant'
+            : 'Цифровой ассистент ЦЦР';
+        }
+
+
+        // статус
+        const status = document.getElementById('botStatus');
+
+        if(status){
+          status.textContent =
+            l === 'en'
+            ? 'Online'
+            : 'Онлайн';
+        }
+
+
+        // новое приветствие
+        showWelcome();
+
+
+        // новые кнопки
+        updateChips(l);
+
+      };
+
+    }
+
+  },100);
+
 });
 
 </script>
