@@ -2,7 +2,7 @@
   "name": "Digital Development Centre",
   "short_name": "DDC",
   "description": "",
-  "start_url": "/",
+  "start_url": "index.html",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
@@ -15,13 +15,13 @@
 
   "icons": [
     {
-      "src": "/img/icon192.png",
+      "src": "img/icon192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/img/icon512.png",
+      "src": "img/icon512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
