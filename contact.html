@@ -2419,6 +2419,14 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js")
+      .then(() => console.log("PWA Service Worker активен"))
+      .catch(err => console.log("SW ошибка:", err));
+  });
+}
+
 
 </script>
 
