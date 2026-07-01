@@ -2,8 +2,8 @@
   "name": "Digital Development Centre",
   "short_name": "DDC",
   "description": "",
-  "start_url": "index.html",
-  "scope": "/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
 
