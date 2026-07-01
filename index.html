@@ -209,8 +209,9 @@ section{padding:96px 0}
   width:34px;height:34px;border:1px solid var(--border);
   background:var(--surf);border-radius:var(--radius-sm);
   display:flex;align-items:center;justify-content:center;
-  color:var(--text2);font-size:15px;transition:all var(--ease);
+  color:var(--text);font-size:20px;transition:all var(--ease);
 }
+
 .icon-btn:hover{color:var(--text);border-color:var(--accent);background:var(--accent-glow)}
 
 .lang-sw{
@@ -821,6 +822,8 @@ select {
     -webkit-touch-callout: none;
     user-select: none;
 }
+
+
  
 @media (max-width: 480px) {
   .chat-window { width: calc(100vw - 32px); right: 16px; bottom: 84px; }
@@ -836,6 +839,7 @@ select {
   .services-grid{grid-template-columns:repeat(2,1fr)}
   .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
   .about-grid{grid-template-columns:1fr;gap:40px}
+  
 }
 @media(max-width:768px){
   section{padding:68px 0}
@@ -852,10 +856,12 @@ select {
   .form-row2{grid-template-columns:1fr}
   .hero-desc{font-size:16px}
   .scroll-top{right: 22px; bottom: 92px;}
+  
 }
 @media(max-width:480px){
   .hero-actions{flex-direction:column}
   .btn{width:100%;justify-content:center}
+  
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
@@ -959,8 +965,10 @@ select {
       </ul>
 
       <div class="nav-actions">
+        
         <button class="icon-btn" onclick="openSearch()" aria-label="Поиск"><img src="img/magnifier.png" alt="" style="width: auto; height: 20px;" class="search-icon"></button>
         <button class="icon-btn" onclick="toggleTheme()" id="themeBtn" aria-label="Тема"><img src="img/day-and-night.png" alt="" style="width: auto; height: 20px;" class="theme-icon"></button>
+        <button class="icon-btn" id="installBtn" aria-label="Поиск" >⭣</button>
         <div class="lang-sw">
           <button class="lang-btn" onclick="setLang('kz')" id="lb-kz">ҚАЗ</button>
           <button class="lang-btn active" onclick="setLang('ru')" id="lb-ru">РУС</button>
@@ -2199,6 +2207,32 @@ window.addEventListener('DOMContentLoaded', () => {
 
   },100);
 
+});
+
+let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+    // Отключаем автоматический баннер Chrome
+    e.preventDefault();
+
+    deferredPrompt = e;
+
+    // Показываем кнопку
+    installBtn.hidden = false;
+});
+
+installBtn.addEventListener("click", async () => {
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+
+    const result = await deferredPrompt.userChoice;
+
+    console.log(result.outcome);
+
+    deferredPrompt = null;
+    installBtn.hidden = true;
 });
 
 if ("serviceWorker" in navigator) {
