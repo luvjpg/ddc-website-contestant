@@ -390,7 +390,7 @@ button{font-family:var(--font);cursor:pointer}
 .footer-socials {
   margin-top: 30px;
   display: flex;
-  gap: 10px;
+  gap: 40px;
 }
 .insta-btn {
   display: inline-flex;
@@ -720,7 +720,8 @@ button{font-family:var(--font);cursor:pointer}
 .fade.in{opacity:1;transform:translateY(0); padding-left: 20px; padding-right: 20px; padding-top: 20px;}
 
 
-.vac-cont{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px;align-items:start}
+.vac-cont{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px;align-items:start}
+.vac-right{display:flex;flex-direction:column;gap:24px;}
 
 button,
 a,
@@ -845,7 +846,7 @@ select {
       <a href="index.html" class="nav-logo">
         <div class="logo-mark"><img src="img/ddc icon.svg" alt="" style="width: auto; height: 40px;" class="ddc-logo"></div>
         <div class="logo-words">
-          <span class="logo-main" data-i18n="logo_main">Цифровой центр развития</span>
+          <span class="logo-main" data-i18n="logo_main">Центр цифрового развития</span>
           <span class="logo-sub" data-i18n="logo_sub">Национальный банк Республики Казахстан</span>
           <span class="logo-main-mobile" data-i18n="logo_main_mobile">ЦЦР</span>
           <span class="logo-sub-mobile" data-i18n="logo_sub_mobile">Нацбанк РК</span>
@@ -943,7 +944,9 @@ select {
   <div class="container-cs">
     <div class="main-grid">
 
-      <!-- FORM -->
+
+      <div class="left-col">
+        <!-- FORM -->
       <div class="form-card fade">
         <div class="eyebrow" data-i18n="form_ey">Форма обратной связи</div>
         <h2 class="section-title" style="font-size:clamp(22px,3vw,32px);margin-bottom:8px" data-i18n="form_title">Оставьте заявку</h2>
@@ -1000,6 +1003,36 @@ select {
           <div class="form-ok-desc" data-i18n="f_ok_desc">Наш специалист свяжется с вами в течение одного рабочего дня. Ожидайте звонка или письма на указанный email.</div>
         </div>
       </div>
+
+      <div class="fade" style="background:var(--surf);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap; margin-top: 20px; ">
+  <div>
+    <div class="social-cont1">
+      <div style="font-size:13px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px;" data-i18n="socials_eyebrow">Социальные сети</div>
+    </div>
+    
+    <div class="social-cont" style="display: flex; gap: 40px">
+      <a href="https://www.instagram.com/ddc_nbk?igsh=MWo5cGNmc3JwMjNhMg==" target="_blank" rel="noopener" class="insta-btn" aria-label="Instagram">
+    <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+    </svg>
+    Instagram
+  </a>
+  <a href="https://www.linkedin.com/company/bank-service-bureau/" target="_blank" rel="noopener" class="insta-btn" aria-label="Instagram">
+            <svg width="35" height="35" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.91 1.64-1.87 3.37-1.87 3.6 0 4.27 2.37 4.27 5.45v6.31zM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.1 20.45H3.55V9H7.1v11.45z"/>
+            </svg>
+            LinkedIn
+          </a>
+    </div>
+  </div>
+  
+</div>
+
+      </div>
+
+      
 
       <!-- RIGHT COLUMN -->
       <div class="right-col">
@@ -1155,7 +1188,18 @@ select {
         </div>
       </div>
 
-      <!-- Почему ЦЦР -->
+      <div class="vac-right">
+        <!-- Почему ЦЦР -->
+      <div class="fade" style="background:var(--surf);border:1px solid var(--baccent);border-radius:var(--radius-lg);padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+  <div>
+    <div style="font-size:13px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px" data-i18n="jobs_eyebrow">Открытые вакансии</div>
+    <div style="font-size:15px;font-weight:600;color:var(--text)" data-i18n="jobs_title">Смотрите актуальные позиции на hh.kz</div>
+    <div style="font-size:13px;color:var(--text2);margin-top:4px" data-i18n="jobs_desc">Мы регулярно публикуем вакансии на платформе HeadHunter</div>
+  </div>
+  <a href="https://hh.kz/employer/28161?from=share_ios" target="_blank" rel="noopener" class="btn btn-primary" style="flex-shrink:0;white-space:nowrap">
+    <span data-i18n="jobs_btn">Открыть на hh.kz</span> ↗
+  </a>
+</div>
       <div class="fade" style="transition-delay:.15s;display:flex;flex-direction:column;gap:14px;background:var(--surf);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;">
         <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px" data-i18n="cv_why_title">Почему ЦЦР?</div>
 
@@ -1185,6 +1229,8 @@ select {
           ✉ hr@bsbnb.kz
         </a>
       </div>
+      </div>
+      
 
     </div>
   </div>
@@ -1309,6 +1355,12 @@ select {
     </svg>
     Instagram
   </a>
+  <a href="https://www.linkedin.com/company/bank-service-bureau/" target="_blank" rel="noopener" class="insta-btn" aria-label="Instagram">
+            <svg width="35" height="35" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.91 1.64-1.87 3.37-1.87 3.6 0 4.27 2.37 4.27 5.45v6.31zM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.1 20.45H3.55V9H7.1v11.45z"/>
+            </svg>
+            LinkedIn
+          </a>
 </div>
       </div>
       <div>
@@ -1337,7 +1389,7 @@ select {
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-bottom-txt" data-i18n="ft_rights">© 2025 АО «Цифровой центр развития» (ЦЦР). Все права защищены.</div>
+      <div class="footer-bottom-txt" data-i18n="ft_rights">© 2025 АО «Центр цифрового развития» (ЦЦР). Все права защищены.</div>
       <div class="footer-bottom-txt" data-i18n="ft_iso">Сертифицирован по ISO 9001</div>
     </div>
   </div>
@@ -1347,7 +1399,7 @@ select {
 <script>
 const T={
   ru:{
-    logo_main:'Цифровой центр развития',logo_sub:'Национальный банк Республики Казахстан',
+    logo_main:'Центр цифрового развития',logo_sub:'Национальный банк Республики Казахстан',
     logo_main_mobile:'ЦЦР', logo_sub_mobile:'Нацбанк РК',
     nav_home:'Главная',nav_about:'О компании',nav_svc:'Услуги',nav_mission:'Миссия',nav_contact:'Контакты',
     ph_title:'Свяжитесь <span class="hl">с нами</span>',
@@ -1379,7 +1431,7 @@ const T={
     faq4q:'Есть ли у вас вакансии?',faq4a:'Да, мы регулярно набираем ИТ-специалистов. Отправьте резюме на hr@bsbnb.kz с указанием желаемой позиции.',
     faq5q:'Как сообщить об уязвимости в системах?',faq5a:'Если вы обнаружили уязвимость, немедленно сообщите по адресу security@bsbnb.kz. Все сообщения рассматриваются конфиденциально.',
     ft_desc:'Дочернее предприятие Национального банка Республики Казахстан. Надёжная ИТ-инфраструктура с 1995 года.',
-    ft_rep:'Финансовая отчётность',ft_links:'Ссылки',ft_zakup:'Госзакупки РК',ft_rights:'© 2025 АО «Цифровой центр развития» (ЦЦР). Все права защищены.',ft_iso:'Сертифицирован по ISO 9001',
+    ft_rep:'Финансовая отчётность',ft_links:'Ссылки',ft_zakup:'Госзакупки РК',ft_rights:'© 2025 АО «Центр цифрового развития» (ЦЦР). Все права защищены.',ft_iso:'Сертифицирован по ISO 9001',
     s1t:'Сопровождение ИТ-систем',s3t:'Портал госзакупок',s4t:'Информационная безопасность',s5t:'Цифровая трансформация',
     search_hint:'Начните вводить запрос...',
     err_required:'Пожалуйста, заполните обязательные поля (имя, email, сообщение)',
@@ -1400,7 +1452,10 @@ cv_ok_desc:'Мы сохранили ваши данные и свяжемся п
 cv_why_title:'Почему ЦЦР?',
 cv_why1t:'Стабильность', cv_why1d:'Дочернее предприятие Национального банка РК — надёжный работодатель с 30-летней историей.',
 cv_why2t:'Развитие', cv_why2d:'Обучение, сертификация, участие в крупных государственных проектах.',
-cv_why3t:'Команда', cv_why3d:'200+ профессионалов, открытая культура и современные инструменты.', 
+cv_why3t:'Команда', cv_why3d:'200+ профессионалов, открытая культура и современные инструменты.', jobs_eyebrow:'Открытые вакансии',
+jobs_title:'Смотрите актуальные позиции на hh.kz',
+jobs_desc:'Мы регулярно публикуем вакансии на платформе HeadHunter',
+jobs_btn:'Открыть на hh.kz', socials_eyebrow:'Социальные сети',
   },
   kz:{
     logo_main:'Цифрлық даму орталығы',logo_sub:'Қазақстан Республикасының Ұлттық Банкі',
@@ -1456,7 +1511,10 @@ cv_ok_desc:'Деректеріңізді сақтадық, қолайлы бос
 cv_why_title:'Неліктен ЦДО?',
 cv_why1t:'Тұрақтылық', cv_why1d:'ҚР Ұлттық банкінің еншілес кәсіпорны — 30 жылдық тарихы бар сенімді жұмыс беруші.',
 cv_why2t:'Даму', cv_why2d:'Оқыту, сертификаттау, ірі мемлекеттік жобаларға қатысу.',
-cv_why3t:'Команда', cv_why3d:'200+ маман, ашық мәдениет және заманауи құралдар.',
+cv_why3t:'Команда', cv_why3d:'200+ маман, ашық мәдениет және заманауи құралдар.', jobs_eyebrow:'Ашық бос орындар',
+jobs_title:'hh.kz сайтындағы өзекті лауазымдарды қараңыз',
+jobs_desc:'Біз HeadHunter платформасында бос орындарды тұрақты жариялаймыз',
+jobs_btn:'hh.kz-де ашу', socials_eyebrow:'Әлеуметтік желі',
   },
   en:{
     logo_main:'Digital Development Centre',logo_sub:'National Bank of the Republic of Kazakhstan',
@@ -1512,7 +1570,10 @@ cv_ok_desc:"We've saved your details and will contact you when a suitable vacanc
 cv_why_title:'Why DDC?',
 cv_why1t:'Stability', cv_why1d:'Subsidiary of the National Bank of Kazakhstan — a reliable employer with 30 years of history.',
 cv_why2t:'Growth', cv_why2d:'Training, certification, participation in major government digital transformation projects.',
-cv_why3t:'Team', cv_why3d:'200+ professionals, open culture and modern tools.',
+cv_why3t:'Team', cv_why3d:'200+ professionals, open culture and modern tools.', jobs_eyebrow:'Open Positions',
+jobs_title:'View current vacancies on hh.kz',
+jobs_desc:'We regularly post job openings on the HeadHunter platform',
+jobs_btn:'Open on hh.kz', socials_eyebrow:'Social media',
   }
 };
 
